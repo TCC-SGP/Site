@@ -20,6 +20,7 @@ app.set('view engine', 'handlebars');
 //CARREGANDO ARQUIVOS ESTÁTICOS
 app.use('/public/css', express.static('public/css'));
 app.use('/public/js', express.static('public/js'));
+app.use('/public/img', express.static('public/img'));
 
 //CHAMANDO A ROTAS DE ADMIN
 app.use('/', admin);

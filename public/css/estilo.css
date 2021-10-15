@@ -1,0 +1,23 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.logo{
+    position: absolute;
+    margin-top: -60px;
+
+}
+.caixaLogo{
+    position: relative;
+    width: 150px;
+}
+.titulo{
+    color: ivory;
+    width: 500px;
+}
+.redes-sociais{
+    margin-left: 20%;
+    
+}
