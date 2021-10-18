@@ -4,6 +4,7 @@ const app = express();
 const home = require('./routes/admin');
 const postagem = require('./routes/postagem');
 const usuario = require('./routes/usuario');
+const doacao = require('./routes/doacao');
 const { urlencoded, json } = require('body-parser');
 
 //CONFIGURANDO O BODY PARSER E O HANDLEBARS
@@ -31,6 +32,9 @@ app.use('/', postagem);
 
 //CHAMANDO A ROTA DE USUARIO
 app.use('/', usuario);
+
+//CHAMANDO A ROTA DE DOACAO
+app.use('/', doacao);
 
 //ADICIONANDO A PORTA PARA O SERVER
 const PORT = process.env.PORT||7070;
