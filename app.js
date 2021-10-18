@@ -2,7 +2,7 @@ const express = require('express');
 const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser');
 const app = express();
-const admin = require('./routes/admin');
+const home = require('./routes/admin');
 const { urlencoded, json } = require('body-parser');
 
 //CONFIGURANDO O BODY PARSER E O HANDLEBARS
@@ -23,10 +23,10 @@ app.use('/public/js', express.static('public/js'));
 app.use('/public/img', express.static('public/img'));
 
 //CHAMANDO A ROTAS DE ADMIN
-app.use('/', admin);
+app.use('/', home);
 
 //ADICIONANDO A PORTA PARA O SERVER
-const PORT = process.env.PORT||8081;
+const PORT = process.env.PORT||7070;
 app.listen(PORT, ()=>{
     console.log("Servidor aberto, porta: 8081");
 })

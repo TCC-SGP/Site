@@ -7,7 +7,8 @@
 .logo{
     position: absolute;
     margin-top: -60px;
-
+    width: 200px;
+    height: 200px;
 }
 
 .caixaLogo{
@@ -25,8 +26,28 @@
     
 }
 
-@media screen and (max-width: 1024px){
-    .redes-sociais{
-        margin-left: 5%;
+@media screen and (max-width: 990px){
+    .logo{
+        width: 120px;
+        height: 120px;
+        margin-top: -65px;
+    }
+}
+
+@media screen and (max-width: 696px) {
+    .logo{
+        margin-top: -20px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .logo{
+        display: none;
+    }
+    .caixaLogo{
+        width: 0px;
+    }
+    .titulo{
+        text-align: center;
     }
 }
