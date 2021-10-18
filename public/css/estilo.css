@@ -9,15 +9,24 @@
     margin-top: -60px;
 
 }
+
 .caixaLogo{
     position: relative;
     width: 150px;
 }
+
 .titulo{
     color: ivory;
     width: 500px;
 }
+
 .redes-sociais{
     margin-left: 20%;
     
+}
+
+@media screen and (max-width: 1024px){
+    .redes-sociais{
+        margin-left: 5%;
+    }
 }
