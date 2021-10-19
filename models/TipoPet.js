@@ -1,17 +1,17 @@
 const db = require('./db');
 
-//REPRODUZINDO A TABELA CARGO
-const Cargo = db.sequelize.define('TB_CARGO', {
-    tb_cargo_id:{
+//REPRODUZINDO A TABELA TIPO DE PET
+const TipoPet = db.sequelize.define('TB_TIPOPET', {
+    tb_tipopet_id: {
         type: db.Sequelize.INTEGER,
-        autoIncrement: true,
+        autoIncrement: false,
         allowNull: false,
         primaryKey: true
     },
-    tb_cargo_nome:{
+    tb_tipopet_tipo: {
         type: db.Sequelize.TEXT,
         allowNull: false
     }
 }, { freezeTableName: true });
 
-module.exports = Cargo;
+module.exports = TipoPet;
