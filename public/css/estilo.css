@@ -26,6 +26,12 @@
     
 }
 
+.linha{
+    height: 10px;
+    background-color: gray;
+    align-items: center;
+}
+
 @media screen and (max-width: 990px){
     .logo{
         width: 120px;
@@ -34,7 +40,7 @@
     }
 }
 
-@media screen and (max-width: 696px) {
+@media screen and (max-width: 700px) {
     .logo{
         margin-top: -20px;
     }
