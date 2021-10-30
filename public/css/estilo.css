@@ -4,13 +4,9 @@
     box-sizing: border-box;
 }
 
-<<<<<<< HEAD
 nav{
     background-color: #3dd4a2;
 }
-=======
-/* nav-bar*/
->>>>>>> cff0e1d88b57a6ca446276e76f2388ce447fad4c
 
 .logo{
     position: absolute;
@@ -78,11 +74,11 @@ nav{
         text-align: center;
     }
 }
-<<<<<<< HEAD
+
 body{
     background-color: #50ebd9;
 }
-=======
+
 
 
 /* login */
@@ -149,4 +145,3 @@ body{
     width:40%;
 }
 
->>>>>>> cff0e1d88b57a6ca446276e76f2388ce447fad4c
