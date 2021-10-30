@@ -38,4 +38,6 @@ const Pet = db.sequelize.define('TB_PET', {
     }
 }, { freezeTableName: true });
 
+//Pet.sync({force:true});
+
 module.exports = Pet;

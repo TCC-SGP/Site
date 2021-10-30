@@ -14,4 +14,6 @@ const TipoPostagem = db.sequelize.define('TB_TIPOPOSTAGEM', {
     }
 }, { freezeTableName:true });
 
+//TipoPostagem.sync({force: true});
+
 module.exports = TipoPostagem;

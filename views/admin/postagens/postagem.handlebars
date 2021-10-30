@@ -1,1 +1,19 @@
 <h1>Aluma Postagem</h1>
+<center>
+    {{#each postagens}}
+    <div class="card mt-4">
+                    <div class="card-body">
+                        <h4><b>ID:</b> {{tb_postagem_id}}</h4>
+                        <small><b>Id autor:</b> {{tb_adiministrador_id}}</small>
+                        <br>
+                        <small><b>Titulo postagem:</b> {{tb_postagem_titulo}}</small>
+                        <br>
+                        <small><b>DIRETORIO DA IMAGEM:</b> {{tb_postagem_img}}</small>
+                        <br>
+                        <small><b>Conteudo:</b> {{tb_postagem_conteudo}}</small>
+                        <br>
+                        </a>
+                    </div>
+                </div>
+    {{/each}}
+</center>

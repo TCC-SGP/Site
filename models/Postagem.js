@@ -10,7 +10,7 @@ const Postagem = db.sequelize.define('TB_POSTAGEM', {
     },
     tb_tipopostagem_id: {
         type: db.Sequelize.INTEGER,
-        references: { model: 'TB_TIPOPOSTAGEM', key: 'TB_TIPOPOSTAGEM_ID' },
+        references: { model: 'tb_tipopostagem', key: 'tb_tipopostagem_id' },
         allowNull: false,
         onDelete: 'CASCADE'
     },
@@ -39,5 +39,7 @@ const Postagem = db.sequelize.define('TB_POSTAGEM', {
         allowNull: true
     }
 }, { freezeTableName: true });
+
+//Postagem.sync({force:true});
 
 module.exports  = Postagem;

@@ -30,4 +30,6 @@ const Adiministrador = db.sequelize.define('TB_ADIMINISTRADOR', {
     }
 }, { freezeTableName: true });
 
+//Adiministrador.sync({force: true});
+
 module.exports = Adiministrador;
