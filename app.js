@@ -6,6 +6,7 @@ const postagem = require('./routes/postagem');
 const usuario = require('./routes/usuario');
 const doacao = require('./routes/doacao');
 const login = require('./routes/login');
+const home_adm = require('./routes/home_adm');
 
 const { urlencoded, json } = require('body-parser');
 
@@ -39,7 +40,10 @@ app.use('/', usuario);
 app.use('/', doacao);
 
 //ROTA LOGIN
-app.use('/', login)
+app.use('/', login);
+
+//ROTA HOME-ADM
+app.use('/', home_adm);
 
 //ADICIONANDO A PORTA PARA O SERVER
 const PORT = process.env.PORT||7070;

@@ -65,6 +65,7 @@
 }
 
 
+/* login */
 
 .caixa-login{
     width: 100%;
@@ -109,4 +110,22 @@
     margin-top: 2%;
 }
 
+/* home_adm */
+
+.card{
+    border-radius:42px;
+    margin-top: 10%;
+    margin-bottom:10%;
+}
+
+.card img{
+    border-radius: 42px;
+}
+
+.card div button{
+    background-color: black;
+    border: none;
+    height: 100%;
+    width:40%;
+}
 
