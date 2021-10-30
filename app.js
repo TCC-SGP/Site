@@ -39,5 +39,5 @@ app.use('/', doacao);
 //ADICIONANDO A PORTA PARA O SERVER
 const PORT = process.env.PORT||7070;
 app.listen(PORT, ()=>{
-    console.log("Servidor aberto, porta: 8081");
+    console.log("Servidor aberto, porta: 7070");
 })
