@@ -4,9 +4,27 @@
     box-sizing: border-box;
 }
 
-nav{
-    background-color: #3dd4a2;
+/* Cores dos h's */
+h1, h2, h3, h4, h5{
+    color: #28784d;
 }
+
+/* Cores do carrosel */
+.carousel-caption p{
+    color: #28784d;
+}
+
+/* Nav */
+nav{
+    background-color: #28784d;
+}
+
+
+/* Footer */
+footer{
+    background-color: #28784d;
+}
+
 
 .logo{
     position: absolute;
@@ -32,7 +50,7 @@ nav{
 
 .linha{
     height: 5px;
-    background-color: gray;
+    background-color: #28784d;
     align-items: center;
 }
 
@@ -75,9 +93,6 @@ nav{
     }
 }
 
-body{
-    background-color: #50ebd9;
-}
 
 
 
@@ -139,9 +154,11 @@ body{
 }
 
 .card div button{
-    background-color: black;
+    background-color: gray;
     border: none;
     height: 100%;
     width:40%;
+    color: black;
+    border-radius: 5%;
 }
 
