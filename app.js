@@ -1,5 +1,6 @@
 const express = require('express');
 const handlebars = require('express-handlebars');
+const bodyParser = require('body-parser');
 const app = express();
 const home = require('./routes/admin');
 const postagem = require('./routes/postagem');
@@ -11,8 +12,8 @@ const home_adm = require('./routes/home_adm');
 const { urlencoded, json } = require('body-parser');
 
 //CONFIGURANDO O BODY PARSER E O HANDLEBARS
-app.use(urlencoded({extended: false}));
-app.use(json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 app.engine('handlebars', handlebars({
     defaultLayout: 'main',
     runtimeOptions: {
@@ -26,6 +27,7 @@ app.set('view engine', 'handlebars');
 app.use('/public/css', express.static('public/css'));
 app.use('/public/js', express.static('public/js'));
 app.use('/public/img', express.static('public/img'));
+app.use('/uploads', express.static('uploads'));
 
 //CHAMANDO A ROTA DE ADMIN
 app.use('/', home);
