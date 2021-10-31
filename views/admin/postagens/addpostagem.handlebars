@@ -2,24 +2,24 @@
     <h1>Realize sua postagem!</h1><br>
     <br>
     <div id="status" class="invisible">{{{errormessage}}}</div>
-        <form runat="server" class="form-group row" action="/rota_postagem/cadastro/add" method="POST" enctype="multipart/form-data">            
+        <form runat="server" class="form-group row" action="/cadpostagem" method="post" enctype="multipart/form-data">            
             <div class="col-md-7">
                 <input accept="image/*" type="file" name="img" id="imgInp">
                 <br><br>
                 <div class="row">
                     <div class="col">
                         <h5>Tipo de Postagem:</h5>
-                        <select class="custom-select" name="TipoPostagem" id="">
+                        <select class="custom-select" name="tipoPostagem" id="">
                             {{#each tPostagem}}
                             <option value="{{tb_tipopostagem_id}}">{{tb_tipopostagem_tipo}}</option>
                             {{else}}
-                            <option value="0">Nenhum adiministrador cadastrado</option>
+                            <option value="0">Nenhuma postagem cadastrado</option>
                             {{/each}}
                         </select>
                     </div>
                     <div class="col">
                         <h5>Adiministrador:</h5>
-                        <select class="custom-select" name="Adiministrador" id="">
+                        <select class="custom-select" name="adiministrador" id="">
                             {{#each adiministrador}}
                             <option value="{{tb_adiministrador_id}}">{{tb_adiministrador_nome}}</option>
                             {{else}}
@@ -29,12 +29,13 @@
                     </div>
                     <div class="col">
                         <h5>Pet:</h5>
-                        <select class="custom-select" name="Pet" id="">
+                        <select class="custom-select" name="pet" id="">
                             {{#each pet}}
                             <option value="{{tb_pet_id}}">{{tb_pet_nome}}</option>
                             {{else}}
-                            <option value="0">Nenhum adiministrador cadastrado</option>
+                            <option value="0">Nenhum pet cadastrado</option>
                             {{/each}}
+                            <option value="0">Nenhum pet relacionado</option>
                         </select>
                     </div>
                 </div>

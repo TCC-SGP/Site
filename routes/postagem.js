@@ -1,5 +1,21 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './uploads/');
+    },
+    filename: (req, file, cb) => {
+        let data = new Date().toISOString().replace(/:/g, '-') + '-';
+        cb(null, data + file.originalname);
+    },
+    limits:{
+        fileSize: 300 * 300
+    }
+});
+const upload = multer({storage: storage});
+
+//CARREGANDO OS MODELS
 const Postagem = require('../models/Postagem');
 const Tipopostagem = require('../models/TipoPostagem');
 const Adiministrador = require('../models/Adiministrador');
@@ -32,5 +48,21 @@ router.get('/addpostagem', (req, res)=>{
         });
     });
 })
+
+//ROTA DO BOTÃO ADICIONAR POSTAGENS
+router.post('/cadpostagem', upload.single('img'), (req, res, next)=>{
+    Postagem.create({
+        tb_tipopostagem_id: req.body.tipoPostagem,
+        tb_adiministrador_id: req.body.adiministrador,
+        tb_pet_id: req.body.pet,
+        tb_postagem_titulo: req.body.titulo,
+        tb_postagem_conteudo: req.body.conteudo,
+        tb_postagem_img: "..\\" + req.file.path
+    }).then(()=>{
+        res.redirect("/postagem");
+    }).catch((erro)=>{
+        res.send("Houve um erro " + erro);
+    });
+});
 
 module.exports = router;
