@@ -18,7 +18,7 @@ else{
     const Sequelize = require('sequelize');
 
     //CONEXÃO COM BANCO LOCAL
-    const sequelize = new Sequelize('bd_sgp', 'root', 'C8r7i6s5t4i3a2n1', {
+    const sequelize = new Sequelize('bd_sgp', 'root', 'senha', {
         host: 'localhost',
         port: '3306',
         dialect: 'mysql'
