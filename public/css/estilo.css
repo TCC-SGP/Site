@@ -71,10 +71,6 @@ footer{
         height: 120px;
         margin-top: -65px;
     }
-    .redes-sociais{
-        display: inline;
-        align-content: left;
-    }
     .grade-menu{
         padding: 10px;
     }
@@ -83,6 +79,10 @@ footer{
 @media screen and (max-width: 700px) {
     .logo{
         margin-top: -20px;
+    }
+    .titulo{
+        text-align: center;
+        margin-left: 10%;
     }
 }
 
