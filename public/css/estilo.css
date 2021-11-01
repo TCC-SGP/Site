@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 
+
 /* Cores dos h's */
 h1, h2, h3, h4, h5{
     color: #28784d;
@@ -72,6 +73,10 @@ footer{
     }
     .redes-sociais{
         display: inline;
+        align-content: left;
+    }
+    .grade-menu{
+        padding: 10px;
     }
 }
 
