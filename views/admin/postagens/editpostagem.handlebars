@@ -1,16 +1,22 @@
 <div class="container">
-    <h1>Realize sua postagem!</h1><br>
+    <h1>Editar postagem!</h1>
+    <br>
     <br>
     <div id="status" class="invisible">{{{errormessage}}}</div>
-        <form runat="server" class="form-group row" action="/cadpostagem" method="post" enctype="multipart/form-data">            
+        <form runat="server" class="form-group row" action="/editpostagem" method="post">            
             <div class="col-md-7">
-                <input accept="image/*" type="file" name="img" id="imgInp">
+                {{#each postagem}}
+                <h5>ID:</h5>
+                <input class="form-control" type="text" name="id" readonly="true" value="{{tb_postagem_id}}">
+                <br>
+                <input accept="image/*" type="file" name="img" id="imgInp" value="{{tb_postagem_img}}">
+                {{/each}}
                 <br><br>
                 <div class="row">
                     <div class="col">
                         <h5>Tipo de Postagem:</h5>
                         <select class="custom-select" name="tipoPostagem" id="">
-                            {{#each tPostagem}}
+                            {{#each tipoPostagem}}
                             <option value="{{tb_tipopostagem_id}}">{{tb_tipopostagem_tipo}}</option>
                             {{else}}
                             <option value="0">Nenhuma postagem cadastrado</option>
@@ -39,13 +45,19 @@
                     </div>
                 </div>
                 <br>
-                <input class="form-control" placeholder="Título da Postagem" type="text" name="titulo">
+                {{#each postagem}}
+                <input class="form-control" placeholder="Título da Postagem" type="text" name="titulo" value="{{tb_postagem_titulo}}">
                 <br>
-                <textarea placeholder="Conteúdo da sua postagem" class="form-control" type="text" name="conteudo" widht="300" rows="7"></textarea><br><br>
-                <input class="btn btn-block btn-success" type="submit" value="Fazer Postagem">
+                <textarea placeholder="Conteúdo da sua postagem" class="form-control" type="text" name="conteudo" widht="300" rows="7" >{{tb_postagem_conteudo}}</textarea><br><br>
+                <input class="btn btn-block btn-success" type="submit" value="Editar Postagem">
                 <br><br>
+                
             </div>
-            <img id="imagem" class="col-md-4" src="#" width="20%" height="30%" alt="Selecione a imagem">
+            <img id="imagem" class="col-md-4" src="{{tb_postagem_img}}" width="20%" height="30%" alt="Selecione a imagem">
+            {{else}}
+            <h1>Postagem não encontrada</h1>
+            </div>
+            {{/each}}
             <script>
                 imgInp.onchange = evt => {
                     const [file] = imgInp.files

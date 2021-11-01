@@ -51,18 +51,77 @@ router.get('/addpostagem', (req, res)=>{
 
 //ROTA DO BOTÃO ADICIONAR POSTAGENS
 router.post('/cadpostagem', upload.single('img'), (req, res, next)=>{
-    Postagem.create({
+    var path = req.file;
+    if(path == null || path == undefined || path == ""){
+        Postagem.create({
+            tb_tipopostagem_id: req.body.tipoPostagem,
+            tb_adiministrador_id: req.body.adiministrador,
+            tb_pet_id: req.body.pet,
+            tb_postagem_titulo: req.body.titulo,
+            tb_postagem_conteudo: req.body.conteudo,
+            tb_postagem_img: "..\\public\\img\\Logo.png"
+        }).then(()=>{
+            res.redirect("/postagem");
+        }).catch((erro)=>{
+            res.send("Houve um erro " + erro);
+        });
+    }
+    else
+    {
+        Postagem.create({
+            tb_tipopostagem_id: req.body.tipoPostagem,
+            tb_adiministrador_id: req.body.adiministrador,
+            tb_pet_id: req.body.pet,
+            tb_postagem_titulo: req.body.titulo,
+            tb_postagem_conteudo: req.body.conteudo,
+            tb_postagem_img: "..\\" + req.file.path
+        }).then(()=>{
+            res.redirect("/postagem");
+        }).catch((erro)=>{
+            res.send("Houve um erro " + erro);
+        });
+    }
+});
+
+//ROTA PARA ABRIR E PREENCHER PÁGINA DE EDIÇÃO DE POSTAGEM
+router.get('/editarpostagem/:id', (req, res)=>{
+    Postagem.findAll({ where: {'tb_postagem_id': req.params.id }}).then((postagens)=>{
+        Tipopostagem.findAll().then((tipoPostagens)=>{
+            Adiministrador.findAll().then((adiministradores)=>{
+                Pet.findAll().then((pets)=>{
+                    var npostagens = JSON.parse(JSON.stringify(postagens));
+                    var ntipopostagens = JSON.parse(JSON.stringify(tipoPostagens));
+                    var nadiministradores = JSON.parse(JSON.stringify(adiministradores));
+                    var npets = JSON.parse(JSON.stringify(pets));
+                    
+                    res.render("admin/postagens/editpostagem", {
+                        postagem: npostagens,
+                        tipoPostagem: ntipopostagens,
+                        adiministrador: nadiministradores,
+                        pet: npets
+                    });
+                })
+            })
+        })
+    })
+});
+
+//ROTA DO BOTÃO DE EDITAR POSTAGEM
+router.post('/editpostagem', (req, res)=>{
+    Postagem.update({
         tb_tipopostagem_id: req.body.tipoPostagem,
         tb_adiministrador_id: req.body.adiministrador,
         tb_pet_id: req.body.pet,
         tb_postagem_titulo: req.body.titulo,
         tb_postagem_conteudo: req.body.conteudo,
-        tb_postagem_img: "..\\" + req.file.path
+        tb_postagem_img: req.body.imagem
+    },
+    {
+        where: {tb_postagem_id: req.body.id}
     }).then(()=>{
         res.redirect("/postagem");
     }).catch((erro)=>{
-        res.send("Houve um erro " + erro);
+        res.send( "Ocorreu um erro" + erro);
     });
 });
-
 module.exports = router;
