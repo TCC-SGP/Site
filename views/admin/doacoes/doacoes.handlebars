@@ -1,0 +1,50 @@
+
+<div class="container ">
+    <h1>Lista de doações</h1>
+    <br>
+    <select class="custom-select" name="" id="">
+        <option value="0">Selecione tipo de doação</option>
+    </select>
+    <br>
+    <br>
+    <table class="table table-bordered">
+        <thead class="">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Doador</th>
+                <th scope="col">Tipo doação</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Quantia</th>
+                <th scope="col">Encaminhar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each doacao}}
+            <script>
+                var tipodoacaoID = decodeURIComponent("{{{tb_tipodoacao_id}}}");
+            </script>
+            {{#if tb_tipodoacao_id}}
+            <tr>
+                <th scope="row">{{tb_doacao_id}}</th>
+                <td>{{tb_doador_id}}</td>
+                <td>{{tb_tipodoacao_id}}</td>
+                <td>{{tb_doacao_descricao}}</td>
+                <td>{{tb_doacao_nomedoador}}</td>
+                <td>{{tb_doacao_quantia}}</td>
+                <td><button class="btn-primary btn">Encaminhar</button></td>
+            </tr>
+            {{/if}}
+            {{/each}}
+            <tr>
+                <th scope="row">0</th>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>

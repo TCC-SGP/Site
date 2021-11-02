@@ -20,6 +20,17 @@ nav{
     background-color: #28784d;
 }
 
+/* Tabelas */
+table{
+    background-color: #3ca06b;
+}
+table thead{
+    background-color: #105f35;
+    color: ivory;
+}
+table tbody tr th{
+    color: ivory;
+}
 
 /* Footer */
 footer{
