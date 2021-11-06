@@ -8,8 +8,6 @@
                 {{#each postagem}}
                 <h5>ID:</h5>
                 <input class="form-control" type="text" name="id" readonly="true" value="{{tb_postagem_id}}">
-                <br>
-                <input accept="image/*" type="file" name="img" id="imgInp" value="{{tb_postagem_img}}">
                 {{/each}}
                 <br><br>
                 <div class="row">
@@ -26,18 +24,30 @@
                     <div class="col">
                         <h5>Adiministrador:</h5>
                         <select class="custom-select" name="adiministrador" id="">
-                            {{#each adiministrador}}
-                            <option value="{{tb_adiministrador_id}}">{{tb_adiministrador_nome}}</option>
+                            {{#each administrador}}
+                            <option value="{{tb_administrador_id}}">{{tb_administrador_nome}}</option>
                             {{else}}
                             <option value="0">Nenhum adiministrador cadastrado</option>
                             {{/each}}
                         </select>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col">
                         <h5>Pet:</h5>
                         <select class="custom-select" name="pet" id="">
                             {{#each pet}}
                             <option value="{{tb_pet_id}}">{{tb_pet_nome}}</option>
+                            {{else}}
+                            <option value="0">Nenhum pet cadastrado</option>
+                            {{/each}}
+                        </select>
+                    </div>  
+                    <div class="col">
+                        <h5>Portador do Pet:</h5>
+                        <select class="custom-select" name="protetor" id="">
+                            {{#each protetor}}
+                            <option value="{{tb_protetor_id}}">{{tb_protetor_nome}}</option>
                             {{else}}
                             <option value="0">Nenhum pet cadastrado</option>
                             {{/each}}

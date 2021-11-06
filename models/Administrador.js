@@ -1,35 +1,35 @@
 const db = require('./db');
 
 //REPRODUZINDO A TABELA ADIMINISTRADOR
-const Adiministrador = db.sequelize.define('TB_ADIMINISTRADOR', {
-    tb_adiministrador_id: {
+const Administrador = db.sequelize.define('TB_ADMINISTRADOR', {
+    tb_administrador_id: {
         type: db.Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    tb_adiministrador_nome: {
+    tb_administrador_nome: {
         type: db.Sequelize.TEXT,
         allowNull: false
     },
-    tb_adiministrador_sobrenome: {
+    tb_administrador_sobrenome: {
         type: db.Sequelize.TEXT,
         allowNull: false
     },
-    tb_adiministrador_email: {
+    tb_administrador_email: {
         type: db.Sequelize.TEXT,
         allowNull: false 
     },
-    tb_adiministrador_usuario: {
+    tb_administrador_usuario: {
         type: db.Sequelize.TEXT,
         allowNull: false
     },
-    tb_adiministrador_senha: {
+    tb_administrador_senha: {
         type: db.Sequelize.TEXT,
         allowNull: false
     }
 }, { freezeTableName: true });
 
-//Adiministrador.sync({force: true});
+//Administrador.sync({force: true});
 
-module.exports = Adiministrador;
+module.exports = Administrador;

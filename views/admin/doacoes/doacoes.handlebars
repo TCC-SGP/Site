@@ -2,13 +2,27 @@
 <div class="container ">
     <h1>Lista de doações</h1>
     <br>
-    <select class="custom-select" name="" id="">
-        <option value="0">Selecione tipo de doação</option>
-    </select>
+    <div class="row">
+        <div class="col-md-8">
+            <select class="custom-select" name="tipodoacao" id="idTipodoacao" >
+                {{#each tipoDoacao}}
+                    <option value="{{tb_tipodoacao_id}}">{{tb_tipodoacao_tipo}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <input type="button" value="Buscar!" class="btn btn-success col-md-2" onclick="redirecionar()"></input>
+        <script>
+            function redirecionar(){
+                var e = document.getElementById("idTipodoacao");
+                var id = e.value;
+                document.location.href = "/doacoes/"+id;
+            }
+        </script>
+    </div>
     <br>
     <br>
-    <table class="table table-bordered">
-        <thead class="">
+    <table class="table table-bordered table-responsive-sm">
+        <thead>
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Doador</th>
@@ -21,9 +35,6 @@
         </thead>
         <tbody>
             {{#each doacao}}
-            <script>
-                var tipodoacaoID = decodeURIComponent("{{{tb_tipodoacao_id}}}");
-            </script>
             {{#if tb_tipodoacao_id}}
             <tr>
                 <th scope="row">{{tb_doacao_id}}</th>
@@ -32,7 +43,7 @@
                 <td>{{tb_doacao_descricao}}</td>
                 <td>{{tb_doacao_nomedoador}}</td>
                 <td>{{tb_doacao_quantia}}</td>
-                <td><button class="btn-primary btn">Encaminhar</button></td>
+                <td><center><a href="/encaminhamento/{{tb_doacao_id}}"><button class="btn-primary btn" >Encaminhar</button></a></center></td>
             </tr>
             {{/if}}
             {{/each}}

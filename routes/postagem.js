@@ -18,8 +18,9 @@ const upload = multer({storage: storage});
 //CARREGANDO OS MODELS
 const Postagem = require('../models/Postagem');
 const Tipopostagem = require('../models/TipoPostagem');
-const Adiministrador = require('../models/Adiministrador');
+const Administrador = require('../models/Administrador');
 const Pet = require('../models/Pet');
+const Protetor = require('../models/Protetor');
 
 //ROTA DE POSTAGENS
 router.get('/postagem', (req, res)=>{
@@ -34,16 +35,20 @@ router.get('/postagem', (req, res)=>{
 //ROTA DE CARREGAR A PÁGINA PARA ADC POSTAGENS
 router.get('/addpostagem', (req, res)=>{
     Tipopostagem.findAll().then((tipopstagem)=>{
-        Adiministrador.findAll().then((adiministrador)=>{
+        Administrador.findAll().then((administrador)=>{
             Pet.findAll().then((pet)=>{
+              Protetor.findAll().then((protetores)=>{
+                var nprotetor = JSON.parse(JSON.stringify(protetores));
                 var ntipopostagem = JSON.parse(JSON.stringify(tipopstagem));
-                var nadiministrador = JSON.parse(JSON.stringify(adiministrador));
+                var nadministrador = JSON.parse(JSON.stringify(administrador));
                 var npet = JSON.parse(JSON.stringify(pet));
                 res.render("admin/postagens/addpostagem", { 
                     tPostagem: ntipopostagem,
-                    adiministrador: nadiministrador,
-                    pet: npet
+                    administrador: nadministrador,
+                    pet: npet,
+                    protetor: nprotetor
                  });
+              });  
             });
         });
     });
@@ -55,8 +60,9 @@ router.post('/cadpostagem', upload.single('img'), (req, res, next)=>{
     if(path == null || path == undefined || path == ""){
         Postagem.create({
             tb_tipopostagem_id: req.body.tipoPostagem,
-            tb_adiministrador_id: req.body.adiministrador,
+            tb_administrador_id: req.body.administrador,
             tb_pet_id: req.body.pet,
+            tb_protetor_id: req.body.protetor,
             tb_postagem_titulo: req.body.titulo,
             tb_postagem_conteudo: req.body.conteudo,
             tb_postagem_img: "..\\public\\img\\Logo.png"
@@ -70,8 +76,9 @@ router.post('/cadpostagem', upload.single('img'), (req, res, next)=>{
     {
         Postagem.create({
             tb_tipopostagem_id: req.body.tipoPostagem,
-            tb_adiministrador_id: req.body.adiministrador,
+            tb_administrador_id: req.body.administrador,
             tb_pet_id: req.body.pet,
+            tb_protetor_id: req.body.protetor,
             tb_postagem_titulo: req.body.titulo,
             tb_postagem_conteudo: req.body.conteudo,
             tb_postagem_img: "..\\" + req.file.path
@@ -87,19 +94,23 @@ router.post('/cadpostagem', upload.single('img'), (req, res, next)=>{
 router.get('/editarpostagem/:id', (req, res)=>{
     Postagem.findAll({ where: {'tb_postagem_id': req.params.id }}).then((postagens)=>{
         Tipopostagem.findAll().then((tipoPostagens)=>{
-            Adiministrador.findAll().then((adiministradores)=>{
+            Administrador.findAll().then((administradores)=>{
                 Pet.findAll().then((pets)=>{
-                    var npostagens = JSON.parse(JSON.stringify(postagens));
-                    var ntipopostagens = JSON.parse(JSON.stringify(tipoPostagens));
-                    var nadiministradores = JSON.parse(JSON.stringify(adiministradores));
-                    var npets = JSON.parse(JSON.stringify(pets));
-                    
-                    res.render("admin/postagens/editpostagem", {
-                        postagem: npostagens,
-                        tipoPostagem: ntipopostagens,
-                        adiministrador: nadiministradores,
-                        pet: npets
-                    });
+                    Protetor.findAll().then((protetor)=>{
+                        var nprotetor = JSON.parse(JSON.stringify(protetor));
+                        var npostagens = JSON.parse(JSON.stringify(postagens));
+                        var ntipopostagens = JSON.parse(JSON.stringify(tipoPostagens));
+                        var nadministradores = JSON.parse(JSON.stringify(administradores));
+                        var npets = JSON.parse(JSON.stringify(pets));
+                        
+                        res.render("admin/postagens/editpostagem", {
+                            postagem: npostagens,
+                            tipoPostagem: ntipopostagens,
+                            administrador: nadministradores,
+                            pet: npets,
+                            protetor: nprotetor
+                        });
+                    })
                 })
             })
         })
@@ -110,8 +121,9 @@ router.get('/editarpostagem/:id', (req, res)=>{
 router.post('/editpostagem', (req, res)=>{
     Postagem.update({
         tb_tipopostagem_id: req.body.tipoPostagem,
-        tb_adiministrador_id: req.body.adiministrador,
+        tb_administrador_id: req.body.administrador,
         tb_pet_id: req.body.pet,
+        tb_protetor_id: req.body.protetor,
         tb_postagem_titulo: req.body.titulo,
         tb_postagem_conteudo: req.body.conteudo,
         tb_postagem_img: req.body.imagem
@@ -124,4 +136,7 @@ router.post('/editpostagem', (req, res)=>{
         res.send( "Ocorreu um erro" + erro);
     });
 });
+
+
+
 module.exports = router;

@@ -14,7 +14,7 @@ const Postagem = db.sequelize.define('TB_POSTAGEM', {
         allowNull: false,
         onDelete: 'CASCADE'
     },
-    tb_adiministrador_id: {
+    tb_administrador_id: {
         type: db.Sequelize.INTEGER,
         references: { model: 'TB_ADIMINISTRADOR', key: 'TB_ADIMINISTRADOR_ID' },
         allowNull: false,
@@ -23,6 +23,12 @@ const Postagem = db.sequelize.define('TB_POSTAGEM', {
     tb_pet_id: {
         type: db.Sequelize.INTEGER,
         references: { model: 'TB_PET', key: 'TB_PET_ID' },
+        allowNull: false,
+        onDelete: 'CASCADE'
+    },
+    tb_protetor_id: {
+        type: db.Sequelize.INTEGER,
+        references: { model: 'TB_PROTETOR', key: 'TB_PROTETOR_ID' },
         allowNull: false,
         onDelete: 'CASCADE'
     },
