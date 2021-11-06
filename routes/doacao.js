@@ -4,6 +4,7 @@ const router = express.Router();
 //CARREGANDO OS MODELS
 const Doacao = require('../models/Doacao');
 const Encaminhamento = require('../models/Encaminhamento');
+const Pet = require('../models/Pet');
 const Tipodoacao = require('../models/TipoDoacao');
 
 //ROTA DA PÁGINA DOE
@@ -39,16 +40,33 @@ router.get('/doacoes/:id', (req, res)=>{
     })
 })
 
-//ROTA DA PÁGINA DE ENCAMINHAMENTO DE DOAÇÕES
+//ROTA DA PÁGINA DE ADICIONAR ENCAMINHAMENTO DE DOAÇÕES
 router.get('/encaminhamento/:id', (req, res)=>{
-    Encaminhamento.findAll().then((encaminhamentos)=>{
-        encaminhamentos = encaminhamentos.map((encaminhamento)=>{
-            return encaminhamento.toJSON();
-        });
-        res.render("admin/doacoes/encaminhamento", {
-            encaminhamento: encaminhamentos
-        });
-    });
+    Doacao.findAll({where: {'tb_doacao_id': req.params.id}}).then((doacoes)=>{
+        Pet.findAll().then((pets)=>{
+            var ndoacao = JSON.parse(JSON.stringify(doacoes));
+            var npets = JSON.parse(JSON.stringify(pets));
+            res.render("admin/doacoes/encaminhamento", {
+                doacao: ndoacao,
+                pet: npets
+            })
+        })
+    })
+});
+
+//ROTA DO BOTÃO PARA ADICONAR UM ENCAMINHAMENTO
+router.post('/addencaminhamento', (req, res)=>{
+    Encaminhamento.create({
+        tb_doacao_id: req.body.doacaoId,
+        tb_pet_id: req.body.petId,
+        tb_encaminhamento_doacao_data: req.body.data,
+        tb_encaminhamento_doacao_hora: req.body.hora
+    }).then(()=>{
+        res.redirect("/postagem");
+    }).catch((erro)=>{
+        console.log(erro);
+        res.send("Houve um erro " + erro);
+    })
 });
 
 module.exports = router;
