@@ -1,0 +1,39 @@
+<div class="container">
+    <h1>Encaminhar doação</h1>
+    <br>
+    <div class="row">
+        <form class="col-md-7" runat="server" action="/addencaminhamento" method="post">
+            <div class="form-group w-100">
+                <div class="form-row">
+                    {{#each doacao}}
+                    <h3>Pet id:</h3>
+                    <input class="form-control" type="number" name="doacaoId" id="" readonly="true" value="{{tb_doacao_id}}">
+                    {{/each}}
+                </div>
+                <br>
+                <div class="form-row">
+                    <select class="form-control" name="petId" id="">
+                        {{#each pet}}
+                        <option value="{{tb_pet_id}}">{{tb_pet_nome}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <br>
+                <div class="form-row">
+                    <input class="col-sm form-control" type="date" name="data" id="data" >
+                    <input class="col-sm form-control" type="time" name="hora" id="hora" >
+                </div>
+                <script>
+                    document.getElementById("data").valueAsDate = new Date();
+                    document.getElementById("hora").value = new Date().toTimeString().substring(0,5);
+                </script>
+                <br>
+                <div class="form-row">
+                    <button class="btn btn-block btn-success">Encaminhar</button>
+                    <a class="btn btn-block btn-danger" href="/doacoes">Cancelar</a>
+                </div>
+            </div>
+        </form>
+        <img class="col-md-3" src="/public/img/caixa.svg" alt="">
+    </div>
+</div>

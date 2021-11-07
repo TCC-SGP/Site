@@ -41,16 +41,35 @@ router.get('/doacoes/:id', (req, res)=>{
 })
 
 //ROTA DA PÁGINA DE ADICIONAR ENCAMINHAMENTO DE DOAÇÕES
-router.get('/encaminhamento/:id', (req, res)=>{
+router.get('/adcencaminhamento/:id', (req, res)=>{
     Doacao.findAll({where: {'tb_doacao_id': req.params.id}}).then((doacoes)=>{
         Pet.findAll().then((pets)=>{
             var ndoacao = JSON.parse(JSON.stringify(doacoes));
             var npets = JSON.parse(JSON.stringify(pets));
-            res.render("admin/doacoes/encaminhamento", {
+            res.render("admin/doacoes/addencaminhamento", {
                 doacao: ndoacao,
                 pet: npets
             })
         })
+    })
+});
+
+//ROTA PARA A PÁGINA DE ENCAMINHAMENTO
+router.get('/encaminhamento', (req, res)=>{
+    Encaminhamento.sequelize.query("SELECT E.TB_ENCAMINHAMENTO_DOACAO_ID AS ID,\
+    PR.TB_PROTETOR_NOME AS NOME_PROTETOR,\
+    P.TB_PET_NOME AS NOME_PET,\
+    E.TB_ENCAMINHAMENTO_DOACAO_DATA AS DATA,\
+    E.TB_ENCAMINHAMENTO_DOACAO_HORA AS HORA\
+    FROM TB_ENCAMINHAMENTO_DOACAO AS E\
+    INNER JOIN TB_PET AS P\
+    ON E.TB_PET_ID = P.TB_PET_ID\
+    INNER JOIN TB_PROTETOR AS PR\
+    ON P.TB_PROTETOR_ID = PR.TB_PROTETOR_ID",{model: Encaminhamento}).then((encaminhamentos)=>{
+        var nencaminhamento = JSON.parse(JSON.stringify(encaminhamentos));
+        res.render("admin/doacoes/encaminhamento", {
+            encaminhamento: nencaminhamento
+        });
     })
 });
 
