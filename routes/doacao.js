@@ -81,7 +81,7 @@ router.post('/addencaminhamento', (req, res)=>{
         tb_encaminhamento_doacao_data: req.body.data,
         tb_encaminhamento_doacao_hora: req.body.hora
     }).then(()=>{
-        res.redirect("/postagem");
+        res.redirect("/encaminhamento");
     }).catch((erro)=>{
         console.log(erro);
         res.send("Houve um erro " + erro);
