@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const auth = require('../middleware/auth');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './uploads/');
@@ -131,7 +132,7 @@ router.post('/editpostagem', (req, res)=>{
     {
         where: {tb_postagem_id: req.body.id}
     }).then(()=>{
-        res.redirect("/postagem");
+        res.redirect("/admpostagem");
     }).catch((erro)=>{
         res.send( "Ocorreu um erro" + erro);
     });
@@ -151,6 +152,29 @@ router.get('/admpostagem', (req, res)=>{
 
         })
     });
+});
+
+//ROTA DE PESQUISA DE ADIMINISTRAÇÃO DE POSTAGEM 
+router.get('/admpostagem/:id', (req, res)=>{
+    Postagem.findAll({where: {'tb_postagem_id': req.params.id}}).then((postagens)=>{
+        Tipopostagem.findAll().then((tipopostagem)=>{
+            var ntipopostagem = JSON.parse(JSON.stringify(tipopostagem));
+            var npostagem = JSON.parse(JSON.stringify(postagens));
+            res.render("admin/postagens/admpostagem", {
+                postagem:npostagem,
+                tipoPostagem:ntipopostagem
+            })
+        })
+    })
+});
+
+//ROTA PARA EXCLUSÃO DE Postagem
+router.get('/excluirpostagem/:id', (req, res)=>{
+    Postagem.destroy({where: {'tb_postagem_id': req.params.id}}).then(()=>{
+        res.redirect("/admpostagem");
+    }).catch((err)=>{
+        res.send(err);
+    })
 });
 
 module.exports = router;

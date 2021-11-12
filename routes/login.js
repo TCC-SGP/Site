@@ -1,5 +1,5 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken')
 const router = express.Router();
 
 //CARREGANDO OS MODELSD
@@ -11,7 +11,7 @@ router.get('/login',(req, res) =>{
 });
 
 //ROTA DE VALIDAÇÃO DO LOGIN
-router.post('/loginauth', (req, res)=>{
+router.post('/loginauth',(req, res)=>{
     var usuario = req.body.usuario;
     var senha = req.body.senha;
 
@@ -19,7 +19,7 @@ router.post('/loginauth', (req, res)=>{
     Administrador.findOne({
         where: {
             tb_administrador_usuario: usuario,
-            tb_administrador_senha: senha
+            tb_administrador_senha: senha   
         }
     }).then((administrador)=>{
         if(administrador){
@@ -29,15 +29,16 @@ router.post('/loginauth', (req, res)=>{
                 {
                     expiresIn: "2h",
                 }
-                );
+            );
 
             Administrador.token = token;    
             
-            res.render("admin/home_adm/home_adm");
-            console.log(token)
+            res.setHeader('x-access-token', token).redirect("/home_adm");
+            //return res.json({auth:true, token: token});
+            console.log(token);
         }
         else{
-            res.send("Login não efetuado");
+            res.send("<script>alert('Login não efetuado')</script>");
         }
     }).catch((erro=>{
         res.send("Ocorreu um erro: "+ erro);

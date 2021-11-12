@@ -4,6 +4,7 @@
     <div class="row">
         <div class="col-md-8">
             <select class="custom-select" name="tipopostagem" id="idTipopostagem">
+                <option value="">Geral</option>
                 {{#each tipoPostagem}}
                 <option value="{{tb_tipopostagem_id}}">{{tb_tipopostagem_tipo}}</option>
                 {{/each}}
@@ -12,12 +13,14 @@
         <input type="button" value="Buscar!" class="btn btn-success col-md-2" onclick="redirecionar()"></input>
         <script>
             function redirecionar() {
-                var e = document.getElementById("idTipodoacao");
+                var e = document.getElementById("idTipopostagem");
                 var id = e.value;
-                document.location.href = "/postagem/" + id;
+                document.location.href = "/admpostagem/" + id;
             }
         </script>
     </div>
+    <h3>Adicionar postagem</h3>
+    <a class="btn btn-success" style="color: ivory;">Cadastrar</a>
     <br>
     <br>
     <table class="table table-bordered table-responsive-sm">
