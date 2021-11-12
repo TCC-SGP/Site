@@ -25,17 +25,12 @@ const Protetor = require('../models/Protetor');
 //ROTA DE POSTAGENS
 router.get('/postagem', (req, res)=>{
     Postagem.findAll().then((postagens) => {
-        Tipopostagem.findAll().then((tipopostagem)=>{
-            var ntipopostagem = JSON.parse(JSON.stringify(tipopostagem));
-            var npostagem = JSON.parse(JSON.stringify(postagens));
-            res.render("admin/postagens/postagem",{
-                postagem: npostagem,
-                tipoPostagem: ntipopostagem
-            });
-
-        })
+        postagens = postagens.map((postagen)=>{
+            return postagen.toJSON();
         });
+        res.render("admin/postagens/postagem", { postagens: postagens} );
     });
+});
 
 //ROTA DE CARREGAR A PÁGINA PARA ADC POSTAGENS
 router.get('/addpostagem', (req, res)=>{
@@ -143,6 +138,19 @@ router.post('/editpostagem', (req, res)=>{
 });
 
 
+// ROTA DE ADMINISTRAÇÃO DE POSTAGEM
+router.get('/admpostagem', (req, res)=>{
+    Postagem.findAll().then((postagens) => {
+        Tipopostagem.findAll().then((tipopostagem)=>{
+            var ntipopostagem = JSON.parse(JSON.stringify(tipopostagem));
+            var npostagem = JSON.parse(JSON.stringify(postagens));
+            res.render("admin/postagens/admpostagem",{
+                postagem: npostagem,
+                tipoPostagem: ntipopostagem
+            });
 
+        })
+    });
+});
 
 module.exports = router;

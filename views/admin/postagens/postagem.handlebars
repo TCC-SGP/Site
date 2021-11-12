@@ -1,60 +1,21 @@
-<div class="container ">
-    <h1>Lista de postagens</h1>
-    <br>
-    <div class="row">
-        <div class="col-md-8">
-            <select class="custom-select" name="tipopostagem" id="idTipopostagem">
-                {{#each tipoPostagem}}
-                <option value="{{tb_tipopostagem_id}}">{{tb_tipopostagem_tipo}}</option>
-                {{/each}}
-            </select>
-        </div>
-        <input type="button" value="Buscar!" class="btn btn-success col-md-2" onclick="redirecionar()"></input>
-        <script>
-            function redirecionar() {
-                var e = document.getElementById("idTipodoacao");
-                var id = e.value;
-                document.location.href = "/postagem/" + id;
-            }
-        </script>
-    </div>
-    <br>
-    <br>
-    <table class="table table-bordered table-responsive-sm">
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Título</th>
-                <th scope="col">Tipo Postagem</th>
-                <th scope="col">Conteúdo</th>
-                <th scope="col">IMG</th>
-                <th scope="col">Editar</th>
-                <th scope="col">Excluir</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each postagem}}
-            <tr>
-                <th scope="row">{{tb_postagem_id}}</th>
-                <td>{{tb_postagem_titulo}}</td>
-                <td>{{tb_tipopostagem_id}}</td>
-                <td>{{tb_postagem_conteudo}}</td>
-                <td><img src="{{tb_postagem_img}}" width="100px" height="100px" /></td>
-                <td>
-                    <center>
-                        <a type="button" class="btn-primary btn" href="/editarpostagem/{{tb_postagem_id}}"
-                            disabled="true">Editar</a>
-                    </center>
-                </td>
-                <td>
-                    <center>
-                        <a type="button" class="btn-primary btn" style="background-color:red; border-color:red" href="/excluirpostagem/{{tb_postagem_id}}"
-                            disabled="true">Excluir</a>
-                    </center>
-                </td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
-</div>
-<br>
+<h1>Alguma Postagem</h1>
+<center>
+    {{#each postagens}}
+    <div class="card mt-4">
+                    <div class="card-body">
+                        <h4><b>ID:</b> {{tb_postagem_id}}</h4>
+                        <small><b>Id autor:</b> {{tb_adiministrador_id}}</small>
+                        <br>
+                        <small><b>Titulo postagem:</b> {{tb_postagem_titulo}}</small>
+                        <br>
+                        <small><b>DIRETORIO DA IMAGEM:</b> {{tb_postagem_img}}</small>
+                        <br>
+                        <img src="{{tb_postagem_img}}" alt="" width="400px" height="300px">
+                        <br>
+                        <small><b>Conteudo:</b> {{tb_postagem_conteudo}}</small>
+                        <br>
+                        </a>
+                    </div>
+                </div>
+    {{/each}}
+</center> 
