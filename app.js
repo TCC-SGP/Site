@@ -9,6 +9,8 @@ const usuario = require('./routes/usuario');
 const doacao = require('./routes/doacao');
 const login = require('./routes/login');
 const home_adm = require('./routes/home_adm');
+const apadrinhamento = require('./routes/apadrin');
+const adocao = require('./routes/adocao');
 
 const { urlencoded, json } = require('body-parser');
 
@@ -47,6 +49,12 @@ app.use('/', login);
 
 //ROTA HOME-ADM
 app.use('/', home_adm);
+
+//ROTA APADRINHAMENTO
+app.use('/', apadrinhamento);
+
+//ROTA ADOÇÃO
+app.use('/', adocao);
 
 //ADICIONANDO A PORTA PARA O SERVER
 const PORT = process.env.PORT||7070;
