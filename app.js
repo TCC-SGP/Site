@@ -11,6 +11,7 @@ const login = require('./routes/login');
 const home_adm = require('./routes/home_adm');
 const apadrinhamento = require('./routes/apadrin');
 const adocao = require('./routes/adocao');
+const publicidade = require('./routes/publicidade');
 
 const { urlencoded, json } = require('body-parser');
 
@@ -55,6 +56,9 @@ app.use('/', apadrinhamento);
 
 //ROTA ADOÇÃO
 app.use('/', adocao);
+
+//ROTA PUBLICIDADE
+app.use('/', publicidade );
 
 //ADICIONANDO A PORTA PARA O SERVER
 const PORT = process.env.PORT||7070;
