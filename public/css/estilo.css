@@ -104,6 +104,7 @@ footer{
         text-align: center;
         margin-left: 10%;
     }
+    
 }
 
 @media screen and (max-width: 600px) {
@@ -115,6 +116,27 @@ footer{
     }
     .titulo{
         text-align: center;
+    }
+    /* login */
+
+    .form form select{
+        margin-top: 2%;
+        border-radius:0px;
+        background-color:gray;
+        width:70%;
+    }
+
+    .form form input{
+        border-radius:16.5px;
+        background-color:rgb(184, 184, 184);
+        width: 100%;
+    }
+
+    .form form button{
+        width: 30%; 
+        border-radius:14.5px;
+        background-color:red;
+        margin-top: 2%;
     }
 }
 
@@ -148,19 +170,19 @@ footer{
     margin-top: 2%;
     border-radius:0px;
     background-color:gray;
-    width:70%;
+    width:30%;
 }
 
 .form form input{
     border-radius:16.5px;
     background-color:rgb(184, 184, 184);
-    width: 100%;
+    width: 50%;
+    margin: auto;
 }
 
 .form form button{
-    /*margin-left: 40%;
-    width: 18%; 
-    border-radius:14.5px;*/
+    width: 30%; 
+    border-radius:14.5px;
     background-color:red;
     margin-top: 2%;
 }

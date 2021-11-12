@@ -1,4 +1,5 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 //CARREGANDO OS MODELSD
@@ -22,7 +23,18 @@ router.post('/loginauth', (req, res)=>{
         }
     }).then((administrador)=>{
         if(administrador){
+            const token = jwt.sign(
+                { user_id: usuario, senha},
+                ""+process.env.TOKEN_KEY,
+                {
+                    expiresIn: "2h",
+                }
+                );
+
+            Administrador.token = token;    
+            
             res.render("admin/home_adm/home_adm");
+            console.log(token)
         }
         else{
             res.send("Login não efetuado");
