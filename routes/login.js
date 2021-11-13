@@ -44,7 +44,8 @@ router.post('/loginauth',(req, res)=>{
             res.send("<script>alert('Login não efetuado')</script>");
         }
     }).catch((erro=>{
-        res.send("Ocorreu um erro: "+ erro);
+        console.log(erro);
+        res.render("admin/login/login", {errorMessage: "Usuário ou senha inválidos"});
     }))
 });
 

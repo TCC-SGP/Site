@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth')
 
 //CARREGANDO OS MODELS
 const Doacao = require('../models/Doacao');
@@ -13,7 +14,7 @@ router.get('/doe', (req, res) =>{
 });
 
 //ROTA DA PÁGINA DOAÇÕES
-router.get('/doacoes', (req, res)=>{
+router.get('/doacoes', auth, (req, res)=>{
     Doacao.findAll().then((doacoes)=>{
         Tipodoacao.findAll().then((tipodoacao)=>{
             var ntitpodoacao = JSON.parse(JSON.stringify(tipodoacao));
@@ -27,7 +28,7 @@ router.get('/doacoes', (req, res)=>{
 });
 
 //ROTA DO BOTÃO PESQUISAR DOAÇÕES
-router.get('/doacoes/:id', (req, res)=>{
+router.get('/doacoes/:id', auth, (req, res)=>{
     Doacao.findAll({ where: {'tb_tipodoacao_id': req.params.id} }).then((doacoes)=>{
         Tipodoacao.findAll().then((tipodoacao)=>{
             var ntitpodoacao = JSON.parse(JSON.stringify(tipodoacao));

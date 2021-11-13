@@ -10,7 +10,7 @@ const verifyToken = (req, res, next) => {
     }
 
     if(!token) {
-        return res.status(403).render("admin/login/login", {errorMessage: 'Ocorreu um erro'});
+        return res.status(403).send("Um token é requirido para autenticar!").redirect("/login");
     }
     try{
         const decoded = jwt.verify(token, config.TOKEN_KEY);
