@@ -1,17 +1,17 @@
 <div class="container">
-     <center>
-    <h1>
-      Apadrinhe! Ame!   
-    </h1>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu metus laoreet,
-      vestibulum urna non, eleifend magna. Curabitur nec enim eu lorem mollis ornare.
-      Maecenas convallis varius felis ac consectetur. Sed rhoncus eu diam vitae tristique.
-      Morbi consequat purus in cursus mollis. Sed aliquet dapibus accumsan. Phasellus lacus sapien,
-      suscipit eget faucibus vel, luctus id sapien. Vestibulum viverra tempor turpis sed maximus.
-      Nullam tristique ac augue vitae posuere.
-    </p>
-  </center>
+    <center>
+        <h1>
+            Apadrinhe! Ame!
+        </h1>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu metus laoreet,
+            vestibulum urna non, eleifend magna. Curabitur nec enim eu lorem mollis ornare.
+            Maecenas convallis varius felis ac consectetur. Sed rhoncus eu diam vitae tristique.
+            Morbi consequat purus in cursus mollis. Sed aliquet dapibus accumsan. Phasellus lacus sapien,
+            suscipit eget faucibus vel, luctus id sapien. Vestibulum viverra tempor turpis sed maximus.
+            Nullam tristique ac augue vitae posuere.
+        </p>
+    </center>
     <div id="carouselExampleIndicators" class="carousel slide " data-ride="carousel">
         <ol class="carousel-indicators">
             <li style="background-color: #28784d;" data-target="#carouselExampleIndicators" data-slide-to="0"
@@ -53,30 +53,25 @@
         </a>
     </div>
     <br>
-    
-    <div class="container">
-        <div class="row">
 
-            <div class="row">
-                {{#each postagens}}
-                <div class="col">
-                    <div class="col-sm-4">
-                        <img src="{{tb_postagem_img}}" width="150px" height="150px">
-                    </div>
-                    <div class="col-sm">
-                        <h5>{{tb_postagem_titulo}}</h5>
-                        <p>
-                            {{tb_postagem_conteudo}}
-                        </p>
+    <div class="container">
+        <div class="container">
+            {{#each postagens}}
+            <div class="row mb-5">
+                <div class="col-sm-4">
+                    <img class="imagens" src="{{tb_postagem_img}}" width="120px" height="120px">
+                </div>
+                <div class="col-sm">
+                    <h5>{{tb_postagem_titulo}}</h5>
+                    <p>
+                        {{tb_postagem_conteudo}}
+                    </p>
+                    <div class="text-left">
                         <button class="btn btn-sm btn-danger">Botão</button>
                     </div>
                 </div>
-
-                <hr>
-                {{/each}}
-
             </div>
-
+            {{/each}}
         </div>
     </div>
 </div>
