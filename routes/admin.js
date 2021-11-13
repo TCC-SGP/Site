@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
     Postagem.findAll({
         where: { tb_tipopostagem_id: 2 },
         order: [["createdAt", "DESC"]],
-        limit: 3
+        limit: 3 
     }).then((postagens_apad) => {
         Postagem.findAll({
             where: { tb_tipopostagem_id: 1 },
