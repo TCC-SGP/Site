@@ -14,12 +14,16 @@ const verifyToken = (req, res, next) => {
     }
     try{
         const decoded = jwt.verify(token, config.TOKEN_KEY);
+        
         req.user = decoded;
     }
     catch(err) {
+        if(jwt.TokenExpiredError){
+            res.send("Sua sessão expirou");
+        }
+        else{
         return console.log(err);
-        
-        
+        }
     }
     return next();
 };

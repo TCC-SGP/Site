@@ -29,7 +29,7 @@ router.post('/loginauth',(req, res)=>{
             const token = jwt.sign({ user_id: idadm},
                 ""+process.env.TOKEN_KEY,
                 {
-                    expiresIn: "1d",
+                    expiresIn: "2h",
                 }
             );
 
