@@ -22,9 +22,11 @@ router.post('/loginauth',(req, res)=>{
             tb_administrador_senha: senha   
         }
     }).then((administrador)=>{
+        var nadministrador  = JSON.parse(JSON.stringify(administrador));
+        let idadm = nadministrador.tb_administrador_id;
+        console.log(idadm);
         if(administrador){
-            const token = jwt.sign(
-                { user_id: usuario, senha},
+            const token = jwt.sign({ user_id: idadm},
                 ""+process.env.TOKEN_KEY,
                 {
                     expiresIn: "2h",
@@ -32,8 +34,9 @@ router.post('/loginauth',(req, res)=>{
             );
 
             Administrador.token = token;    
-            
-            res.setHeader('x-access-token', token).redirect("/home_adm");
+            res.cookie("token", token, {maxAge: 2 * 60 * 60, httpOnly: true});
+            console.log("JWT token está nos cookies")
+            res.redirect("/home_adm");
             //return res.json({auth:true, token: token});
             console.log(token);
         }
