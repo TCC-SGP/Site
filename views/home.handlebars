@@ -60,102 +60,50 @@
 <h2 align="center">Postagens</h2>
 <br>
 <div class="container">
-  <div class="row">
+  <div class="row mb-5">
+    {{#each adocao}}
     <div class="col-lg grade-menu">
       <div class="row">
         <div class="col-sm-4">
-          <img class="imagens" src="https://via.placeholder.com/120x120" alt="">
+          <img class="imagens" src="{{tb_postagem_img}}" width="120px" height="120px">
         </div>
         <div class="col-sm">
-          <h5>Título</h5>
+          <h5>{{tb_postagem_titulo}}</h5>
           <p>
-            Texto texto...
+            {{tb_postagem_conteudo}}
           </p>
-          <button class="btn btn-sm btn-danger">Botão</button>
+          <div class="text-center">
+            <button class="btn btn-sm btn-danger">Botão</button>
+          </div>
         </div>
       </div>
-      <hr>
     </div>
-    <div class="col-lg grade-menu">
-      <div class="row">
-        <div class="col-sm-4">
-          <img class="imagens" src="https://via.placeholder.com/120x120" alt="">
-        </div>
-        <div class="col-sm">
-          <h5>Postagem específica</h5>
-          <p>
-            Texto texto...
-          </p>
-          <button class="btn btn-sm btn-danger">Botão</button>
-        </div>
-      </div>
-      <hr>
-    </div>
-    <div class="col-lg grade-menu">
-      <div class="row">
-        <div class="col-sm-4">
-          <img class="imagens" src="https://via.placeholder.com/120x120" alt="">
-        </div>
-        <div class="col-sm">
-          <h5>Título</h5>
-          <p>
-            Texto texto...
-          </p>
-          <button class="btn btn-sm btn-danger">Botão</button>
-        </div>
-      </div>
-      <hr>
-    </div>
+    {{/each}}
+
   </div>
+
 
   <div class="w-100"></div>
 
-  <div class="row">
+  <div class="row mb-5">
+    {{#each apadrinhamento}}
     <div class="col-lg grade-menu">
       <div class="row">
         <div class="col-sm-4">
-          <img class="imagens" src="https://via.placeholder.com/120x120" alt="">
+          <img class="imagens" src="{{tb_postagem_img}}" width="120px" height="120px">
         </div>
         <div class="col-sm">
-          <h5>Título</h5>
+          <h5>{{tb_postagem_titulo}}</h5>
           <p>
-            Texto texto...
+            {{tb_postagem_conteudo}}
           </p>
-          <button class="btn btn-sm btn-danger">Botão</button>
+          <div class="text-center">
+            <button class="btn btn-sm btn-danger">Botão</button>
+          </div>
         </div>
       </div>
-      <hr>
     </div>
-    <div class="col-lg grade-menu">
-      <div class="row">
-        <div class="col-sm-4">
-          <img class="imagens" src="https://via.placeholder.com/120x120" alt="">
-        </div>
-        <div class="col-sm">
-          <h5>Postagem específica</h5>
-          <p>
-            Texto texto...
-          </p>
-          <button class="btn btn-sm btn-danger">Botão</button>
-        </div>
-      </div>
-      <hr>
-    </div>
-    <div class="col-lg grade-menu">
-      <div class="row">
-        <div class="col-sm-4">
-          <img class="imagens" src="https://via.placeholder.com/120x120" alt="">
-        </div>
-        <div class="col-sm">
-          <h5>Título</h5>
-          <p>
-            Texto texto...
-          </p>
-          <button class="btn btn-sm btn-danger">Botão</button>
-        </div>
-      </div>
-      <hr>
-    </div>
+    {{/each}}
   </div>
 </div>
 <br>
