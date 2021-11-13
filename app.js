@@ -1,6 +1,7 @@
 const express = require('express');
 const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser');
+const cookieparser = require('cookie-parser');
 const app = express();
 require("dotenv").config();
 const home = require('./routes/admin');
@@ -15,7 +16,8 @@ const publicidade = require('./routes/publicidade');
 
 const { urlencoded, json } = require('body-parser');
 
-//CONFIGURANDO O BODY PARSER E O HANDLEBARS
+//CONFIGURANDO O BODY PARSER E O HANDLEBARS E O COOKIE PARSER
+app.use(cookieparser());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.engine('handlebars', handlebars({

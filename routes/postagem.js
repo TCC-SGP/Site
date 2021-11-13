@@ -15,6 +15,7 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({storage: storage});
+const fs = require('fs');
 
 //CARREGANDO OS MODELS
 const Postagem = require('../models/Postagem');
@@ -34,7 +35,7 @@ router.get('/postagem', (req, res)=>{
 });
 
 //ROTA DE CARREGAR A PÁGINA PARA ADC POSTAGENS
-router.get('/addpostagem', (req, res)=>{
+router.get('/addpostagem', auth, (req, res)=>{
     Tipopostagem.findAll().then((tipopstagem)=>{
         Administrador.findAll().then((administrador)=>{
             Pet.findAll().then((pet)=>{
@@ -56,7 +57,7 @@ router.get('/addpostagem', (req, res)=>{
 })
 
 //ROTA DO BOTÃO ADICIONAR POSTAGENS
-router.post('/cadpostagem', upload.single('img'), (req, res, next)=>{
+router.post('/cadpostagem', auth, upload.single('img'), (req, res, next)=>{
     var path = req.file;
     if(path == null || path == undefined || path == ""){
         Postagem.create({
@@ -68,7 +69,7 @@ router.post('/cadpostagem', upload.single('img'), (req, res, next)=>{
             tb_postagem_conteudo: req.body.conteudo,
             tb_postagem_img: "..\\public\\img\\Logo.png"
         }).then(()=>{
-            res.redirect("/postagem");
+            res.redirect("/admpostagem");
         }).catch((erro)=>{
             res.send("Houve um erro " + erro);
         });
@@ -84,7 +85,7 @@ router.post('/cadpostagem', upload.single('img'), (req, res, next)=>{
             tb_postagem_conteudo: req.body.conteudo,
             tb_postagem_img: "..\\" + req.file.path
         }).then(()=>{
-            res.redirect("/postagem");
+            res.redirect("/admpostagem");
         }).catch((erro)=>{
             res.send("Houve um erro " + erro);
         });
@@ -92,7 +93,7 @@ router.post('/cadpostagem', upload.single('img'), (req, res, next)=>{
 });
 
 //ROTA PARA ABRIR E PREENCHER PÁGINA DE EDIÇÃO DE POSTAGEM
-router.get('/editarpostagem/:id', (req, res)=>{
+router.get('/editarpostagem/:id', auth, (req, res)=>{
     Postagem.findAll({ where: {'tb_postagem_id': req.params.id }}).then((postagens)=>{
         Tipopostagem.findAll().then((tipoPostagens)=>{
             Administrador.findAll().then((administradores)=>{
@@ -119,7 +120,7 @@ router.get('/editarpostagem/:id', (req, res)=>{
 });
 
 //ROTA DO BOTÃO DE EDITAR POSTAGEM
-router.post('/editpostagem', (req, res)=>{
+router.post('/editpostagem', auth, (req, res)=>{
     Postagem.update({
         tb_tipopostagem_id: req.body.tipoPostagem,
         tb_administrador_id: req.body.administrador,
@@ -140,7 +141,7 @@ router.post('/editpostagem', (req, res)=>{
 
 
 // ROTA DE ADMINISTRAÇÃO DE POSTAGEM
-router.get('/admpostagem', (req, res)=>{
+router.get('/admpostagem', auth, (req, res)=>{
     Postagem.findAll().then((postagens) => {
         Tipopostagem.findAll().then((tipopostagem)=>{
             var ntipopostagem = JSON.parse(JSON.stringify(tipopostagem));
@@ -155,8 +156,8 @@ router.get('/admpostagem', (req, res)=>{
 });
 
 //ROTA DE PESQUISA DE ADIMINISTRAÇÃO DE POSTAGEM 
-router.get('/admpostagem/:id', (req, res)=>{
-    Postagem.findAll({where: {'tb_postagem_id': req.params.id}}).then((postagens)=>{
+router.get('/admpostagem/:id', auth, (req, res)=>{
+    Postagem.findAll({where: {'tb_tipopostagem_id': req.params.id}}).then((postagens)=>{
         Tipopostagem.findAll().then((tipopostagem)=>{
             var ntipopostagem = JSON.parse(JSON.stringify(tipopostagem));
             var npostagem = JSON.parse(JSON.stringify(postagens));
@@ -169,11 +170,20 @@ router.get('/admpostagem/:id', (req, res)=>{
 });
 
 //ROTA PARA EXCLUSÃO DE Postagem
-router.get('/excluirpostagem/:id', (req, res)=>{
-    Postagem.destroy({where: {'tb_postagem_id': req.params.id}}).then(()=>{
-        res.redirect("/admpostagem");
-    }).catch((err)=>{
-        res.send(err);
+router.get('/excluirpostagem/:id', auth, (req, res)=>{
+    Postagem.findAll({ where: {'tb_postagem_id': req.params.id}}).then((postagens)=>{
+        var npostagem = JSON.parse(JSON.stringify(postagens));
+        const path  = "Site\\"+npostagem[0].tb_postagem_img;
+        fs.unlink(path, err=>{
+            if(err){
+                console.log(err);
+            }
+        });
+        Postagem.destroy({where: {'tb_postagem_id': req.params.id}}).then(()=>{
+            res.redirect('/admpostagem');
+        }).catch(err=>{
+            res.send("Ocorreu um erro "+err);
+        })
     })
 });
 

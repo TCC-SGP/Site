@@ -2,9 +2,11 @@
     <br>
     <div class="form">
         <form runat="server" action="/loginauth" method="post" align="center">
-        <input type="hidden" name="token"/>
-            <input key="x-access-token" type="hidden" name="token" value="eyJhbGciOiJIUzI1NiJ9.dXNlcg.EvNc9eWXXeAjpMTMzV4xoW2EjtEcLeSwJwY5_8vE6X8" />
-            <img src="https://img.icons8.com/external-bearicons-glyph-bearicons/100/000000/external-User-essential-collection-bearicons-glyph-bearicons.png"/>
+            <h1>{{errorMessage}}<h1>
+            <input key="x-access-token" type="hidden" name="token"
+                value="eyJhbGciOiJIUzI1NiJ9.dXNlcg.EvNc9eWXXeAjpMTMzV4xoW2EjtEcLeSwJwY5_8vE6X8" />
+            <img
+                src="https://img.icons8.com/external-bearicons-glyph-bearicons/100/000000/external-User-essential-collection-bearicons-glyph-bearicons.png" />
             <br>
             <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="identificador">
                 <option selected="true">Quem é você?</option>
@@ -12,9 +14,11 @@
                 <option value="2">Protetor</option>
             </select>
             <br>
-            <input class="form-control form-control-lg" type="text" placeholder="Usuário" aria-label=".form-control-lg example" name="usuario">
+            <input class="form-control form-control-lg" type="text" placeholder="Usuário"
+                aria-label=".form-control-lg example" name="usuario">
             <br>
-            <input class="form-control form-control-lg" type="password" placeholder="Senha" aria-label=".form-control-lg example" name="senha">
+            <input class="form-control form-control-lg" type="password" placeholder="Senha"
+                aria-label=".form-control-lg example" name="senha">
             <br>
             <button class="btn btn-sm btn-danger">Logar</button>
         </form>
