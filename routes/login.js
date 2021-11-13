@@ -29,12 +29,12 @@ router.post('/loginauth',(req, res)=>{
             const token = jwt.sign({ user_id: idadm},
                 ""+process.env.TOKEN_KEY,
                 {
-                    expiresIn: "2h",
+                    expiresIn: "1d",
                 }
             );
 
             Administrador.token = token;    
-            res.cookie("token", token, {maxAge: 2 * 60 * 60, httpOnly: true});
+            res.cookie("token", token, {maxAge: 24 * 60 * 60 * 1000, httpOnly: true});
             console.log("JWT token está nos cookies")
             res.redirect("/home_adm");
             //return res.json({auth:true, token: token});
