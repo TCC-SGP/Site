@@ -69,7 +69,10 @@
         </div>
         <div class="col-sm">
           <h5>{{tb_postagem_titulo}}</h5>
-          <p>
+          <p style="max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;">
             {{tb_postagem_conteudo}}
           </p>
           <div class="text-center">
@@ -111,55 +114,17 @@
 </div>
 <br>
 <div class="container">
-  <div class="row">
+  {{#each publicidade}}
+  <div class="row mb-5">
     <div class="col-md">
-      <img class="imagens" src="https://via.placeholder.com/300x300" alt="">
+      <img class="imagens" src="{{tb_postagem_img}}" width="300px" height="300px">
     </div>
     <div class="col-md-8">
-      <h2>Título</h2>
+      <h2>{{tb_postagem_titulo}}</h2>
       <br>
-      <p>Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...
-        Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...
-        Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... <br>
-        Texto...Texto... Texto...
-        Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...
-        Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...
+      <p>{{tb_postagem_conteudo}}
       </p>
     </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-md">
-      <img class="imagens" src="https://via.placeholder.com/300x300" alt="">
-    </div>
-    <div class="col-md-8">
-      <h2>Título</h2>
-      <br>
-      <p>Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...
-        Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...
-        Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... <br>
-        Texto...Texto... Texto...
-        Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...
-        Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...
-      </p>
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-md">
-      <img class="imagens" src="https://via.placeholder.com/300x300" alt="">
-    </div>
-    <div class="col-md-8">
-      <h2>Título</h2>
-      <br>
-      <p>Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...
-        Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...
-        Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... <br>
-        Texto...Texto... Texto...
-        Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...
-        Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...Texto... Texto...
-      </p>
-    </div>
-  </div>
-  <br>
+  </div> 
+  {{/each}}
 </div>
