@@ -1,4 +1,4 @@
-const { findById } = require('./Adiministrador');
+const { findById } = require('./Administrador');
 const db = require('./db');
 
 //REPRODUZINDO A TABELA DOADOR

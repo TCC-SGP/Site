@@ -16,6 +16,8 @@ const storage = multer.diskStorage({
 });
 const upload = multer({storage: storage});
 const fs = require('fs');
+const jwt = require('jsonwebtoken');
+const config = process.env;
 
 //CARREGANDO OS MODELS
 const Postagem = require('../models/Postagem');
@@ -36,8 +38,11 @@ router.get('/postagem', (req, res)=>{
 
 //ROTA DE CARREGAR A PÁGINA PARA ADC POSTAGENS
 router.get('/addpostagem', auth, (req, res)=>{
+    const token = req.cookies.token;
+    var decode = jwt.verify(token, config.TOKEN_KEY);
+
     Tipopostagem.findAll().then((tipopstagem)=>{
-        Administrador.findAll().then((administrador)=>{
+        Administrador.findAll({where:{'tb_administrador_id': decode.user_id}}).then((administrador)=>{
             Pet.findAll().then((pet)=>{
               Protetor.findAll().then((protetores)=>{
                 var nprotetor = JSON.parse(JSON.stringify(protetores));
