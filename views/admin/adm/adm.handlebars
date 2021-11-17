@@ -1,0 +1,45 @@
+<div class="container">
+    <h1>Lista de Usuários</h1>
+    <br>
+    <a href="/home_adm" style="color: ivory" class="btn btn-success">Voltar</a>
+    <br>
+    <br>
+    <h3>Cadastrar um novo Administrador</h3>
+    <a href="/addadm" style="color: ivory" class="btn btn-success btn-block">Cadastrar</a>
+    <br>
+    <br>
+    <table class="table table-bordered table-responsive-sm">
+        <thead>
+            <tr>
+                <th scope="row">ID</th>
+                <th scope="row">Nome</th>
+                <th scope="row">Sobrenome</th>
+                <th scope="row">Email</th>
+                <th scope="row">Editar</th>
+                <th scope="row">Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each administrador}}
+                <tr>
+                <th scope="row">{{tb_administrador_id}}</th>
+                <td>{{tb_administrador_nome}}</td>
+                <td>{{tb_administrador_sobrenome}}</td>
+                <td>{{tb_administrador_email}}</td>
+                <td>
+                    <center>
+                        <a type="button" class="btn-primary btn" href="/editarpostagem/{{tb_postagem_id}}"
+                            disabled="true">Editar</a>
+                    </center>
+                </td>
+                <td>
+                    <center>
+                        <a type="button" class="btn-primary btn" style="background-color:red; border-color:red"
+                            href="/excluirpostagem/{{tb_postagem_id}}" disabled="true">Excluir</a>
+                    </center>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
