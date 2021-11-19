@@ -1,0 +1,46 @@
+<div class="container ">
+    <h1>Lista de doações</h1>
+    <br>
+    <a href="/doe" style="color: ivory" class="btn btn-success btn">Página de Doação</a>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-8">
+        </div>
+        <script>
+        </script>
+    </div>
+    <br>
+    <br>
+    <table class="table table-bordered table-responsive-sm">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Doador</th>
+                <th scope="col">Tipo doação</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Quantia</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each doacoes}}
+            <tr>
+                <th scope="row">{{tb_doacao_id}}</th>
+                <td>{{tb_doador_id}}</td>
+                <td>{{tb_tipodoacao_id}}</td>
+                <td>{{tb_doacao_descricao}}</td>
+                <td>{{tb_doacao_nomedoador}}</td>
+                <td>{{tb_doacao_quantia}}</td>
+                <td>
+                    
+
+                </td>
+            </tr>
+
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+<br>

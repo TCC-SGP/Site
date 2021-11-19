@@ -47,16 +47,15 @@
                 <td>{{tb_doacao_nomedoador}}</td>
                 <td>{{tb_doacao_quantia}}</td>
                 <td>
+                    {{#if (encaminhamento tb_tipodoacao_id)}}
                     <center>
                         <a type="button" class="btn-primary btn" href="/adcencaminhamento/{{tb_doacao_id}}" id="btn_encaminhar" disabled="true">Encaminhar</a>
                     </center>
+                    {{else}}
+                    <h1>nada para ver aqui</h1>
+                    {{/if}}
                 </td>
             </tr>
-            <script>
-            var id = decodeURIComponent("{{{tb_tipodoacao_id}}}");
-            if(id == 5)
-            document.getElementById("btn_encaminhar").enabled = false;
-            </script>
             {{/each}}
         </tbody>
     </table>
