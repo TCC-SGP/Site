@@ -14,19 +14,37 @@ const apadrinhamento = require('./routes/apadrin');
 const adocao = require('./routes/adocao');
 const publicidade = require('./routes/publicidade');
 
+
 const { urlencoded, json } = require('body-parser');
 
 //CONFIGURANDO O BODY PARSER E O HANDLEBARS E O COOKIE PARSER
 app.use(cookieparser());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.engine('handlebars', handlebars({
+
+
+
+
+
+const hbs = handlebars.create({
     defaultLayout: 'main',
     runtimeOptions: {
         allowProtoPropertiesByDefault: true,
         allowProtoMethodsByDefault: true,
     },
-}));
+    //Criando helpers personalizados
+    helpers:{
+        encaminhamento: function(value){
+            if(value === 5)
+                aux = true;
+            else
+                aux = false;
+            return aux ;
+        }
+    }
+})
+
+app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 //CARREGANDO ARQUIVOS ESTÁTICOS
@@ -67,3 +85,4 @@ const PORT = process.env.PORT||7070;
 app.listen(PORT, ()=>{
     console.log("Servidor aberto, porta: 7070");
 })
+

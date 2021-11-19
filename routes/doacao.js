@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth')
+const jwt = require('jsonwebtoken')
+const config = process.env;
 
 //CARREGANDO OS MODELS
 const Doacao = require('../models/Doacao');
@@ -88,5 +90,18 @@ router.post('/addencaminhamento', (req, res)=>{
         res.send("Houve um erro " + erro);
     })
 });
+
+router.get('/doador', (req, res)=>{
+    const token = req.cookies.token
+    const decode = jwt.verify(token, config.TOKEN_KEY);
+    Doacao.findAll({ 
+        where: {'tb_doador_id': decode.user_id}
+    }).then((doacoes)=>{
+        var ndoacao = JSON.parse(JSON.stringify(doacoes));
+        res.render("admin/doacoes/doador", {
+            doacoes: ndoacao
+        });
+    })
+})
 
 module.exports = router;

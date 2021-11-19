@@ -70,7 +70,7 @@ router.post('/loginauth',(req, res)=>{
                 Doador.token = token;
                 res.cookie("token", token, {maxAge: 24 * 60 * 60 * 1000, httpOnly: true});
                 console.log("JWT token está nos cookies");
-                res.redirect("/home_adm");
+                res.redirect("/doador");
                 console.log(token);
             }
         })
