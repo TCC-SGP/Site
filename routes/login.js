@@ -83,11 +83,6 @@ router.post('/loginauth', (req, res) => {
             }
             catch (err) {
                 res.render("admin/login/login", { errorMessage: "Doador não encontrado" });
-                Doador.token = token;
-                res.cookie("token", token, {maxAge: 24 * 60 * 60 * 1000, httpOnly: true});
-                console.log("JWT token está nos cookies");
-                res.redirect("/doador");
-                console.log(token);
             }
         })
     }
