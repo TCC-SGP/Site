@@ -84,4 +84,21 @@ router.post('/editadm', auth, (req, res)=>{
     })
 });
 
+//ROTA PARA DELETAR ADMINISTRADOR
+router.get('/excluiradm/:id', auth, (req,res)=>{
+    const token = req.cookies.token;
+    const decode = jwt.verify(token, config.TOKEN_KEY);
+    
+    if(decode.user_id == 1){
+        Administrador.destroy({where: {tb_administrador_id: req.params.id}}).then(()=>{
+            res.redirect("/admuser");
+        }).catch((err)=>{
+            res.render("Ocorreu um erro "+ err);
+        })
+    }
+    else{
+        res.render("admin/home_adm/home_adm", {errorMessage: "Você não tem permissão para essa ação"})
+    }
+})
+
 module.exports = router;

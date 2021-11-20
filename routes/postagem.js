@@ -102,29 +102,56 @@ router.get('/editarpostagem/:id', auth, (req, res)=>{
     const token = req.cookies.token;
     var decode = jwt.verify(token, config.TOKEN_KEY);
 
-    Postagem.findAll({ where: {'tb_postagem_id': req.params.id }}).then((postagens)=>{
-        Tipopostagem.findAll().then((tipoPostagens)=>{
-            Administrador.findAll({where:{'tb_administrador_id': decode.user_id}}).then((administradores)=>{
-                Pet.findAll().then((pets)=>{
-                    Protetor.findAll().then((protetor)=>{
-                        var nprotetor = JSON.parse(JSON.stringify(protetor));
-                        var npostagens = JSON.parse(JSON.stringify(postagens));
-                        var ntipopostagens = JSON.parse(JSON.stringify(tipoPostagens));
-                        var nadministradores = JSON.parse(JSON.stringify(administradores));
-                        var npets = JSON.parse(JSON.stringify(pets));
-                        
-                        res.render("admin/postagens/editpostagem", {
-                            postagem: npostagens,
-                            tipoPostagem: ntipopostagens,
-                            administrador: nadministradores,
-                            pet: npets,
-                            protetor: nprotetor
-                        });
+    if(decode.user_id == 1){
+        Postagem.findAll({ where: {'tb_postagem_id': req.params.id }}).then((postagens)=>{
+            Tipopostagem.findAll().then((tipoPostagens)=>{
+                Administrador.findAll().then((administradores)=>{
+                    Pet.findAll().then((pets)=>{
+                        Protetor.findAll().then((protetor)=>{
+                            var nprotetor = JSON.parse(JSON.stringify(protetor));
+                            var npostagens = JSON.parse(JSON.stringify(postagens));
+                            var ntipopostagens = JSON.parse(JSON.stringify(tipoPostagens));
+                            var nadministradores = JSON.parse(JSON.stringify(administradores));
+                            var npets = JSON.parse(JSON.stringify(pets));
+                            
+                            res.render("admin/postagens/editpostagem", {
+                                postagem: npostagens,
+                                tipoPostagem: ntipopostagens,
+                                administrador: nadministradores,
+                                pet: npets,
+                                protetor: nprotetor
+                            });
+                        })
                     })
                 })
             })
         })
-    })
+    }
+    else{
+        Postagem.findAll({ where: {'tb_postagem_id': req.params.id }}).then((postagens)=>{
+            Tipopostagem.findAll().then((tipoPostagens)=>{
+                Administrador.findAll({where:{'tb_administrador_id': decode.user_id}}).then((administradores)=>{
+                    Pet.findAll().then((pets)=>{
+                        Protetor.findAll().then((protetor)=>{
+                            var nprotetor = JSON.parse(JSON.stringify(protetor));
+                            var npostagens = JSON.parse(JSON.stringify(postagens));
+                            var ntipopostagens = JSON.parse(JSON.stringify(tipoPostagens));
+                            var nadministradores = JSON.parse(JSON.stringify(administradores));
+                            var npets = JSON.parse(JSON.stringify(pets));
+                            
+                            res.render("admin/postagens/editpostagem", {
+                                postagem: npostagens,
+                                tipoPostagem: ntipopostagens,
+                                administrador: nadministradores,
+                                pet: npets,
+                                protetor: nprotetor
+                            });
+                        })
+                    })
+                })
+            })
+        })
+    }
 });
 
 //ROTA DO BOTÃO DE EDITAR POSTAGEM
