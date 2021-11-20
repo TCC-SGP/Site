@@ -184,7 +184,7 @@ router.get('/admpostagem/:id', auth, (req, res)=>{
     const decode = jwt.verify(token, config.TOKEN_KEY);
 
     if(decode.user_id == 1){
-        Postagem.findAll({where: {'tb_tipopostagem': req.params.id}}).then((postagens)=>{
+        Postagem.findAll({where: {'tb_tipopostagem_id': req.params.id}}).then((postagens)=>{
             Tipopostagem.findAll().then((tipopostagem)=>{
                 var ntipopostagem = JSON.parse(JSON.stringify(tipopostagem));
                 var npostagem = JSON.parse(JSON.stringify(postagens));
