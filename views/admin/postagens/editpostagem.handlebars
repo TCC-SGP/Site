@@ -3,13 +3,15 @@
     <br>
     <br>
     <div id="status" class="invisible">{{{errormessage}}}</div>
-        <form runat="server" class="form-group row" action="/editpostagem" method="post">            
+        <form runat="server" class="form-group row" action="/editpostagem" method="post" enctype="multipart/form-data">            
             <div class="col-md-7">
                 {{#each postagem}}
                 <h5>ID:</h5>
                 <input class="form-control" type="text" name="id" readonly="true" value="{{tb_postagem_id}}">
                 {{/each}}
-                <br><br>
+                <br>
+                <input accept="image/*" type="file" name="img" id="imgInp">
+                <br>
                 <div class="row">
                     <div class="col">
                         <h5>Tipo de Postagem:</h5>

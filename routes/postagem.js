@@ -99,9 +99,12 @@ router.post('/cadpostagem', auth, upload.single('img'), (req, res, next)=>{
 
 //ROTA PARA ABRIR E PREENCHER PÁGINA DE EDIÇÃO DE POSTAGEM
 router.get('/editarpostagem/:id', auth, (req, res)=>{
+    const token = req.cookies.token;
+    var decode = jwt.verify(token, config.TOKEN_KEY);
+
     Postagem.findAll({ where: {'tb_postagem_id': req.params.id }}).then((postagens)=>{
         Tipopostagem.findAll().then((tipoPostagens)=>{
-            Administrador.findAll().then((administradores)=>{
+            Administrador.findAll({where:{'tb_administrador_id': decode.user_id}}).then((administradores)=>{
                 Pet.findAll().then((pets)=>{
                     Protetor.findAll().then((protetor)=>{
                         var nprotetor = JSON.parse(JSON.stringify(protetor));
@@ -125,23 +128,55 @@ router.get('/editarpostagem/:id', auth, (req, res)=>{
 });
 
 //ROTA DO BOTÃO DE EDITAR POSTAGEM
-router.post('/editpostagem', auth, (req, res)=>{
-    Postagem.update({
-        tb_tipopostagem_id: req.body.tipoPostagem,
-        tb_administrador_id: req.body.administrador,
-        tb_pet_id: req.body.pet,
-        tb_protetor_id: req.body.protetor,
-        tb_postagem_titulo: req.body.titulo,
-        tb_postagem_conteudo: req.body.conteudo,
-        tb_postagem_img: req.body.imagem
-    },
-    {
-        where: {tb_postagem_id: req.body.id}
-    }).then(()=>{
-        res.redirect("/admpostagem");
-    }).catch((erro)=>{
-        res.send( "Ocorreu um erro" + erro);
-    });
+router.post('/editpostagem', auth, upload.single('img'), (req, res)=>{
+    Postagem.findAll({where: {'tb_postagem_id': req.body.id}}).then((posts)=>{
+        var npostagem = JSON.parse(JSON.stringify(posts));
+        var file = req.file;
+
+        if(!file){
+            Postagem.update({
+                tb_tipopostagem_id: req.body.tipoPostagem,
+                tb_administrador_id: req.body.administrador,
+                tb_pet_id: req.body.pet,
+                tb_protetor_id: req.body.protetor,
+                tb_postagem_titulo: req.body.titulo,
+                tb_postagem_conteudo: req.body.conteudo
+            },
+            {
+                where: {tb_postagem_id: req.body.id}
+            }).then(()=>{
+                res.redirect("/admpostagem");
+            }).catch((erro)=>{
+                res.send( "Ocorreu um erro" + erro);
+            });
+        }
+        else{
+            const path  = "Site\\"+npostagem[0].tb_postagem_img;
+            fs.unlink(path, err=>{
+                if(err){
+                    console.log(err);
+                }
+            });
+            Postagem.update({
+                tb_tipopostagem_id: req.body.tipoPostagem,
+                tb_administrador_id: req.body.administrador,
+                tb_pet_id: req.body.pet,
+                tb_protetor_id: req.body.protetor,
+                tb_postagem_titulo: req.body.titulo,
+                tb_postagem_conteudo: req.body.conteudo,
+                tb_postagem_img: "..\\"+req.file.path
+            },
+            {
+                where: {tb_postagem_id: req.body.id}
+            }).then(()=>{
+                res.redirect("/admpostagem");
+            }).catch((erro)=>{
+                res.send( "Ocorreu um erro" + erro);
+            });
+        }
+    }).catch(err=>{
+        res.render("Ocorreu um erro " + err);
+    })
 });
 
 
