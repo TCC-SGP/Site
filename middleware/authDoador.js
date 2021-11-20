@@ -1,0 +1,31 @@
+const jwt = require("jsonwebtoken");
+
+const config = process.env;
+
+const verifyToken = (req, res, next) => {
+    const token = req.cookies.token;
+
+    if(token == undefined){
+        console.log("Token não está definido");
+    }
+
+    if(!token) {
+        return res.status(403).send("Um token é requirido para autenticar!").redirect("/login");
+    }
+    try{
+        const decoded = jwt.verify(token, config.TOKEN_KEY2);
+        
+        req.user = decoded;
+    }
+    catch(err) {
+        if(jwt.TokenExpiredError){
+            res.send("Sua sessão expirou");
+        }
+        else{
+        return console.log(err);
+        }
+    }
+    return next();
+};
+
+module.exports = verifyToken;

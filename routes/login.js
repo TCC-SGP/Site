@@ -68,7 +68,7 @@ router.post('/loginauth', (req, res) => {
 
                 if (doador) {
                     const token = jwt.sign({ user_id: iddoador },
-                        "" + process.env.TOKEN_KEY,
+                        "" + process.env.TOKEN_KEY2,
                         {
                             expiresIn: "2h",
                         }

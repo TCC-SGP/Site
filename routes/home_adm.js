@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/auth');
+const auth = require('../middleware/authAdmin');
 
 //ROTA DE HOME-ADMIN
 router.get('/home_adm', auth, (req, res) => {

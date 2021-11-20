@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const auth = require('../middleware/auth');
+const auth = require('../middleware/authAdmin');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './uploads/');
@@ -147,31 +147,66 @@ router.post('/editpostagem', auth, (req, res)=>{
 
 // ROTA DE ADMINISTRAÇÃO DE POSTAGEM
 router.get('/admpostagem', auth, (req, res)=>{
-    Postagem.findAll().then((postagens) => {
-        Tipopostagem.findAll().then((tipopostagem)=>{
-            var ntipopostagem = JSON.parse(JSON.stringify(tipopostagem));
-            var npostagem = JSON.parse(JSON.stringify(postagens));
-            res.render("admin/postagens/admpostagem",{
-                postagem: npostagem,
-                tipoPostagem: ntipopostagem
-            });
-
-        })
-    });
+    const token = req.cookies.token;
+    const decode = jwt.verify(token, config.TOKEN_KEY);
+    if(decode.user_id == 1)
+    {
+        Postagem.findAll().then((postagens) => {
+            Tipopostagem.findAll().then((tipopostagem)=>{
+                var ntipopostagem = JSON.parse(JSON.stringify(tipopostagem));
+                var npostagem = JSON.parse(JSON.stringify(postagens));
+                res.render("admin/postagens/admpostagem",{
+                    postagem: npostagem,
+                    tipoPostagem: ntipopostagem
+                });
+    
+            })
+        });
+    }
+    else{
+        Postagem.findAll({ where: {'tb_administrador_id': decode.user_id}}).then((postagens) => {
+            Tipopostagem.findAll().then((tipopostagem)=>{
+                var ntipopostagem = JSON.parse(JSON.stringify(tipopostagem));
+                var npostagem = JSON.parse(JSON.stringify(postagens));
+                res.render("admin/postagens/admpostagem",{
+                    postagem: npostagem,
+                    tipoPostagem: ntipopostagem
+                });
+    
+            })
+        });
+    }
 });
 
 //ROTA DE PESQUISA DE ADIMINISTRAÇÃO DE POSTAGEM 
 router.get('/admpostagem/:id', auth, (req, res)=>{
-    Postagem.findAll({where: {'tb_tipopostagem_id': req.params.id}}).then((postagens)=>{
-        Tipopostagem.findAll().then((tipopostagem)=>{
-            var ntipopostagem = JSON.parse(JSON.stringify(tipopostagem));
-            var npostagem = JSON.parse(JSON.stringify(postagens));
-            res.render("admin/postagens/admpostagem", {
-                postagem:npostagem,
-                tipoPostagem:ntipopostagem
+    const token = req.cookies.token;
+    const decode = jwt.verify(token, config.TOKEN_KEY);
+
+    if(decode.user_id == 1){
+        Postagem.findAll({where: {'tb_tipopostagem': req.params.id}}).then((postagens)=>{
+            Tipopostagem.findAll().then((tipopostagem)=>{
+                var ntipopostagem = JSON.parse(JSON.stringify(tipopostagem));
+                var npostagem = JSON.parse(JSON.stringify(postagens));
+                res.render("admin/postagens/admpostagem", {
+                    postagem:npostagem,
+                    tipoPostagem:ntipopostagem
+                })
             })
         })
-    })
+    }
+    else{
+        Postagem.findAll({where: {'tb_administrador_id': decode.user_id, 'tb_tipopostagem_id': req.params.id}}).then((postagens)=>{
+            Tipopostagem.findAll().then((tipopostagem)=>{
+                var ntipopostagem = JSON.parse(JSON.stringify(tipopostagem));
+                var npostagem = JSON.parse(JSON.stringify(postagens));
+                res.render("admin/postagens/admpostagem", {
+                    postagem:npostagem,
+                    tipoPostagem:ntipopostagem
+                })
+            })
+        })
+    }
 });
 
 //ROTA PARA EXCLUSÃO DE Postagem

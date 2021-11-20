@@ -1,7 +1,14 @@
 <div class="container ">
     <h1>Lista de doações</h1>
     <br>
-    <a href="/doe" style="color: ivory" class="btn btn-success btn">Página de Doação</a>
+    <div class="row">
+        <div class="col-10">
+            <a href="/doe" style="color: ivory" class="btn btn-success btn">Página de Doação</a>
+        </div>
+        <div class="col">
+            <a href="/logout" style="color: ivory" class="btn btn-success btn" >Sair</a>
+        </div>
+    </div>
     <br>
     <br>
     <div class="row">
@@ -33,10 +40,6 @@
                 <td>{{tb_doacao_descricao}}</td>
                 <td>{{tb_doacao_nomedoador}}</td>
                 <td>{{tb_doacao_quantia}}</td>
-                <td>
-                    
-
-                </td>
             </tr>
 
             {{/each}}

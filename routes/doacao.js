@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/auth')
+const auth = require('../middleware/authAdmin')
+const authDoador = require('../middleware/authDoador')
 const jwt = require('jsonwebtoken')
 const config = process.env;
 
@@ -91,9 +92,9 @@ router.post('/addencaminhamento', (req, res)=>{
     })
 });
 
-router.get('/doador', (req, res)=>{
+router.get('/doador', authDoador, (req, res)=>{
     const token = req.cookies.token
-    const decode = jwt.verify(token, config.TOKEN_KEY);
+    const decode = jwt.verify(token, config.TOKEN_KEY2);
     Doacao.findAll({ 
         where: {'tb_doador_id': decode.user_id}
     }).then((doacoes)=>{
