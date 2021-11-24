@@ -10,6 +10,7 @@ const Doacao = require('../models/Doacao');
 const Encaminhamento = require('../models/Encaminhamento');
 const Pet = require('../models/Pet');
 const Tipodoacao = require('../models/TipoDoacao');
+var login = true;
 
 //ROTA DA PÁGINA DOE
 router.get('/doe', (req, res) =>{
@@ -24,7 +25,8 @@ router.get('/doacoes', auth, (req, res)=>{
             var ndoacoes = JSON.parse(JSON.stringify(doacoes))
             res.render("admin/doacoes/doacoes", {
             doacao: ndoacoes,
-            tipoDoacao: ntitpodoacao
+            tipoDoacao: ntitpodoacao,
+            login:login
             });
         })
     });
@@ -38,7 +40,8 @@ router.get('/doacoes/:id', auth, (req, res)=>{
             var ndoacoes = JSON.parse(JSON.stringify(doacoes))
             res.render("admin/doacoes/doacoes", {
             doacao: ndoacoes,
-            tipoDoacao: ntitpodoacao
+            tipoDoacao: ntitpodoacao,
+            login:login
             });
         })
     })
@@ -52,7 +55,8 @@ router.get('/adcencaminhamento/:id', (req, res)=>{
             var npets = JSON.parse(JSON.stringify(pets));
             res.render("admin/doacoes/addencaminhamento", {
                 doacao: ndoacao,
-                pet: npets
+                pet: npets,
+                login:login
             })
         })
     })
@@ -72,7 +76,8 @@ router.get('/encaminhamento', (req, res)=>{
     ON P.TB_PROTETOR_ID = PR.TB_PROTETOR_ID",{model: Encaminhamento}).then((encaminhamentos)=>{
         var nencaminhamento = JSON.parse(JSON.stringify(encaminhamentos));
         res.render("admin/doacoes/encaminhamento", {
-            encaminhamento: nencaminhamento
+            encaminhamento: nencaminhamento,
+            login:login
         });
     })
 });
@@ -100,7 +105,8 @@ router.get('/doador', authDoador, (req, res)=>{
     }).then((doacoes)=>{
         var ndoacao = JSON.parse(JSON.stringify(doacoes));
         res.render("admin/doacoes/doador", {
-            doacoes: ndoacao
+            doacoes: ndoacao,
+            login: login
         });
     })
 })

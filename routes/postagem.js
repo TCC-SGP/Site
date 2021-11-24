@@ -26,6 +26,8 @@ const Administrador = require('../models/Administrador');
 const Pet = require('../models/Pet');
 const Protetor = require('../models/Protetor');
 
+var login = true;
+
 //ROTA DE POSTAGENS
 router.get('/postagem', (req, res)=>{
     Postagem.findAll().then((postagens) => {
@@ -53,7 +55,8 @@ router.get('/addpostagem', auth, (req, res)=>{
                     tPostagem: ntipopostagem,
                     administrador: nadministrador,
                     pet: npet,
-                    protetor: nprotetor
+                    protetor: nprotetor,
+                    login:login
                  });
               });  
             });
@@ -119,7 +122,8 @@ router.get('/editarpostagem/:id', auth, (req, res)=>{
                                 tipoPostagem: ntipopostagens,
                                 administrador: nadministradores,
                                 pet: npets,
-                                protetor: nprotetor
+                                protetor: nprotetor,
+                                login:login
                             });
                         })
                     })
@@ -144,7 +148,8 @@ router.get('/editarpostagem/:id', auth, (req, res)=>{
                                 tipoPostagem: ntipopostagens,
                                 administrador: nadministradores,
                                 pet: npets,
-                                protetor: nprotetor
+                                protetor: nprotetor,
+                                login:login
                             });
                         })
                     })
@@ -202,7 +207,7 @@ router.post('/editpostagem', auth, upload.single('img'), (req, res)=>{
             });
         }
     }).catch(err=>{
-        res.render("Ocorreu um erro " + err);
+        res.render("Ocorreu um erro " + err, {login:login});
     })
 });
 
@@ -219,7 +224,8 @@ router.get('/admpostagem', auth, (req, res)=>{
                 var npostagem = JSON.parse(JSON.stringify(postagens));
                 res.render("admin/postagens/admpostagem",{
                     postagem: npostagem,
-                    tipoPostagem: ntipopostagem
+                    tipoPostagem: ntipopostagem,
+                    login:login
                 });
     
             })
@@ -232,7 +238,8 @@ router.get('/admpostagem', auth, (req, res)=>{
                 var npostagem = JSON.parse(JSON.stringify(postagens));
                 res.render("admin/postagens/admpostagem",{
                     postagem: npostagem,
-                    tipoPostagem: ntipopostagem
+                    tipoPostagem: ntipopostagem,
+                    login:login
                 });
     
             })
@@ -252,7 +259,8 @@ router.get('/admpostagem/:id', auth, (req, res)=>{
                 var npostagem = JSON.parse(JSON.stringify(postagens));
                 res.render("admin/postagens/admpostagem", {
                     postagem:npostagem,
-                    tipoPostagem:ntipopostagem
+                    tipoPostagem:ntipopostagem,
+                    login:login
                 })
             })
         })
@@ -264,7 +272,8 @@ router.get('/admpostagem/:id', auth, (req, res)=>{
                 var npostagem = JSON.parse(JSON.stringify(postagens));
                 res.render("admin/postagens/admpostagem", {
                     postagem:npostagem,
-                    tipoPostagem:ntipopostagem
+                    tipoPostagem:ntipopostagem,
+                    login:login
                 })
             })
         })

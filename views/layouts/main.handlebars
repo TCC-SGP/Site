@@ -12,10 +12,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 </head>
 <body>
-        {{>_navbar}}
-        <br><br><br>
-        {{{body}}}
-        {{>_footer}}
+        {{#if (logacao login)}}
+            <br><br><br>
+            {{{body}}}
+        {{else}}
+             {{>_navbar}}
+            <br><br><br>
+            {{{body}}}
+            {{>_footer}}
+        {{/if}}
 </body>
 <script src="/public/js/bootstrap.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
                 res.render("home", {
                     apadrinhamento: nadpadrinhamento,
                     adocao: nadocao,
-                    publicidade: npublicidade
+                    publicidade: npublicidade,
 
                 });
             })

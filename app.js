@@ -40,6 +40,13 @@ const hbs = handlebars.create({
             else
                 aux = false;
             return aux ;
+        },
+        logacao: function(value){
+            if(value === true)
+                aux = true;
+            else
+                aux = false;
+            return aux;
         }
     }
 })

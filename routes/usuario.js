@@ -7,6 +7,8 @@ const config = process.env;
 //CARREGANDO MODELS
 const Administrador = require('../models/Administrador');
 
+var login = true;
+
 //ROTA DE USUARIO
 router.get('/admuser', auth, (req,res)=>{
     const token = req.cookies.token;
@@ -16,7 +18,8 @@ router.get('/admuser', auth, (req,res)=>{
         Administrador.findAll().then((administrador)=>{
             var nadministrador = JSON.parse(JSON.stringify(administrador));
             res.render("admin/adm/adm", {
-                administrador: nadministrador
+                administrador: nadministrador,
+                login:login
             });
         })
     }
@@ -24,7 +27,8 @@ router.get('/admuser', auth, (req,res)=>{
         Administrador.findAll({ where: {'tb_administrador_id': decode.user_id}}).then((administrador)=>{
             var nadministrador = JSON.parse(JSON.stringify(administrador));
             res.render("admin/adm/adm", {
-                administrador: nadministrador
+                administrador: nadministrador,
+                login:login
             });
         })
     }
@@ -32,7 +36,7 @@ router.get('/admuser', auth, (req,res)=>{
 
 //ROTA PARA CARREGAR A PÁGINA PARA ADICIONAR ADMINISTRADOR
 router.get('/addadm', auth, (req, res)=>{
-    res.render('admin/adm/addadm');
+    res.render('admin/adm/addadm', {login:login});
 });
 
 //ROTA PARA CADASTRAR ADMINISTRADOR
@@ -59,7 +63,8 @@ router.get('/editaradm/:id', auth, (req, res)=>{
     }).then((adm)=>{
         var nadm = JSON.parse(JSON.stringify(adm));
         res.render("admin/adm/editadm",{
-            administrador: nadm
+            administrador: nadm,
+            login:login
         });
     })
 });
@@ -93,11 +98,11 @@ router.get('/excluiradm/:id', auth, (req,res)=>{
         Administrador.destroy({where: {tb_administrador_id: req.params.id}}).then(()=>{
             res.redirect("/admuser");
         }).catch((err)=>{
-            res.render("Ocorreu um erro "+ err);
+            res.render("Ocorreu um erro "+ err, {login:login});
         })
     }
     else{
-        res.render("admin/home_adm/home_adm", {errorMessage: "Você não tem permissão para essa ação"})
+        res.render("admin/home_adm/home_adm", {errorMessage: "Você não tem permissão para essa ação", login:login});
     }
 })
 
