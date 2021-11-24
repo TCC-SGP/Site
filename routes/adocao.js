@@ -35,7 +35,7 @@ router.get('/adocao', (req, res)=>{
 });
 
 //Rota para o formulário de adoção
-router.get('/form_adocao/:id_pet/:id_postagem', (req, res) => {
+router.get('/form_adocao/:id_pet&:id_postagem', (req, res) => {
     Pet.findAll({
         attributes: ['tb_pet_nome', 'tb_protetor_id']    ,
         where: {'tb_pet_id': req.params.id_pet}
