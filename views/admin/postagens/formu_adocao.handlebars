@@ -1,0 +1,79 @@
+
+<div class="container">
+    <center>
+        <h1>Requerimento para adoção</h1>
+        <h4>*Todos os dados são obrigatórios</h4>
+    </center>
+    <br>
+    <div>
+        <form runat="server" method="post" action="/req_adocao">
+            <center>
+                <hr>
+                {{#each pets}}
+                <h5> Seu futuro Pet: <b>{{tb_pet_nome}}</b>
+                {{/each}}
+                <br>
+                {{#each postagem}}
+                  <img class="imagens" src="{{tb_postagem_img}}" width="120px" height="120px">
+                 {{/each}}
+                    </h5>
+                        <hr>
+            </center>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="Nome">Nome</label>
+                    <input type="text" class="form-control" name="nome" placeholder="Exemplo da Silva">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="CPF">CPF</label>
+                    <input type="text" class="form-control" name="cpf" placeholder="Ex.: 000.000.000-00">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="Email">Email</label>
+                    <input type="email" class="form-control" name="email" placeholder="exemplo@gmail.com">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="Celular">Celular para contato</label>
+                    <input type="text" class="form-control" name="numero" placeholder="(99) 99999-9999" maxlength="9">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="CEP">CEP</label>
+                    <input type="text" class="form-control" name="cep" placeholder="Ex.: 00000-000" maxlength="8">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="Número">Número da residência</label>
+                    <input type="text" class="form-control" name="numero_casa">
+                </div>
+            </div>
+            <br>
+            <h5 style="text-decoration: underline;">Agora queremos saber como é o lar que receberá o {{tb_pet_nome}}
+            </h5>
+            <br>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="CEP">Digite o número de pessoas em sua residência</label>
+                    <input type="number" class="form-control" name="cep">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="Número">Digite o número atual de pets em sua residência</label>
+                    <input type="number" class="form-control" name="numero">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Número">Fale brevemente por qual motivo decidiu adotar...</label>
+                <textarea class="form-control" rows="5">
+
+                </textarea>
+            </div>
+           
+            <br>
+
+            <button type="submit" class="btn btn-success btn-block">Realizar requerimento</button>
+        </form>
+    </div>
+</div>
+<br>
