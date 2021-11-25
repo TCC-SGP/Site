@@ -34,22 +34,32 @@ router.get('/adocao', (req, res)=>{
     });
 });
 
+var mensagem = '*Todos os dados são obrigatórios';
+
 //Rota para o formulário de adoção
-router.get('/form_adocao/:id_pet&:id_postagem', (req, res) => {
+router.get('/form_adocao/:id_pet&:id_postagem&:id_protetor', (req, res) => {
     Pet.findAll({
-        attributes: ['tb_pet_nome', 'tb_protetor_id']    ,
+        attributes: ['tb_pet_nome', 'tb_pet_id', 'tb_protetor_id']   ,
         where: {'tb_pet_id': req.params.id_pet}
     }).then((pet) => {
         Postagem.findAll({ 
-            attributes: ['tb_postagem_img'],
+            attributes: ['tb_postagem_img', 'tb_postagem_id'],
             where: {'tb_postagem_id': req.params.id_postagem}
         }).then((postagens) => {
-           var petsin = JSON.parse(JSON.stringify(pet));
-           var postagenzin = JSON.parse(JSON.stringify(postagens));
-           res.render("admin/postagens/formu_adocao", {
-               pets: petsin,
-               postagem: postagenzin
-               
+           Protetor.findAll({ 
+            attributes: ['tb_protetor_nome'],
+            where: {'tb_protetor_id': req.params.id_protetor}
+           }).then((protetors) =>{
+            var petsin = JSON.parse(JSON.stringify(pet));
+            var postagenzin = JSON.parse(JSON.stringify(postagens));
+            var protetorzin = JSON.parse(JSON.stringify(protetors));
+            res.render("admin/postagens/formu_adocao", {
+                pet: petsin,
+                postagem: postagenzin,
+                protetor:protetorzin,
+                m: mensagem
+
+            })
            })
 
         })
@@ -69,13 +79,28 @@ router.post('/req_adocao', (req, res) => {
     var numero_casa = req.body.numero_casa;
     var qtd_pets = req.body.qtd_pets;
     var qtd_pessoas = req.body.pessoas;
-    var texto = req.body.conteudo;
+    var mensagem = req.body.mensagem;
     
    
     var protetor = req.body.protetor;
     var pet = req.body.pet;
+    var postagem = req.body.postagem;
+    var nome_pet = req.body.nome_pet;
+    var nome_protetor = req.body.nome_protetor;
+    var sobrenome_protetor = req.body.sobrenome_protetor;
 
-    var conteudo = "Nome:" + nome + 
+    if(nome === "" || nome === undefined || email === "" || email === undefined || cpf === "" || cpf === undefined || numero === "" || numero === undefined || cep === "" || cep === undefined || numero_casa === "" || numero_casa === undefined ||qtd_pets === "" || qtd_pets === undefined || qtd_pessoas === "" || qtd_pessoas === undefined || mensagem === "" || mensagem === "undefined")
+    {
+        mensagem = "Preencha TODOS os dados, por favor";
+        res.redirect('/form_adocao/' + pet + '&' + postagem +'&' + protetor )
+    }
+    else
+    {
+    var conteudo = "Requerimento para adoção do Pet " + nome_pet + " cujo protetor responsável é (o)a " + nome_protetor + ' ' + sobrenome_protetor +
+                    "\n----------------------------------" +
+                    "\n Dados do requerente" +
+                    "\n----------------------------------" + 
+                    "\n Nome:" + nome + 
                    "\nCPF: " + cpf + 
                    "\nQuantidade de pessoas na residência: " + qtd_pessoas + 
                    "\nQuantidade de pets na residência: " + qtd_pets + 
@@ -83,7 +108,7 @@ router.post('/req_adocao', (req, res) => {
                    "\nNúmero: " +numero +
                    "\nCEP: " +cep +
                    "\nNúmero da Casa: " + numero_casa +
-                   "\n\nMotivo para adotar: " + texto;
+                   "\n\nMotivo para adotar: " + mensagem;
 
     var transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -95,8 +120,8 @@ router.post('/req_adocao', (req, res) => {
       
       var mailOptions = {
         from: 'testetestedasilva65a@gmail.com',
-        to: "paulobhj321@gmail.com",
-        subject: 'Solicitação de Adoção',
+        to: "Protetores.salvandoanimais@gmail.com",
+        subject: 'Requerimento de Adoção',
         text: conteudo
       };
       
@@ -108,6 +133,10 @@ router.post('/req_adocao', (req, res) => {
             res.redirect("/adocao");
         }
       });
+      
+
+    }
+    
     
 })
 
