@@ -69,12 +69,21 @@ router.post('/req_adocao', (req, res) => {
     var numero_casa = req.body.numero_casa;
     var qtd_pets = req.body.qtd_pets;
     var qtd_pessoas = req.body.pessoas;
+    var texto = req.body.conteudo;
     
    
     var protetor = req.body.protetor;
     var pet = req.body.pet;
 
-    var conteudo = "Nome:" + nome + "\n CPF: " + cpf + "\n Quantidade de pessoas na residência: " + qtd_pessoas + "\n Quantidade de pets na residência: " + qtd_pets + "\n Email: " + email + "\n  Número: " +numero;
+    var conteudo = "Nome:" + nome + 
+                   "\nCPF: " + cpf + 
+                   "\nQuantidade de pessoas na residência: " + qtd_pessoas + 
+                   "\nQuantidade de pets na residência: " + qtd_pets + 
+                   "\nEmail: " + email + 
+                   "\nNúmero: " +numero +
+                   "\nCEP: " +cep +
+                   "\nNúmero da Casa: " + numero_casa +
+                   "\n\nMotivo para adotar: " + texto;
 
     var transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -93,10 +102,10 @@ router.post('/req_adocao', (req, res) => {
       
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {
-          console.log(error);
+            console.log(error);
         } else {
-          console.log('Email sent: ' + info.response);
-
+            console.log('Email sent: ' + info.response);
+            res.redirect("/adocao");
         }
       });
     
