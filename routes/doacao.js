@@ -4,6 +4,8 @@ const auth = require('../middleware/authAdmin')
 const authDoador = require('../middleware/authDoador')
 const jwt = require('jsonwebtoken')
 const config = process.env;
+const PagSeguro = require('pagseguro-api')
+const pag = new PagSeguro(true);
 
 //CARREGANDO OS MODELS
 const Doacao = require('../models/Doacao');
@@ -110,5 +112,29 @@ router.get('/doador', authDoador, (req, res)=>{
         });
     })
 })
+
+//TESTE DE PAGAMENTO
+router.get('/testepag', (req,res)=>{
+    pag.referencia = "BRL0123"; // Idenficador da cobrança
+    pag.Descricao("Cobrança por Boleto");
+    pag.Boleto({ // Informações do Pagador
+    nome: "",
+    cpf: "", 
+    email: "", 
+    endereco: {
+        rua: "",
+        rua : "",
+        numero : "",
+        bairro : "",
+        cidade : "",
+        estado : "",
+        uf : "",
+        cep : "",
+        pais : "BR"
+    }
+    });
+
+    const cobranca = pag.Cobrar(10000);
+});
 
 module.exports = router;

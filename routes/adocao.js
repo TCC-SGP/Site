@@ -39,15 +39,12 @@ var mensagem = '*Todos os dados são obrigatórios';
 //Rota para o formulário de adoção
 router.get('/form_adocao/:id_pet&:id_postagem&:id_protetor', (req, res) => {
     Pet.findAll({
-        attributes: ['tb_pet_nome', 'tb_pet_id', 'tb_protetor_id']   ,
         where: {'tb_pet_id': req.params.id_pet}
     }).then((pet) => {
         Postagem.findAll({ 
-            attributes: ['tb_postagem_img', 'tb_postagem_id'],
             where: {'tb_postagem_id': req.params.id_postagem}
         }).then((postagens) => {
-           Protetor.findAll({ 
-            attributes: ['tb_protetor_nome'],
+           Protetor.findAll({
             where: {'tb_protetor_id': req.params.id_protetor}
            }).then((protetors) =>{
             var petsin = JSON.parse(JSON.stringify(pet));
@@ -97,10 +94,10 @@ router.post('/req_adocao', (req, res) => {
     else
     {
     var conteudo = "Requerimento para adoção do Pet " + nome_pet + " cujo protetor responsável é (o)a " + nome_protetor + ' ' + sobrenome_protetor +
-                    "\n----------------------------------" +
-                    "\n Dados do requerente" +
-                    "\n----------------------------------" + 
-                    "\n Nome:" + nome + 
+                   "\n----------------------------------" +
+                   "\nDados do requerente" +
+                   "\n----------------------------------" + 
+                   "\nNome:" + nome + 
                    "\nCPF: " + cpf + 
                    "\nQuantidade de pessoas na residência: " + qtd_pessoas + 
                    "\nQuantidade de pets na residência: " + qtd_pets + 
@@ -120,7 +117,7 @@ router.post('/req_adocao', (req, res) => {
       
       var mailOptions = {
         from: 'testetestedasilva65a@gmail.com',
-        to: "Protetores.salvandoanimais@gmail.com",
+        to: "cristiandemaria34@gmail.com",
         subject: 'Requerimento de Adoção',
         text: conteudo
       };

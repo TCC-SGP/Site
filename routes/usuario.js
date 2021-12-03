@@ -41,17 +41,23 @@ router.get('/addadm', auth, (req, res)=>{
 
 //ROTA PARA CADASTRAR ADMINISTRADOR
 router.post('/cadadm', auth, (req, res)=>{
-    Administrador.create({
-        tb_administrador_nome: req.body.nome,
-        tb_administrador_sobrenome: req.body.sobrenome,
-        tb_administrador_email: req.body.email,
-        tb_administrador_usuario: req.body.usuario,
-        tb_administrador_senha: req.body.senha
-    }).then(()=>{
-        res.redirect("/admuser");
-    }).catch((erro)=>{
-        res.send("Houve um erro "+ erro);
-    })
+    console.log(req.body.nome);
+    if(!req.body.nome || !req.body.sobrenome || !req.body.email || !req.body.usuario || !req.body.senha){
+        res.render('admin/adm/addadm', {login:login, errorMessage: "Todos os campos são obrigatórios"})
+    }
+    else{
+        Administrador.create({
+            tb_administrador_nome: req.body.nome,
+            tb_administrador_sobrenome: req.body.sobrenome,
+            tb_administrador_email: req.body.email,
+            tb_administrador_usuario: req.body.usuario,
+            tb_administrador_senha: req.body.senha
+        }).then(()=>{
+            res.redirect("/admuser");
+        }).catch((erro)=>{
+            res.send("Houve um erro "+ erro);
+        })
+    }
 });
 
 //ROTA PARA CARREGAR A PÁGINA DE EDIÇÃO DE ADIMINISTRADOR
