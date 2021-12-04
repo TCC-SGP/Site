@@ -67,20 +67,8 @@ router.get('/addpostagem', auth, (req, res)=>{
 //ROTA DO BOTÃO ADICIONAR POSTAGENS
 router.post('/cadpostagem', auth, upload.single('img'), (req, res, next)=>{
     var path = req.file;
-    if(path == null || path == undefined || path == ""){
-        Postagem.create({
-            tb_tipopostagem_id: req.body.tipoPostagem,
-            tb_administrador_id: req.body.administrador,
-            tb_pet_id: req.body.pet,
-            tb_protetor_id: req.body.protetor,
-            tb_postagem_titulo: req.body.titulo,
-            tb_postagem_conteudo: req.body.conteudo,
-            tb_postagem_img: "..\\public\\img\\Logo.png"
-        }).then(()=>{
-            res.redirect("/admpostagem");
-        }).catch((erro)=>{
-            res.send("Houve um erro " + erro);
-        });
+    if(path == null || path == undefined || path == "" || !req.body.titulo || !req.body.conteudo){
+        res.send("TODOS OS CAMPOS SÃO OBRIGATÓRIOS <a href='/addpostagem'>Voltar</a>");
     }
     else
     {

@@ -1,9 +1,11 @@
 <div class="container">
     <h1>Realize sua postagem!</h1><br>
     <br>
+    <h2>{{{errorMessage}}}</h2>
+    <a href="/admpostagem" style="color: ivory" class="btn btn-success btn">Votlar</a>
     <br>
-    <div id="status" class="invisible">{{{errormessage}}}</div>
-        <form runat="server" class="form-group row" action="/cadpostagem" method="post" enctype="multipart/form-data">            
+    <br>    
+        <form runat="server" class="form-group row" action="/cadpostagem" method="post" enctype="multipart/form-data">        
             <div class="col-md-7">
                 <input accept="image/*" type="file" name="img" id="imgInp">
                 <br><br>
