@@ -1,4 +1,8 @@
 
+
+
+<script>
+</script>
 <div class="container">
     <center>
         <h1>Requerimento para adoção</h1>
@@ -21,11 +25,11 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="Nome">Nome</label>
-                    <input type="text" class="form-control" name="nome" placeholder="Exemplo da Silva">
+                    <input type="text" class="form-control " name="nome" placeholder="Exemplo da Silva" minlength="5">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="CPF">CPF</label>
-                    <input type="text" class="form-control" name="cpf" placeholder="Ex.: 000.000.000-00">
+                    <input type="text" id="cpf" class="form-control cpf" name="cpf" data-mask="000.000.000-00" data-mask-reverse="true" placeholder="Ex.: 000.000.000-00">
                 </div>
             </div>
             <div class="form-row">
@@ -35,17 +39,17 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="Celular">Celular para contato</label>
-                    <input type="text" class="form-control" name="numero" placeholder="(99) 99999-9999" maxlength="9">
+                    <input type="text"  class="form-control" name="numero" placeholder="99 99999-9999" data-mask="00 00000-0000" data-mask-reverse="true">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="CEP">CEP</label>
-                    <input type="text" class="form-control" name="cep" placeholder="Ex.: 00000-000" maxlength="8">
+                    <input type="text" id="cep" class="form-control cep" name="cep"  data-mask="00000-000" data-mask-reverse="true" placeholder="Ex.: 00000-000" maxlength="8">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="Número">Número da residência</label>
-                    <input type="text" class="form-control" name="numero_casa">
+                    <input type="text" class="form-control" name="numero_casa" minlength="0" data-mask="0000" data-mask-reverse="true">
                 </div>
             </div>
             <br>
@@ -55,7 +59,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="CEP">Digite o número de pessoas em sua residência</label>
-                    <input type="number" class="form-control" name="pessoas">
+                    <input type="number" class="form-control" name="pessoas" >
                 </div>
                 <div class="form-group col-md-6">
                     <label for="Número">Digite o número atual de pets em sua residência</label>
