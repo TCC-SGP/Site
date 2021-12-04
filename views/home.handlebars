@@ -1,4 +1,4 @@
-<div id="carouselExampleIndicators" class="carousel slide " data-ride="carousel" >
+<div id="carouselExampleIndicators" class="carousel slide " data-ride="carousel">
   <ol class="carousel-indicators">
     <li style="background-color: #28784d;" data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
     </li>
@@ -7,7 +7,8 @@
   </ol>
   <div class="carousel-inner" height="">
     <div class="carousel-item active">
-      <img class="d-block w-100" src="https://via.placeholder.com/1080x500" height="500" alt="First slide" height="70px">
+      <img class="d-block w-100" src="https://via.placeholder.com/1080x500" height="500" alt="First slide"
+        height="70px">
       <div class="carousel-caption d-none d-md-block">
         <h1>Seja bem vindo!</h1>
         <p>Saiba mais sobre nós.</p>
@@ -57,7 +58,7 @@
 <div class="container linha">
 </div>
 <br>
-<h2 align="center">Postagens</h2>
+<h2 align="center">Ajude-nos! Adote ou Apadrinhe</h2>
 <br>
 <div class="container">
   <div class="row mb-5">
@@ -67,16 +68,19 @@
         <div class="col-sm-4">
           <img class="imagens" src="{{tb_postagem_img}}" width="120px" height="120px">
         </div>
-        <div class="col-sm">
+        <div class="col-sm-7">
           <h5>{{tb_postagem_titulo}}</h5>
-          <p style="max-width: 100px;
+          <p style="max-width: 300px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;">
             {{tb_postagem_conteudo}}
           </p>
           <div class="text-center">
-            <button class="btn btn-sm btn-danger">Botão</button>
+            <div class="text-center">
+              <a class="btn btn-sm btn-danger" href="/form_adocao/{{tb_pet_id}}&{{tb_postagem_id}}&{{tb_protetor_id}}" style="background-color:rgb(64, 209, 209); color:white; border-color:rgb(64, 209, 209)">
+                Adotar </a>
+            </div>
           </div>
         </div>
       </div>
@@ -95,16 +99,17 @@
         <div class="col-sm-4">
           <img class="imagens" src="{{tb_postagem_img}}" width="120px" height="120px">
         </div>
-        <div class="col-sm">
+        <div class="col-sm-7">
           <h5>{{tb_postagem_titulo}}</h5>
-          <p style="max-width: 100px;
+          <p style="max-width:300px;
+          max-height:min-content;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;">
             {{tb_postagem_conteudo}}
           </p>
           <div class="text-center">
-            <button class="btn btn-sm btn-danger">Botão</button>
+            <button class="btn btn-sm btn-danger" style="background-color:rgb(4, 99, 99); color:white; border-color:rgb(4, 99, 99)">Botão</button>
           </div>
         </div>
       </div>
@@ -125,9 +130,9 @@
     <div class="col-md-8">
       <h2>{{tb_postagem_titulo}}</h2>
       <br>
-      <p >{{tb_postagem_conteudo}}
+      <p>{{tb_postagem_conteudo}}
       </p>
     </div>
-  </div> 
+  </div>
   {{/each}}
 </div>
