@@ -41,6 +41,13 @@ const hbs = handlebars.create({
                 aux = false;
             return aux ;
         },
+        estado: function(value){
+            if(value === "PAGO")
+                aux = true;
+            else
+                aus = false;
+            return aux;
+        },
         verificaAdm: function(value){
             if(value === 1)
                 aux = true;

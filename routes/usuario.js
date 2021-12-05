@@ -44,14 +44,12 @@ router.post('/cadadm', auth, (req, res)=>{
     console.log(req.body.nome);
     Administrador.findAll({where: {'tb_administrador_usuario': req.body.usuario}}).then((adm)=>{
         nadm = JSON.parse(JSON.stringify(adm));
-
+        console.log(nadm)
+        
         if(!req.body.nome || !req.body.sobrenome || !req.body.email || !req.body.usuario || !req.body.senha){
             res.render('admin/adm/addadm', {login:login, errorMessage: "Todos os campos são obrigatórios"})
         }
-        else if(req.body.usuario == nadm[0].tb_administrador_usuario){
-            res.render('admin/adm/addadm', {login: login, errorMessage: "Esse usuário já existe"});
-        }
-        else{
+        if(nadm[0] === undefined) {
             Administrador.create({
                 tb_administrador_nome: req.body.nome,
                 tb_administrador_sobrenome: req.body.sobrenome,
@@ -63,6 +61,12 @@ router.post('/cadadm', auth, (req, res)=>{
             }).catch((erro)=>{
                 res.send("Houve um erro "+ erro);
             })
+        }
+        else if(req.body.usuario == nadm[0].tb_administrador_usuario){
+            res.render('admin/adm/addadm', {login: login, errorMessage: "Esse usuário já existe"});
+        }
+        else{
+            res.render("Ocorreu um erro");
         }
         
     })

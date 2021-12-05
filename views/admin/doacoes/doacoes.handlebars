@@ -36,6 +36,7 @@
                 <th scope="col">Quantia</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Encaminhar</th>
+                <th scope="col">Validar Pagamento</th>
             </tr>
         </thead>
         <tbody>
@@ -55,6 +56,17 @@
                     </center>
                     {{else}}
                     
+                    {{/if}}
+                </td>
+                <td>
+                    {{#if (estado tb_doacao_estado )}}
+                        <center>
+                            <a class="btn-primary btn" href="" disabled="true" style="pointer-events: none;">Validar</a>
+                        </center>
+                    {{else}}
+                        <center>
+                            <a class="btn-primary btn" href="">Validar</a>
+                        </center>
                     {{/if}}
                 </td>
             </tr>
