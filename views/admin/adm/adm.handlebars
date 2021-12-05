@@ -4,8 +4,13 @@
     <a href="/home_adm" style="color: ivory" class="btn btn-success">Voltar</a>
     <br>
     <br>
-    <h3>Cadastrar um novo Administrador</h3>
-    <a href="/addadm" style="color: ivory" class="btn btn-success btn-block">Cadastrar</a>
+    {{#each administrador}}
+        {{#if (verificaAdm tb_administrador_id)}}
+        <h3>Cadastrar um novo Administrador</h3>
+        <a href="/addadm" style="color: ivory" class="btn btn-success btn-block">Cadastrar</a>
+        {{else}}
+        {{/if}}
+    {{/each}}
     <br>
     <br>
     <table class="table table-bordered table-responsive-sm">

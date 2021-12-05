@@ -44,12 +44,9 @@
       Quem somos e o que fazemos?
     </h1>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu metus laoreet,
-      vestibulum urna non, eleifend magna. Curabitur nec enim eu lorem mollis ornare.
-      Maecenas convallis varius felis ac consectetur. Sed rhoncus eu diam vitae tristique.
-      Morbi consequat purus in cursus mollis. Sed aliquet dapibus accumsan. Phasellus lacus sapien,
-      suscipit eget faucibus vel, luctus id sapien. Vestibulum viverra tempor turpis sed maximus.
-      Nullam tristique ac augue vitae posuere.
+      Nossa ONG foi fundada pela Carol (Sobrenome), em 2016, com o objetivo de ajudar os animais carentes de Santana de Parnaíba. 
+      Composta por um total de 7 protetores que dedicam seu tempo livre cuidando dos animais que foram abandonados antes e durante a pandemia, 
+      dando a cada um deles a possibilidade de serem cuidados ou adotados e irem para um lar onde serão amados e tratados como merecem.
     </p>
   </center>
 </div>
@@ -70,22 +67,22 @@
         <div class="col-sm">
           <h5>{{tb_postagem_titulo}}</h5>
           <p style="max-width: 100px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;">
+           overflow: hidden;
+           text-overflow: ellipsis;
+           white-space: nowrap;">
             {{tb_postagem_conteudo}}
           </p>
-          <div class="text-center">
-            <button class="btn btn-sm btn-danger">Botão</button>
-          </div>
         </div>
       </div>
+      <br>
+      <div class="text-center">
+            <a href="/form_adocao/{{tb_pet_id}}&{{tb_postagem_id}}&{{tb_protetor_id}}" class="btn btn-sm btn-block btn-success">Adote</a>
+          </div>
     </div>
     {{/each}}
-
   </div>
 
-
+  <hr>
   <div class="w-100"></div>
 
   <div class="row mb-5">
@@ -98,15 +95,16 @@
         <div class="col-sm">
           <h5>{{tb_postagem_titulo}}</h5>
           <p style="max-width: 100px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;">
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;">
             {{tb_postagem_conteudo}}
           </p>
-          <div class="text-center">
-            <button class="btn btn-sm btn-danger">Botão</button>
-          </div>
         </div>
+      </div>
+      <br>
+      <div class="text-center">
+            <button class="btn btn-sm btn-block btn-success">Apadrinhe</button>
       </div>
     </div>
     {{/each}}
@@ -129,5 +127,6 @@
       </p>
     </div>
   </div> 
+  <hr>
   {{/each}}
 </div>

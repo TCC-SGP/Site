@@ -13,7 +13,6 @@ router.get('/login', (req, res) => {
 
 //ROTA DE VALIDAÇÃO DO LOGIN
 router.post('/loginauth', (req, res) => {
-    var login = true;
     var usuario = req.body.usuario;
     var senha = req.body.senha;
     var identificador = req.body.identificador;

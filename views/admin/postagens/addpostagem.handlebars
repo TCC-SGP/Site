@@ -36,19 +36,11 @@
                         <h5>Pet:</h5>
                         <select class="custom-select" name="pet" id="">
                             {{#each pet}}
-                            <option value="{{tb_pet_id}}">{{tb_pet_nome}}</option>
-                            {{else}}
-                            <option value="0">Nenhuma postagem cadastrado</option>
-                            {{/each}}
-                        </select>
-                    </div>
-                    <div class="col">
-                        <h5>Portador do Pet:</h5>
-                        <select class="custom-select" name="protetor" id="">
-                            {{#each protetor}}
-                            <option value="{{tb_protetor_id}}">{{tb_protetor_nome}}</option>
-                            {{else}}
-                            <option value="0">Nenhum protetor cadastrado</option>
+                                {{#if tb_protetor_id}}
+                                <option value="{{tb_pet_id}}">{{tb_pet_nome}}</option>
+                                {{else}}
+                                <option value="0">Nenhuma postagem cadastrado</option>
+                                {{/if}}
                             {{/each}}
                         </select>
                     </div>
@@ -57,6 +49,7 @@
                 <input class="form-control" placeholder="Título da Postagem" type="text" name="titulo">
                 <br>
                 <textarea placeholder="Conteúdo da sua postagem" class="form-control" type="text" name="conteudo" widht="300" rows="7"></textarea><br><br>
+                <input type="hidden" value="{{protetor}}" name="protetor">
                 <input class="btn btn-block btn-success" type="submit" value="Fazer Postagem">
                 <br><br>
             </div>

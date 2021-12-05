@@ -31,6 +31,10 @@ const Doacao = db.sequelize.define('TB_DOACAO', {
     tb_doacao_quantia: {
         type: db.Sequelize.DECIMAL,
         allowNull: true
+    },
+    tb_doacao_estado: {
+        type: db.Sequelize.TEXT,
+        allowNull: false
     }
 }, { freezeTableName: true });
 

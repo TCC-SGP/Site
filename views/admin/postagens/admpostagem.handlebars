@@ -24,15 +24,16 @@
     </div>
     <br>
     <h3>Adicionar postagem</h3>
-    <a href="/addpostagem" class="btn btn-success btn-block" style="color: ivory;">Cadastrar</a>
+    <a href="/getProtetor" class="btn btn-success btn-block" style="color: ivory;">Cadastrar</a>
     <br>
     <br>
     <table class="table table-bordered table-responsive-sm">
         <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Título</th>
+                <th scope="col">Administrador</th>
                 <th scope="col">Tipo Postagem</th>
+                <th scope="col">Título</th>
                 <th scope="col">Conteúdo</th>
                 <th scope="col">IMG</th>
                 <th scope="col">Editar</th>
@@ -42,21 +43,22 @@
         <tbody>
             {{#each postagem}}
             <tr>
-                <th scope="row">{{tb_postagem_id}}</th>
-                <td>{{tb_postagem_titulo}}</td>
-                <td>{{tb_tipopostagem_id}}</td>
-                <td>{{tb_postagem_conteudo}}</td>
-                <td><img src="{{tb_postagem_img}}" width="100px" height="100px" /></td>
+                <th scope="row">{{ID}}</th>
+                <td>{{ADMINISTRADOR}}</td>
+                <td>{{TIPOPOSTAGEM}}</td>
+                <td>{{TITULO}}</td>
+                <td>{{CONTEUDO}}</td>
+                <td><img src="{{IMG}}" width="100px" height="100px" /></td>
                 <td>
                     <center>
-                        <a type="button" class="btn-primary btn" href="/editarpostagem/{{tb_postagem_id}}"
+                        <a type="button" class="btn-primary btn" href="/editarpostagem/{{ID}}"
                             disabled="true">Editar</a>
                     </center>
                 </td>
                 <td>
                     <center>
                         <a type="button" class="btn-primary btn" style="background-color:red; border-color:red"
-                            href="/excluirpostagem/{{tb_postagem_id}}" disabled="true">Excluir</a>
+                            href="/excluirpostagem/{{ID}}" disabled="true">Excluir</a>
                     </center>
                 </td>
             </tr>

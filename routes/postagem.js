@@ -25,6 +25,7 @@ const Tipopostagem = require('../models/TipoPostagem');
 const Administrador = require('../models/Administrador');
 const Pet = require('../models/Pet');
 const Protetor = require('../models/Protetor');
+const { route } = require('./admin');
 
 var login = true;
 
@@ -38,16 +39,24 @@ router.get('/postagem', (req, res)=>{
     });
 });
 
+//ROTA PARA ADICIONAR O PROTETOR CUJO QUAL É DONO DO PET RELACIONADO A POSTAGEM
+router.get('/getProtetor', auth, (req, res)=>{
+    Protetor.findAll().then((protetor)=>{
+        var nprotetor = JSON.parse(JSON.stringify(protetor));
+
+        res.render("admin/postagens/getProtetor", {login:login, protetor: nprotetor});
+    })
+});
+
 //ROTA DE CARREGAR A PÁGINA PARA ADC POSTAGENS
-router.get('/addpostagem', auth, (req, res)=>{
+router.get('/addpostagem/:id', auth, (req, res)=>{
     const token = req.cookies.token;
     var decode = jwt.verify(token, config.TOKEN_KEY);
+    var id_protetor = req.params.id;
 
     Tipopostagem.findAll().then((tipopstagem)=>{
         Administrador.findAll({where:{'tb_administrador_id': decode.user_id}}).then((administrador)=>{
-            Pet.findAll().then((pet)=>{
-              Protetor.findAll().then((protetores)=>{
-                var nprotetor = JSON.parse(JSON.stringify(protetores));
+            Pet.findAll({where:{'tb_protetor_id': id_protetor}}).then((pet)=>{
                 var ntipopostagem = JSON.parse(JSON.stringify(tipopstagem));
                 var nadministrador = JSON.parse(JSON.stringify(administrador));
                 var npet = JSON.parse(JSON.stringify(pet));
@@ -55,18 +64,19 @@ router.get('/addpostagem', auth, (req, res)=>{
                     tPostagem: ntipopostagem,
                     administrador: nadministrador,
                     pet: npet,
-                    protetor: nprotetor,
+                    protetor: id_protetor,
                     login:login
-                 });
-              });  
+                });
             });
         });
     });
 })
 
+
 //ROTA DO BOTÃO ADICIONAR POSTAGENS
 router.post('/cadpostagem', auth, upload.single('img'), (req, res, next)=>{
     var path = req.file;
+    console.log(req.body.protetor);
     if(path == null || path == undefined || path == "" || !req.body.titulo || !req.body.conteudo){
         res.send("TODOS OS CAMPOS SÃO OBRIGATÓRIOS <a href='/addpostagem'>Voltar</a>");
     }
@@ -95,12 +105,12 @@ router.get('/editarpostagem/:id', auth, (req, res)=>{
 
     if(decode.user_id == 1){
         Postagem.findAll({ where: {'tb_postagem_id': req.params.id }}).then((postagens)=>{
-            Tipopostagem.findAll().then((tipoPostagens)=>{
+            var npostagens = JSON.parse(JSON.stringify(postagens));
+            Tipopostagem.findAll({where: {'tb_tipopostagem_id': npostagens[0].tb_tipopostagem_id}}).then((tipoPostagens)=>{
                 Administrador.findAll().then((administradores)=>{
-                    Pet.findAll().then((pets)=>{
-                        Protetor.findAll().then((protetor)=>{
+                    Pet.findAll({where: {'tb_pet_id': npostagens[0].tb_pet_id}}).then((pets)=>{
+                        Protetor.findAll({where: {'tb_protetor_id': npostagens[0].tb_protetor_id}}).then((protetor)=>{
                             var nprotetor = JSON.parse(JSON.stringify(protetor));
-                            var npostagens = JSON.parse(JSON.stringify(postagens));
                             var ntipopostagens = JSON.parse(JSON.stringify(tipoPostagens));
                             var nadministradores = JSON.parse(JSON.stringify(administradores));
                             var npets = JSON.parse(JSON.stringify(pets));
@@ -121,18 +131,18 @@ router.get('/editarpostagem/:id', auth, (req, res)=>{
     }
     else{
         Postagem.findAll({ where: {'tb_postagem_id': req.params.id }}).then((postagens)=>{
-            Tipopostagem.findAll().then((tipoPostagens)=>{
+            var npostagem = JSON.parse(JSON.stringify(postagens));
+            Tipopostagem.findAll({where: {'tb_tipopostagem_id': npostagem[0].tb_tipopostagem_id}}).then((tipoPostagens)=>{
                 Administrador.findAll({where:{'tb_administrador_id': decode.user_id}}).then((administradores)=>{
-                    Pet.findAll().then((pets)=>{
-                        Protetor.findAll().then((protetor)=>{
+                    Pet.findAll({where: {'tb_pet_id': npostagem[0].tb_pet_id}}).then((pets)=>{
+                        Protetor.findAll({where:{'tb_protetor_id':npostagem[0].tb_protetor_id}}).then((protetor)=>{
                             var nprotetor = JSON.parse(JSON.stringify(protetor));
-                            var npostagens = JSON.parse(JSON.stringify(postagens));
                             var ntipopostagens = JSON.parse(JSON.stringify(tipoPostagens));
                             var nadministradores = JSON.parse(JSON.stringify(administradores));
                             var npets = JSON.parse(JSON.stringify(pets));
                             
                             res.render("admin/postagens/editpostagem", {
-                                postagem: npostagens,
+                                postagem: npostagem,
                                 tipoPostagem: ntipopostagens,
                                 administrador: nadministradores,
                                 pet: npets,
@@ -206,7 +216,26 @@ router.get('/admpostagem', auth, (req, res)=>{
     const decode = jwt.verify(token, config.TOKEN_KEY);
     if(decode.user_id == 1)
     {
-        Postagem.findAll().then((postagens) => {
+        Postagem.sequelize.query("SELECT P.TB_POSTAGEM_ID AS ID,\
+        A.TB_ADMINISTRADOR_NOME AS ADMINISTRADOR,\
+        POST.TB_TIPOPOSTAGEM_TIPO AS TIPOPOSTAGEM,\
+        PET.TB_PET_NOME AS PET,\
+        PR.TB_PROTETOR_NOME AS PROTETOR,\
+        P.TB_POSTAGEM_TITULO AS TITULO,\
+        P.TB_POSTAGEM_CONTEUDO AS CONTEUDO,\
+        P.TB_POSTAGEM_IMG AS IMG\
+        FROM TB_POSTAGEM AS P\
+        INNER JOIN TB_ADMINISTRADOR AS A\
+        ON P.TB_ADMINISTRADOR_ID = A.TB_ADMINISTRADOR_ID\
+        INNER JOIN TB_TIPOPOSTAGEM AS POST\
+        ON P.TB_TIPOPOSTAGEM_ID = POST.TB_TIPOPOSTAGEM_ID\
+        INNER JOIN TB_PET AS PET\
+        ON P.TB_PET_ID = PET.TB_PET_ID\
+        INNER JOIN TB_PROTETOR AS PR\
+        ON P.TB_PROTETOR_ID = PR.TB_PROTETOR_ID\
+        ORDER BY ID;",{
+            model:Postagem
+        }).then((postagens) => {
             Tipopostagem.findAll().then((tipopostagem)=>{
                 var ntipopostagem = JSON.parse(JSON.stringify(tipopostagem));
                 var npostagem = JSON.parse(JSON.stringify(postagens));
@@ -220,7 +249,26 @@ router.get('/admpostagem', auth, (req, res)=>{
         });
     }
     else{
-        Postagem.findAll({ where: {'tb_administrador_id': decode.user_id}}).then((postagens) => {
+        Postagem.sequelize.query("SELECT P.TB_POSTAGEM_ID AS ID,\
+        A.TB_ADMINISTRADOR_NOME AS ADMINISTRADOR,\
+        POST.TB_TIPOPOSTAGEM_TIPO AS TIPOPOSTAGEM,\
+        PET.TB_PET_NOME AS PET,\
+        PR.TB_PROTETOR_NOME AS PROTETOR,\
+        P.TB_POSTAGEM_TITULO AS TITULO,\
+        P.TB_POSTAGEM_CONTEUDO AS CONTEUDO,\
+        P.TB_POSTAGEM_IMG AS IMG\
+        FROM TB_POSTAGEM AS P\
+        INNER JOIN TB_ADMINISTRADOR AS A\
+        ON P.TB_ADMINISTRADOR_ID = A.TB_ADMINISTRADOR_ID\
+        INNER JOIN TB_TIPOPOSTAGEM AS POST\
+        ON P.TB_TIPOPOSTAGEM_ID = POST.TB_TIPOPOSTAGEM_ID\
+        INNER JOIN TB_PET AS PET\
+        ON P.TB_PET_ID = PET.TB_PET_ID\
+        INNER JOIN TB_PROTETOR AS PR\
+        ON P.TB_PROTETOR_ID = PR.TB_PROTETOR_ID\
+        WHERE P.TB_ADMINISTRADOR_ID = "+ decode.user_id + " ORDER BY ID",{
+            model: Postagem
+        }).then((postagens) => {
             Tipopostagem.findAll().then((tipopostagem)=>{
                 var ntipopostagem = JSON.parse(JSON.stringify(tipopostagem));
                 var npostagem = JSON.parse(JSON.stringify(postagens));
@@ -241,7 +289,26 @@ router.get('/admpostagem/:id', auth, (req, res)=>{
     const decode = jwt.verify(token, config.TOKEN_KEY);
 
     if(decode.user_id == 1){
-        Postagem.findAll({where: {'tb_tipopostagem_id': req.params.id}}).then((postagens)=>{
+        Postagem.sequelize.query("SELECT P.TB_POSTAGEM_ID AS ID,\
+        A.TB_ADMINISTRADOR_NOME AS ADMINISTRADOR,\
+        POST.TB_TIPOPOSTAGEM_TIPO AS TIPOPOSTAGEM,\
+        PET.TB_PET_NOME AS PET,\
+        PR.TB_PROTETOR_NOME AS PROTETOR,\
+        P.TB_POSTAGEM_TITULO AS TITULO,\
+        P.TB_POSTAGEM_CONTEUDO AS CONTEUDO,\
+        P.TB_POSTAGEM_IMG AS IMG\
+        FROM TB_POSTAGEM AS P\
+        INNER JOIN TB_ADMINISTRADOR AS A\
+        ON P.TB_ADMINISTRADOR_ID = A.TB_ADMINISTRADOR_ID\
+        INNER JOIN TB_TIPOPOSTAGEM AS POST\
+        ON P.TB_TIPOPOSTAGEM_ID = POST.TB_TIPOPOSTAGEM_ID\
+        INNER JOIN TB_PET AS PET\
+        ON P.TB_PET_ID = PET.TB_PET_ID\
+        INNER JOIN TB_PROTETOR AS PR\
+        ON P.TB_PROTETOR_ID = PR.TB_PROTETOR_ID\
+        WHERE POST.TB_TIPOPOSTAGEM_ID = " + req.params.id + " ORDER BY ID",{
+            model: Postagem
+        }).then((postagens)=>{
             Tipopostagem.findAll().then((tipopostagem)=>{
                 var ntipopostagem = JSON.parse(JSON.stringify(tipopostagem));
                 var npostagem = JSON.parse(JSON.stringify(postagens));
@@ -254,7 +321,28 @@ router.get('/admpostagem/:id', auth, (req, res)=>{
         })
     }
     else{
-        Postagem.findAll({where: {'tb_administrador_id': decode.user_id, 'tb_tipopostagem_id': req.params.id}}).then((postagens)=>{
+        Postagem.sequelize.query("SELECT P.TB_POSTAGEM_ID AS ID,\
+        A.TB_ADMINISTRADOR_NOME AS ADMINISTRADOR,\
+        POST.TB_TIPOPOSTAGEM_TIPO AS TIPOPOSTAGEM,\
+        PET.TB_PET_NOME AS PET,\
+        PR.TB_PROTETOR_NOME AS PROTETOR,\
+        P.TB_POSTAGEM_TITULO AS TITULO,\
+        P.TB_POSTAGEM_CONTEUDO AS CONTEUDO,\
+        P.TB_POSTAGEM_IMG AS IMG\
+        FROM TB_POSTAGEM AS P\
+        INNER JOIN TB_ADMINISTRADOR AS A\
+        ON P.TB_ADMINISTRADOR_ID = A.TB_ADMINISTRADOR_ID\
+        INNER JOIN TB_TIPOPOSTAGEM AS POST\
+        ON P.TB_TIPOPOSTAGEM_ID = POST.TB_TIPOPOSTAGEM_ID\
+        INNER JOIN TB_PET AS PET\
+        ON P.TB_PET_ID = PET.TB_PET_ID\
+        INNER JOIN TB_PROTETOR AS PR\
+        ON P.TB_PROTETOR_ID = PR.TB_PROTETOR_ID\
+        WHERE P.TB_ADMINISTRADOR_ID = "+ decode.user_id + 
+        " AND POST.TB_TIPOPOSTAGEM_ID = "+ req.params.id
+        +" ORDER BY ID",{
+            model: Postagem
+        }).then((postagens)=>{
             Tipopostagem.findAll().then((tipopostagem)=>{
                 var ntipopostagem = JSON.parse(JSON.stringify(tipopostagem));
                 var npostagem = JSON.parse(JSON.stringify(postagens));
