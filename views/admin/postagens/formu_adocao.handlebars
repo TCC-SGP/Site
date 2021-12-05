@@ -1,4 +1,5 @@
 
+
 <div class="container">
     <center>
         <h1>Requerimento para adoção</h1>
@@ -13,74 +14,86 @@
                 {{/each}}
                 <br>
                 {{#each postagem}}
-                  <img class="imagens" src="{{tb_postagem_img}}" width="120px" height="120px">
-                 {{/each}}
-                
+                <img class="imagens" src="{{tb_postagem_img}}" width="120px" height="120px">
+                <br>
+                <br>
+                <h5 style="width:500px; text-align:left;">{{tb_postagem_conteudo}}</h5>
+                {{/each}}
+
             </center>
-             <br>
+            <br>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="Nome">Nome</label>
-                    <input type="text" class="form-control" name="nome" placeholder="Exemplo da Silva">
+                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Exemplo da Silva"
+                        minlength="5" required="true">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="CPF">CPF</label>
-                    <input type="text" class="form-control" name="cpf" placeholder="Ex.: 000.000.000-00">
+                    <input type="text" id="cpf" class="form-control cpf" name="cpf" data-mask="000.000.000-00"
+                        data-mask-reverse="true" placeholder="Ex.: 000.000.000-00" required="true">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="Email">Email</label>
-                    <input type="email" class="form-control" name="email" placeholder="exemplo@gmail.com">
+                    <input type="email" id="email" class="form-control" name="email" placeholder="exemplo@gmail.com" required="true">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="Celular">Celular para contato</label>
-                    <input type="text" class="form-control" name="numero" placeholder="(99) 99999-9999" maxlength="9">
+                    <input type="text" id="numero" class="form-control" name="numero" placeholder="99 99999-9999"
+                        data-mask="00 00000-0000" data-mask-reverse="true" required="true">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="CEP">CEP</label>
-                    <input type="text" class="form-control" name="cep" placeholder="Ex.: 00000-000" maxlength="8">
+                    <input type="text" id="cep" class="form-control cep" name="cep" data-mask="00000-000"
+                        data-mask-reverse="true" placeholder="Ex.: 00000-000" maxlength="8" required="true">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="Número">Número da residência</label>
-                    <input type="text" class="form-control" name="numero_casa">
+                    <input type="text" id="numero_casa" class="form-control" name="numero_casa" minlength="0"
+                        data-mask="0000" data-mask-reverse="true" required="true">
                 </div>
             </div>
             <br>
-            <h5 style="text-decoration: underline;">Agora queremos saber como é o lar que receberá o {{#each pet}} {{tb_pet_nome}} {{/each}}.
+            <h5 style="text-decoration: underline;">Agora queremos saber como é o lar que receberá o {{#each pet}}
+                {{tb_pet_nome}} {{/each}}.
             </h5>
             <br>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="CEP">Digite o número de pessoas em sua residência</label>
-                    <input type="number" class="form-control" name="pessoas">
+                    <label for="Pessoas">Digite o número de pessoas em sua residência</label>
+                    <input type="number" id="pessoas" class="form-control" name="pessoas" required="true">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="Número">Digite o número atual de pets em sua residência</label>
-                    <input type="number" class="form-control" name="qtd_pets">
+                    <input type="number" id="qtd_pets" class="form-control" name="qtd_pets" required="true">
                 </div>
             </div>
             <div class="form-group">
                 <label for="Número">Fale brevemente por qual motivo decidiu adotar...</label>
-                <textarea class="form-control" rows="5" type="text" name="mensagem" placeholder="Conteúdo da mensagem"></textarea>
+                <textarea class="form-control" id="mensagem" rows="5" type="text" name="mensagem"
+                    placeholder="Conteúdo da mensagem" required="true"></textarea>
             </div>
-           
+
             <br>
             {{#each pet}}
-                <input type="hidden" name="pet" value="{{tb_pet_id}}">
-                <input type="hidden" name="protetor" value="{{tb_protetor_id}}">
-                <input type="hidden" name="nome_pet" value="{{tb_pet_nome}}">
+            <input type="hidden" name="pet" value="{{tb_pet_id}}">
+            <input type="hidden" name="protetor" value="{{tb_protetor_id}}">
+            <input type="hidden" name="nome_pet" value="{{tb_pet_nome}}">
             {{/each}}
             {{#each postagem}}
-                <input type="hidden" name="postagem" value="{{tb_postagem_id}}">
+            <input type="hidden" name="postagem" value="{{tb_postagem_id}}">
             {{/each}}
             {{#each protetor}}
-                <input type="hidden" name="nome_protetor" value="{{tb_protetor_nome}}">
-                <input type="hidden" name="sobrenome_protetor" value="{{tb_protetor_sobrenome}}">
+            <input type="hidden" name="nome_protetor" value="{{tb_protetor_nome}}">
+            <input type="hidden" name="sobrenome_protetor" value="{{tb_protetor_sobrenome}}">
             {{/each}}
-            <button type="submit" class="btn btn-success btn-block">Realizar requerimento</button>
+            <button id="conferir" class="btn btn-success btn-block">Realizar requerimento</button>
+
+
         </form>
     </div>
 </div>

@@ -7,15 +7,15 @@
             <div class="col-md-7">
                 {{#each postagem}}
                 <h5>ID:</h5>
-                <input class="form-control" type="text" name="id" readonly="true" value="{{tb_postagem_id}}">
+                <input class="form-control" type="text" name="id" readonly="true" value="{{tb_postagem_id}}" required="true">
                 {{/each}}
                 <br>
-                <input accept="image/*" type="file" name="img" id="imgInp">
+                <input accept="image/*" type="file" name="img" id="imgInp" required="true">
                 <br>
                 <div class="row">
                     <div class="col">
                         <h5>Tipo de Postagem:</h5>
-                        <select class="custom-select" name="tipoPostagem" id="">
+                        <select class="custom-select" name="tipoPostagem" id="" required="true">
                             {{#each tipoPostagem}}
                             <option value="{{tb_tipopostagem_id}}">{{tb_tipopostagem_tipo}}</option>
                             {{else}}
@@ -25,7 +25,7 @@
                     </div>
                     <div class="col">
                         <h5>Administrador:</h5>
-                        <select class="custom-select" name="adiministrador" id="">
+                        <select class="custom-select" name="adiministrador" id="" required="true">
                             {{#each administrador}}
                             <option value="{{tb_administrador_id}}">{{tb_administrador_nome}}</option>
                             {{else}}
@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="col">
                         <h5>Pet:</h5>
-                        <select class="custom-select" name="pet" id="">
+                        <select class="custom-select" name="pet" id="" required="true">
                             {{#each pet}}
                             <option value="{{tb_pet_id}}">{{tb_pet_nome}}</option>
                             {{else}}
@@ -47,7 +47,7 @@
                     </div>  
                     <div class="col">
                         <h5>Portador do Pet:</h5>
-                        <select class="custom-select" name="protetor" id="">
+                        <select class="custom-select" name="protetor" id="" required="true">
                             {{#each protetor}}
                             <option value="{{tb_protetor_id}}">{{tb_protetor_nome}}</option>
                             {{else}}
@@ -58,9 +58,9 @@
                 </div>
                 <br>
                 {{#each postagem}}
-                <input class="form-control" placeholder="Título da Postagem" type="text" name="titulo" value="{{tb_postagem_titulo}}">
+                <input class="form-control" placeholder="Título da Postagem" type="text" name="titulo" value="{{tb_postagem_titulo}}" required="true">
                 <br>
-                <textarea placeholder="Conteúdo da sua postagem" class="form-control" type="text" name="conteudo" widht="300" rows="7" >{{tb_postagem_conteudo}}</textarea><br><br>
+                <textarea placeholder="Conteúdo da sua postagem" class="form-control" type="text" name="conteudo" widht="300" rows="7" maxlength="199" required="true">{{tb_postagem_conteudo}}</textarea><br><br>
                 <input class="btn btn-block btn-success" type="submit" value="Editar Postagem">
                 <br><br>
                 

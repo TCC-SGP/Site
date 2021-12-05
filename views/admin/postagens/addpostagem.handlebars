@@ -7,12 +7,12 @@
     <br>    
         <form runat="server" class="form-group row" action="/cadpostagem" method="post" enctype="multipart/form-data">        
             <div class="col-md-7">
-                <input accept="image/*" type="file" name="img" id="imgInp">
+                <input accept="image/*" type="file" name="img" id="imgInp" required="true">
                 <br><br>
                 <div class="row">
                     <div class="col">
                         <h5>Tipo de Postagem:</h5>
-                        <select class="custom-select" name="tipoPostagem" id="">
+                        <select class="custom-select" name="tipoPostagem" id="" required="true">
                             {{#each tPostagem}}
                             <option value="{{tb_tipopostagem_id}}">{{tb_tipopostagem_tipo}}</option>
                             {{else}}
@@ -22,7 +22,7 @@
                     </div>
                     <div class="col">
                         <h5>Administrador:</h5>
-                        <select class="custom-select" name="administrador" id="">
+                        <select class="custom-select" name="administrador" id="" required="true">
                             {{#each administrador}}
                             <option value="{{tb_administrador_id}}">{{tb_administrador_nome}}</option>
                             {{else}}
@@ -34,7 +34,7 @@
                 <div class="row">
                     <div class="col">
                         <h5>Pet:</h5>
-                        <select class="custom-select" name="pet" id="">
+                        <select class="custom-select" name="pet" id="" required="true">
                             {{#each pet}}
                                 {{#if tb_protetor_id}}
                                 <option value="{{tb_pet_id}}">{{tb_pet_nome}}</option>
@@ -46,9 +46,10 @@
                     </div>
                 </div>
                 <br>
-                <input class="form-control" placeholder="Título da Postagem" type="text" name="titulo">
+                <input class="form-control" placeholder="Título da Postagem" type="text" name="titulo" required="true">
                 <br>
-                <textarea placeholder="Conteúdo da sua postagem" class="form-control" type="text" name="conteudo" widht="300" rows="7"></textarea><br><br>
+
+                <textarea placeholder="Conteúdo da sua postagem" class="form-control" type="text" name="conteudo" widht="300" rows="7" maxlength="199" required="true"></textarea><br><br>
                 <input type="hidden" value="{{protetor}}" name="protetor">
                 <input class="btn btn-block btn-success" type="submit" value="Fazer Postagem">
                 <br><br>

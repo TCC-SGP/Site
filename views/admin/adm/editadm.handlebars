@@ -7,28 +7,28 @@
         <form runat="server" method="post" action="/editadm">
         {{#each administrador}}
             <h5>ID:</h5>
-            <input class="form-control" type="text" name="id" readonly="true" value="{{tb_administrador_id}}">
+            <input class="form-control" type="text" name="id" readonly="true" value="{{tb_administrador_id}}" required="true">
             <div class="form-row">
                 <div class="form-group col-md-6">
                 <label for="Nome">Nome</label>
-                <input type="text" class="form-control" name="nome" placeholder="Nome" value="{{tb_administrador_nome}}">
+                <input type="text" class="form-control" name="nome" placeholder="Nome" value="{{tb_administrador_nome}}" required="true">
                 </div>
                 <div class="form-group col-md-6">
                 <label for="Sobrenome">Sobrenome</label>
-                <input type="text" class="form-control" name="sobrenome" placeholder="Sobrenome" value="{{tb_administrador_sobrenome}}">
+                <input type="text" class="form-control" name="sobrenome" placeholder="Sobrenome" value="{{tb_administrador_sobrenome}}" required="true">
                 </div>
             </div>
             <div class="form-group">
                 <label for="Email">Email</label>
-                <input type="email" class="form-control" name="email" placeholder="exemplo@gmail.com" value="{{tb_administrador_email}}">
+                <input type="email" class="form-control" name="email" placeholder="exemplo@gmail.com" value="{{tb_administrador_email}}" required="true">
             </div>
             <div class="form-group">
                 <label for="Usuario">Usuário</label>
-                <input type="text" class="form-control" name="usuario" placeholder="Usuário" value="{{tb_administrador_usuario}}">
+                <input type="text" class="form-control" name="usuario" placeholder="Usuário" value="{{tb_administrador_usuario}}" required="true">
             </div>
             <div class="form-group">
                 <label for="Senha">Senha</label>
-                <input type="password" class="form-control" name="senha" placeholder="Senha" value="{{tb_administrador_senha}}">
+                <input type="password" class="form-control" name="senha" placeholder="Senha" value="{{tb_administrador_senha}}" required="true">
             </div>
         {{/each}}
             <button type="submit" class="btn btn-success btn-block">Atualizar</button>
