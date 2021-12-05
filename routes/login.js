@@ -28,9 +28,10 @@ router.post('/loginauth', (req, res) => {
             try {
                 var nadministrador = JSON.parse(JSON.stringify(administrador));
                 let idadm = nadministrador.tb_administrador_id;
+                let nome = nadministrador.tb_administrador_nome;
 
                 if (administrador) {
-                    const token = jwt.sign({ user_id: idadm },
+                    const token = jwt.sign({ user_id: idadm, usuario:  nome},
                         "" + process.env.TOKEN_KEY,
                         {
                             expiresIn: "2h",

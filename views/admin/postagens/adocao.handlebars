@@ -57,7 +57,7 @@
     <div class="container">
             {{#each postagens}}
             <div class="row mb-5">
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <img class="imagens" src="{{tb_postagem_img}}" width="120px" height="120px">
                 </div>
                 <div class="col-sm">
@@ -66,7 +66,7 @@
                         {{tb_postagem_conteudo}}
                     </p>
                     <div class="text-left">
-                            <a class="btn btn-sm btn-danger" href="/form_adocao/{{tb_pet_id}}&{{tb_postagem_id}}&{{tb_protetor_id}}" style="background-color:rgb(64, 209, 209); color:white; border-color:rgb(64, 209, 209)"> Adotar </a>
+                            <a class="btn btn-sm btn-success" href="/form_adocao/{{tb_pet_id}}&{{tb_postagem_id}}&{{tb_protetor_id}}" style="color:white"> Adotar </a>
                     </div>
                 </div>
             </div>
