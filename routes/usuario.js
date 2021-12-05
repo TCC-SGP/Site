@@ -42,22 +42,34 @@ router.get('/addadm', auth, (req, res)=>{
 //ROTA PARA CADASTRAR ADMINISTRADOR
 router.post('/cadadm', auth, (req, res)=>{
     console.log(req.body.nome);
-    if(!req.body.nome || !req.body.sobrenome || !req.body.email || !req.body.usuario || !req.body.senha){
-        res.render('admin/adm/addadm', {login:login, errorMessage: "Todos os campos são obrigatórios"})
-    }
-    else{
-        Administrador.create({
-            tb_administrador_nome: req.body.nome,
-            tb_administrador_sobrenome: req.body.sobrenome,
-            tb_administrador_email: req.body.email,
-            tb_administrador_usuario: req.body.usuario,
-            tb_administrador_senha: req.body.senha
-        }).then(()=>{
-            res.redirect("/admuser");
-        }).catch((erro)=>{
-            res.send("Houve um erro "+ erro);
-        })
-    }
+    Administrador.findAll({where: {'tb_administrador_usuario': req.body.usuario}}).then((adm)=>{
+        nadm = JSON.parse(JSON.stringify(adm));
+        console.log(nadm)
+        
+        if(!req.body.nome || !req.body.sobrenome || !req.body.email || !req.body.usuario || !req.body.senha){
+            res.render('admin/adm/addadm', {login:login, errorMessage: "Todos os campos são obrigatórios"})
+        }
+        if(nadm[0] === undefined) {
+            Administrador.create({
+                tb_administrador_nome: req.body.nome,
+                tb_administrador_sobrenome: req.body.sobrenome,
+                tb_administrador_email: req.body.email,
+                tb_administrador_usuario: req.body.usuario,
+                tb_administrador_senha: req.body.senha
+            }).then(()=>{
+                res.redirect("/admuser");
+            }).catch((erro)=>{
+                res.send("Houve um erro "+ erro);
+            })
+        }
+        else if(req.body.usuario == nadm[0].tb_administrador_usuario){
+            res.render('admin/adm/addadm', {login: login, errorMessage: "Esse usuário já existe"});
+        }
+        else{
+            res.render("Ocorreu um erro");
+        }
+        
+    })
 });
 
 //ROTA PARA CARREGAR A PÁGINA DE EDIÇÃO DE ADIMINISTRADOR

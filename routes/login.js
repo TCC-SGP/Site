@@ -13,7 +13,6 @@ router.get('/login', (req, res) => {
 
 //ROTA DE VALIDAÇÃO DO LOGIN
 router.post('/loginauth', (req, res) => {
-    var login = true;
     var usuario = req.body.usuario;
     var senha = req.body.senha;
     var identificador = req.body.identificador;
@@ -29,9 +28,10 @@ router.post('/loginauth', (req, res) => {
             try {
                 var nadministrador = JSON.parse(JSON.stringify(administrador));
                 let idadm = nadministrador.tb_administrador_id;
+                let nome = nadministrador.tb_administrador_nome;
 
                 if (administrador) {
-                    const token = jwt.sign({ user_id: idadm },
+                    const token = jwt.sign({ user_id: idadm, usuario:  nome},
                         "" + process.env.TOKEN_KEY,
                         {
                             expiresIn: "2h",

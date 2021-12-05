@@ -1,0 +1,29 @@
+<div class="container">
+    <h1>Selecione o Protetor responsável pelo Pet</h1>
+    <a class="btn btn-success btn " href="/home_adm">Voltar</a>
+</div>
+<center class="container">
+    <div class="form-group">
+        <br>
+        <br>
+            <div class="form">
+            <select class="form-select form-select-lg mb-3" name="protetor" id="idProtetor">
+                <option selected>Selecione um protetor</option>
+                {{#each protetor}}
+                <option value="{{tb_protetor_id}}">{{tb_protetor_nome}}</option>
+                {{else}}
+                <option >Nenhum protetor Cadastrado</option>
+                {{/each}}
+            </select>
+            </div>
+            <br>
+            <input type="submit" class="btn btn-lg btn-success" value="Prosseguir" onclick="redirecionar()">
+            <script>
+                function redirecionar() {
+                    var e = document.getElementById("idProtetor");
+                    var id = e.value;
+                    document.location.href = "/addpostagem/" + id
+                }
+            </script>
+    </div>
+</center>

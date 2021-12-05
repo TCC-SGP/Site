@@ -34,7 +34,7 @@ const Doacao = db.sequelize.define('TB_DOACAO', {
     },
     tb_doacao_estado: {
         type: db.Sequelize.TEXT,
-        allowNull: true
+        allowNull: false
     }
 }, { freezeTableName: true });
 
