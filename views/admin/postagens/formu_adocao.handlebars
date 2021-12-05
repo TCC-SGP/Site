@@ -77,7 +77,13 @@
                 <textarea class="form-control" id="mensagem" rows="5" type="text" name="mensagem"
                     placeholder="Conteúdo da mensagem" required="true"></textarea>
             </div>
-
+            <br>
+            <br>
+            <center>
+            <div class="g-recaptcha" data-sitekey="your_site_key"></div>
+            </center>
+            <br>
+            <br>
             <br>
             {{#each pet}}
             <input type="hidden" name="pet" value="{{tb_pet_id}}">

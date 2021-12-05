@@ -1,5 +1,3 @@
-
-
 <!-- sim !-->
 
 {{#if sim}}
@@ -54,10 +52,17 @@
                     placeholder="Mínimo 5 dígitos">
             </div>
         </div>
+        <br>
+        <br>
+        <center>
+            <div class="g-recaptcha" data-sitekey="your_site_key"></div>
+        </center>
+        <br>
+        <br>
 
         <input type="hidden" name="pet" value="{{pet}}">
         <center>
-        <button style="width:500px" type="submit" class="btn btn-success btn-block">Cadastrar</button>
+            <button style="width:500px" type="submit" class="btn btn-success btn-block">Cadastrar</button>
         </center>
         <br>
         <br>
@@ -79,14 +84,21 @@
                 <input type="text" class="form-control" id="nome" name="nome" minlength="5" required="true"
                     placeholder="Caso empresa, colocar nome fantasia">
             </div>
-             
+
         </div>
+        <br>
+        <br>
         <center>
-        <button style="width:150px; height:50px" type="submit" class="btn btn-success btn-block">Apadrinhar</button>    
+            <div class="g-recaptcha" data-sitekey="your_site_key"></div>
+        </center>
+        <br>
+        <br>
+        <center>
+            <button style="width:150px; height:50px" type="submit" class="btn btn-success btn-block">Apadrinhar</button>
         </center>
 
         <input type="hidden" name="pet" value="{{pet}}">
-        
+
         <br>
         <br>
     </form>
@@ -99,39 +111,27 @@
 <!-- já !-->
 {{#if ja}}
 
-    <div class="caixa-login">
+<div class="caixa-login">
     <br>
     <div class="form">
         <form runat="server" action="/ja" method="post" align="center">
             <h1>{{errorMessage}}<h1>
-            <input key="x-access-token" type="hidden" name="token"
-                value="eyJhbGciOiJIUzI1NiJ9.dXNlcg.EvNc9eWXXeAjpMTMzV4xoW2EjtEcLeSwJwY5_8vE6X8"/>
-            <img
-                src="https://img.icons8.com/external-bearicons-glyph-bearicons/100/000000/external-User-essential-collection-bearicons-glyph-bearicons.png" />
-            <br>
-            <br>
-            <input class="form-control form-control-lg" type="text" placeholder="Usuário"
-                aria-label=".form-control-lg example" name="usuario">
-            <br>
-            <input class="form-control form-control-lg" type="password" placeholder="Senha"
-                aria-label=".form-control-lg example" name="senha">
-            <br>
-            <button class="btn btn-sm btn-danger">Logar</button>
-            <input type="hidden" name="pet" value="{{pet}}">
+                    <input key="x-access-token" type="hidden" name="token"
+                        value="eyJhbGciOiJIUzI1NiJ9.dXNlcg.EvNc9eWXXeAjpMTMzV4xoW2EjtEcLeSwJwY5_8vE6X8" />
+                    <img
+                        src="https://img.icons8.com/external-bearicons-glyph-bearicons/100/000000/external-User-essential-collection-bearicons-glyph-bearicons.png" />
+                    <br>
+                    <br>
+                    <input class="form-control form-control-lg" type="text" placeholder="Usuário"
+                        aria-label=".form-control-lg example" name="usuario">
+                    <br>
+                    <input class="form-control form-control-lg" type="password" placeholder="Senha"
+                        aria-label=".form-control-lg example" name="senha">
+                    <br>
+                    <button class="btn btn-sm btn-danger">Logar</button>
+                    <input type="hidden" name="pet" value="{{pet}}">
         </form>
     </div>
 
 </div>
 {{/if}}
-
-
-
-
-
-
-
-
-
-
-
-
