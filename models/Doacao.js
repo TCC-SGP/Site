@@ -11,7 +11,7 @@ const Doacao = db.sequelize.define('TB_DOACAO', {
     tb_doador_id: {
         type: db.Sequelize.INTEGER,
         references: { model: 'TB_DOADOR', key: 'TB_DOADOR_ID' },
-        allowNull: false,
+        allowNull: true,
         onDelete: 'CASCADE'
     },
     tb_tipodoacao_id: {
@@ -30,6 +30,10 @@ const Doacao = db.sequelize.define('TB_DOACAO', {
     },
     tb_doacao_quantia: {
         type: db.Sequelize.DECIMAL,
+        allowNull: true
+    },
+    tb_doacao_estado: {
+        type: db.Sequelize.TEXT,
         allowNull: true
     }
 }, { freezeTableName: true });

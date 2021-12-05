@@ -1,0 +1,49 @@
+<div class="container">
+    <center>
+        {{#each pet}}
+        <h2><b>Apadrinhamento do {{tb_pet_nome}}</h2>
+        {{/each}}
+    </center>
+    <div>
+        <form runat="server" method="post" action="/apadrinhar">
+            <center>
+                <br>
+                {{#each postagem}}
+                <img class="imagens" src="{{tb_postagem_img}}" width="120px" height="120px">
+                <br>
+                <br>
+                <h5 style="width:500px; text-align:left;">{{tb_postagem_conteudo}}</h5>
+                {{/each}}
+
+            </center>
+            <br>
+            <center>
+
+                <h5 style="text-decoration: underline;">{{tb_postagem}}Deseja se cadastrar em nossa plataforma antes de
+                    apadrinhar?</h5>
+
+            </center>
+            <br>
+            <center>
+                <div class="text-center">
+                    <input type="radio" id="sim" name="cadastro" value="sim" required="true">
+                      <label for="sim">Sim</label>
+                      <input type="radio" id="não" name="cadastro" value="nao" required="true">
+                      <label for="não">Não</label>
+                    <input type="radio" id="ja" name="cadastro" value="ja" required="true">
+                    <label for="ja">Já sou cadastrado</label>
+                </div>
+            </center>
+
+            <br>
+            {{#each pet}}
+            <input type="hidden" name="pet" value="{{tb_pet_id}}">
+            {{/each}}
+            <button  type="submit" class="btn btn-success btn-block">Apadrinhar</button>
+
+
+        </form>
+
+    </div>
+</div>
+<br>

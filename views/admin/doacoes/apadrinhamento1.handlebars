@@ -1,0 +1,137 @@
+
+
+<!-- sim !-->
+
+{{#if sim}}
+<div class="container">
+    <center>
+        <h1>Cadastrar na nossa plataforma</h1>
+    </center>
+    <form runat="server" method="post" action="/sim">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="Nome">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" minlength="5" required="true"
+                    placeholder="Caso empresa, colocar nome fantasia">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="Sobrenome">Sobrenome</label>
+                <input type="text" id="sobrenome" class="form-control" name="sobrenome"
+                    placeholder="Caso empresa, não colocar sobrenome">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="Email">Email</label>
+                <input type="email" id="email" class="form-control" name="email" placeholder="exemplo@gmail.com"
+                    required="true">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="Celular">Celular para contato</label>
+                <input type="text" id="numero" class="form-control" name="numero" placeholder="99 99999-9999"
+                    data-mask="00 00000-0000" data-mask-reverse="true" required="true">
+            </div>
+        </div>
+        <br>
+        <center>
+            <div class="text-center">
+                <input type="radio" id="sim" name="cadastro" value="juridica" required="true">
+                  <label for="sim">Sou pessoa jurídica</label>
+                  <input type="radio" id="não" name="cadastro" value="fisica" required="true">
+                  <label for="não">Sou pessoa física</label>
+            </div>
+        </center>
+        <br>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="usuario">Usuário</label>
+                <input type="text" class="form-control" name="usuario" placeholder="Exemplo123" required="true">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="senha">Senha</label>
+                <input type="password" class="form-control" name="senha" required="true" minlength="5"
+                    placeholder="Mínimo 5 dígitos">
+            </div>
+        </div>
+
+        <input type="hidden" name="pet" value="{{pet}}">
+        <center>
+        <button style="width:500px" type="submit" class="btn btn-success btn-block">Cadastrar</button>
+        </center>
+        <br>
+        <br>
+    </form>
+</div>
+{{/if}}
+
+<!-- não !-->
+{{#if nao}}
+
+<div class="container">
+    <center>
+        <h1>Apadrinhar</h1>
+    </center>
+    <form runat="server" method="post" action="/nao">
+        <div class="form-row">
+            <div class="form-group col-md">
+                <label for="Nome">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" minlength="5" required="true"
+                    placeholder="Caso empresa, colocar nome fantasia">
+            </div>
+             
+        </div>
+        <center>
+        <button style="width:150px; height:50px" type="submit" class="btn btn-success btn-block">Apadrinhar</button>    
+        </center>
+
+        <input type="hidden" name="pet" value="{{pet}}">
+        
+        <br>
+        <br>
+    </form>
+</div>
+
+
+{{/if}}
+
+
+<!-- já !-->
+{{#if ja}}
+
+    <div class="caixa-login">
+    <br>
+    <div class="form">
+        <form runat="server" action="/ja" method="post" align="center">
+            <h1>{{errorMessage}}<h1>
+            <input key="x-access-token" type="hidden" name="token"
+                value="eyJhbGciOiJIUzI1NiJ9.dXNlcg.EvNc9eWXXeAjpMTMzV4xoW2EjtEcLeSwJwY5_8vE6X8"/>
+            <img
+                src="https://img.icons8.com/external-bearicons-glyph-bearicons/100/000000/external-User-essential-collection-bearicons-glyph-bearicons.png" />
+            <br>
+            <br>
+            <input class="form-control form-control-lg" type="text" placeholder="Usuário"
+                aria-label=".form-control-lg example" name="usuario">
+            <br>
+            <input class="form-control form-control-lg" type="password" placeholder="Senha"
+                aria-label=".form-control-lg example" name="senha">
+            <br>
+            <button class="btn btn-sm btn-danger">Logar</button>
+            <input type="hidden" name="pet" value="{{pet}}">
+        </form>
+    </div>
+
+</div>
+{{/if}}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,25 +2,12 @@
 
 <div class="container">
     <center>
-        <h1>Requerimento para adoção</h1>
-        <h4>{{m}}</h4>
+        <h1>Requerimento para doação pessoalmente</h1>
+        
     </center>
     <br>
     <div>
-        <form runat="server" method="post" action="/req_adocao">
-            <center>
-                {{#each pet}}
-                <h5><b>{{tb_pet_nome}}</b></h5>
-                {{/each}}
-                <br>
-                {{#each postagem}}
-                <img class="imagens" src="{{tb_postagem_img}}" width="120px" height="120px">
-                <br>
-                <br>
-                <h5 style="width:500px; text-align:left;">{{tb_postagem_conteudo}}</h5>
-                {{/each}}
-
-            </center>
+        <form runat="server" method="post" action="/req_doacao">
             <br>
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -57,40 +44,15 @@
                         data-mask="0000" data-mask-reverse="true" required="true">
                 </div>
             </div>
-            <br>
-            <h5 style="text-decoration: underline;">Agora queremos saber como é o lar que receberá o {{#each pet}}
-                {{tb_pet_nome}} {{/each}}.
-            </h5>
-            <br>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="Pessoas">Digite o número de pessoas em sua residência</label>
-                    <input type="number" id="pessoas" class="form-control" name="pessoas" required="true">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="Número">Digite o número atual de pets em sua residência</label>
-                    <input type="number" id="qtd_pets" class="form-control" name="qtd_pets" required="true">
-                </div>
-            </div>
             <div class="form-group">
-                <label for="Número">Fale brevemente por qual motivo decidiu adotar...</label>
+                <label for="Número">Fale o que pretende nos doar...</label>
                 <textarea class="form-control" id="mensagem" rows="5" type="text" name="mensagem"
                     placeholder="Conteúdo da mensagem" required="true"></textarea>
             </div>
+            <br>
+            <br>
 
             <br>
-            {{#each pet}}
-            <input type="hidden" name="pet" value="{{tb_pet_id}}">
-            <input type="hidden" name="protetor" value="{{tb_protetor_id}}">
-            <input type="hidden" name="nome_pet" value="{{tb_pet_nome}}">
-            {{/each}}
-            {{#each postagem}}
-            <input type="hidden" name="postagem" value="{{tb_postagem_id}}">
-            {{/each}}
-            {{#each protetor}}
-            <input type="hidden" name="nome_protetor" value="{{tb_protetor_nome}}">
-            <input type="hidden" name="sobrenome_protetor" value="{{tb_protetor_sobrenome}}">
-            {{/each}}
             <button type="submit" class="btn btn-success btn-block">Realizar requerimento</button>
 
 

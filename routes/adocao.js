@@ -117,7 +117,7 @@ router.post('/req_adocao', (req, res) => {
       
       var mailOptions = {
         from: 'testetestedasilva65a@gmail.com',
-        to: "cristiandemaria34@gmail.com",
+        to: "paulobhj321@gmail.com",
         subject: 'Requerimento de Adoção',
         text: conteudo
       };
@@ -127,7 +127,7 @@ router.post('/req_adocao', (req, res) => {
             console.log(error);
         } else {
             console.log('Email sent: ' + info.response);
-            res.redirect("/adocao");
+            res.send("<script>alert('Requerimento Realizado');window.location = '/adocao'</script>")
         }
       });
       
