@@ -73,15 +73,12 @@
            white-space: nowrap;">
             {{tb_postagem_conteudo}}
           </p>
-          <div class="text-center">
-            <div class="text-center">
-              <a class="btn btn-sm btn-danger" href="/form_adocao/{{tb_pet_id}}&{{tb_postagem_id}}&{{tb_protetor_id}}"
-                style="background-color:rgb(64, 209, 209); color:white; border-color:rgb(64, 209, 209)">
-                Adotar </a>
-            </div>
-          </div>
         </div>
       </div>
+      <br>
+      <div class="text-center">
+              <a href="/form_adocao/{{tb_pet_id}}&{{tb_postagem_id}}&{{tb_protetor_id}}" class="btn btn-sm btn-block btn-success" style="color:white">Adote</a>
+        </div>
       <br>
     </div>
     {{/each}}
@@ -106,16 +103,11 @@
   white-space: nowrap;">
             {{tb_postagem_conteudo}}:rgb(4, 99, 99)
           </p>
-          <div class="text-center">
-            <a class="btn btn-sm btn-danger"
-              href="/form_apadrinhamento/{{tb_pet_id}}&{{tb_postagem_id}}&{{tb_protetor_id}}"
-              style="background-color:rgb(4, 99, 99); color:white; border-color:rgb(4, 99, 99)"> Apadrinhar </a>
-          </div>
         </div>
       </div>
       <br>
       <div class="text-center">
-            <a class="btn btn-sm btn-block btn-success" style="color:white">Apadrinhe</a>
+            <a href="/form_apadrinhamento/{{tb_pet_id}}&{{tb_postagem_id}}&{{tb_protetor_id}}" class="btn btn-sm btn-block btn-success" style="color:white">Apadrinhe</a>
       </div>
     </div>
     {{/each}}

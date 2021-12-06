@@ -22,21 +22,39 @@ router.get('/doe', (req, res) => {
 });
 
 //ROTA DA PÁGINA DOAÇÕES
+<<<<<<< HEAD
 router.get('/doacoes', auth, (req, res) => {
     Doacao.findAll().then((doacoes) => {
         Tipodoacao.findAll().then((tipodoacao) => {
+=======
+router.get('/doacoes', auth, (req, res)=>{
+    const token = req.cookies.token;
+    const decode = jwt.verify(token, config.TOKEN_KEY);
+
+    Doacao.findAll().then((doacoes)=>{
+        Tipodoacao.findAll().then((tipodoacao)=>{
+>>>>>>> 4e1d49dd1e8bd3252f09c6dbf54ef93ec67434bc
             var ntitpodoacao = JSON.parse(JSON.stringify(tipodoacao));
-            var ndoacoes = JSON.parse(JSON.stringify(doacoes))
+            var ndoacoes = JSON.parse(JSON.stringify(doacoes));
+            console.log(ndoacoes)
             res.render("admin/doacoes/doacoes", {
+<<<<<<< HEAD
                 doacao: ndoacoes,
                 tipoDoacao: ntitpodoacao,
                 login: login
+=======
+            doacao: ndoacoes,
+            tipoDoacao: ntitpodoacao,
+            login:login,
+            id: decode.user_id
+>>>>>>> 4e1d49dd1e8bd3252f09c6dbf54ef93ec67434bc
             });
         })
     });
 });
 
 //ROTA DO BOTÃO PESQUISAR DOAÇÕES
+<<<<<<< HEAD
 router.get('/doacoes/:id', auth, (req, res) => {
     Doacao.findAll({ where: { 'tb_tipodoacao_id': req.params.id } }).then((doacoes) => {
         Tipodoacao.findAll().then((tipodoacao) => {
@@ -46,6 +64,21 @@ router.get('/doacoes/:id', auth, (req, res) => {
                 doacao: ndoacoes,
                 tipoDoacao: ntitpodoacao,
                 login: login
+=======
+router.get('/doacoes/:id', auth, (req, res)=>{
+    const token = req.cookies.token;
+    const decode = jwt.verify(token, config.TOKEN_KEY);
+
+    Doacao.findAll({ where: {'tb_tipodoacao_id': req.params.id} }).then((doacoes)=>{
+        Tipodoacao.findAll().then((tipodoacao)=>{
+            var ntitpodoacao = JSON.parse(JSON.stringify(tipodoacao));
+            var ndoacoes = JSON.parse(JSON.stringify(doacoes))
+            res.render("admin/doacoes/doacoes", {
+            doacao: ndoacoes,
+            tipoDoacao: ntitpodoacao,
+            login:login,
+            id: decode.user_id
+>>>>>>> 4e1d49dd1e8bd3252f09c6dbf54ef93ec67434bc
             });
         })
     })
@@ -249,6 +282,39 @@ router.post('/continuar_apadrinhando', authDoador, (req, res) => {
         })
     })
 
+//ROTA PARA VALDIAR PAGAMENTO
+router.get('/validarpagamento/:id&:estado', auth, (req, res)=>{
+    Doacao.update({
+        tb_doacao_estado: req.params.estado
+    },{
+        where: {tb_doacao_id: req.params.id}
+    }).then(()=>{
+        res.redirect("/doacoes");
+    }).catch((err)=>{
+        res.render(err);
+    })
+});
 
+//ROTA PARA INVALIDAR PAGAMENTO
+router.get('/invalidarpagamento/:id&:estado', auth, (req, res)=>{
+    Doacao.update({
+        tb_doacao_estado: req.params.estado
+    },{
+        where: {tb_doacao_id: req.params.id}
+    }).then(()=>{
+        res.redirect("/doacoes");
+    }).catch((err)=>{
+        res.render(err);
+    })
+});
+
+//ROTA PARA EXCLUIR DOAÇÃO
+router.get('/excluirdoacao/:id', auth, (req, res)=>{
+    Doacao.destroy({where: {tb_doacao_id: req.params.id}}).then(()=>{
+        res.redirect("/doacoes");
+    }).catch((err)=>{
+        res.send(err)
+    })
+});
 
     module.exports = router;
