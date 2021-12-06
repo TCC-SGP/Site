@@ -36,11 +36,16 @@
                 <th scope="col">Quantia</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Encaminhar</th>
-                <th scope="col">Validar Pagamento</th>
+                <th scope="col">Estado Pagamento</th>
+                {{#if (verificaAdm id)}}
+                <th scope="col">Excluir</th>
+                {{else}}
+                {{/if}}
+                
             </tr>
         </thead>
         <tbody>
-            {{#each doacao}}
+            {{#doacao }}
             <tr>
                 <th scope="row">{{tb_doacao_id}}</th>
                 <td>{{tb_doador_id}}</td>
@@ -59,18 +64,26 @@
                     {{/if}}
                 </td>
                 <td>
-                    {{#if (estado tb_doacao_estado )}}
+                    {{#if (estado tb_doacao_estado)}}
                         <center>
-                            <a class="btn-primary btn" href="" disabled="true" style="pointer-events: none;">Validar</a>
+                            <a class="btn-danger btn-block btn" href="/invalidarpagamento/{{tb_doacao_id}}&ANALISE" >Invalidar</a>
                         </center>
                     {{else}}
                         <center>
-                            <a class="btn-primary btn" href="">Validar</a>
+                            <a class="btn-primary btn-block btn" href="/validarpagamento/{{tb_doacao_id}}&PAGO">Validar</a>
                         </center>
                     {{/if}}
                 </td>
+                {{#if (verificaAdm ../id)}}
+                    <td>
+                        <center>
+                            <a class="btn-danger btn-block btn" href="/excluirdoacao/{{tb_doacao_id}}">Excluir</a>
+                        </center>
+                    </td>
+                {{else}}
+                {{/if}}
             </tr>
-            {{/each}}
+            {{/doacao}}
         </tbody>
     </table>
 </div>

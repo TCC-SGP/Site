@@ -22,14 +22,19 @@ router.get('/doe', (req, res) =>{
 
 //ROTA DA PÁGINA DOAÇÕES
 router.get('/doacoes', auth, (req, res)=>{
+    const token = req.cookies.token;
+    const decode = jwt.verify(token, config.TOKEN_KEY);
+
     Doacao.findAll().then((doacoes)=>{
         Tipodoacao.findAll().then((tipodoacao)=>{
             var ntitpodoacao = JSON.parse(JSON.stringify(tipodoacao));
-            var ndoacoes = JSON.parse(JSON.stringify(doacoes))
+            var ndoacoes = JSON.parse(JSON.stringify(doacoes));
+            console.log(ndoacoes)
             res.render("admin/doacoes/doacoes", {
             doacao: ndoacoes,
             tipoDoacao: ntitpodoacao,
-            login:login
+            login:login,
+            id: decode.user_id
             });
         })
     });
@@ -37,6 +42,9 @@ router.get('/doacoes', auth, (req, res)=>{
 
 //ROTA DO BOTÃO PESQUISAR DOAÇÕES
 router.get('/doacoes/:id', auth, (req, res)=>{
+    const token = req.cookies.token;
+    const decode = jwt.verify(token, config.TOKEN_KEY);
+
     Doacao.findAll({ where: {'tb_tipodoacao_id': req.params.id} }).then((doacoes)=>{
         Tipodoacao.findAll().then((tipodoacao)=>{
             var ntitpodoacao = JSON.parse(JSON.stringify(tipodoacao));
@@ -44,7 +52,8 @@ router.get('/doacoes/:id', auth, (req, res)=>{
             res.render("admin/doacoes/doacoes", {
             doacao: ndoacoes,
             tipoDoacao: ntitpodoacao,
-            login:login
+            login:login,
+            id: decode.user_id
             });
         })
     })
@@ -204,7 +213,7 @@ router.get('/doe/:origem', (req, res)=>{
         tb_doacao_descricao: descricao,
         tb_doacao_nomedoador: "Anônimo",
         tb_doacao_quantia: valor,
-        tb_doacao_estado: 'Encaminhar Confirmar'
+        tb_doacao_estado: 'ANALISE'
     }).then(() => {
             res.redirect(link);
         }).catch((erro) => {
@@ -212,6 +221,39 @@ router.get('/doe/:origem', (req, res)=>{
         })
 })
 
+//ROTA PARA VALDIAR PAGAMENTO
+router.get('/validarpagamento/:id&:estado', auth, (req, res)=>{
+    Doacao.update({
+        tb_doacao_estado: req.params.estado
+    },{
+        where: {tb_doacao_id: req.params.id}
+    }).then(()=>{
+        res.redirect("/doacoes");
+    }).catch((err)=>{
+        res.render(err);
+    })
+});
 
+//ROTA PARA INVALIDAR PAGAMENTO
+router.get('/invalidarpagamento/:id&:estado', auth, (req, res)=>{
+    Doacao.update({
+        tb_doacao_estado: req.params.estado
+    },{
+        where: {tb_doacao_id: req.params.id}
+    }).then(()=>{
+        res.redirect("/doacoes");
+    }).catch((err)=>{
+        res.render(err);
+    })
+});
+
+//ROTA PARA EXCLUIR DOAÇÃO
+router.get('/excluirdoacao/:id', auth, (req, res)=>{
+    Doacao.destroy({where: {tb_doacao_id: req.params.id}}).then(()=>{
+        res.redirect("/doacoes");
+    }).catch((err)=>{
+        res.send(err)
+    })
+});
 
 module.exports = router;
