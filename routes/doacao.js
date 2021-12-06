@@ -105,7 +105,7 @@ router.post('/addencaminhamento', (req, res) => {
 router.get('/doador', authDoador, (req, res) => {
     const token = req.cookies.token
     const decode = jwt.verify(token, config.TOKEN_KEY2);
-    Doacao.findAll({    
+    Doacao.findAll({
         where:
         {
             'tb_doador_id': decode.user_id,
@@ -137,7 +137,7 @@ router.post('/continuar_apadrinhando', authDoador, (req, res) => {
         Encaminhamento.findAll({
             where: { 'tb_doacao_id': doacaos }
         }).then((pet) => {
-            
+
             var petsin = JSON.parse(JSON.stringify(pet));
             var id = petsin[0].tb_pet_id;
             Encaminhamento.create({
@@ -151,7 +151,7 @@ router.post('/continuar_apadrinhando', authDoador, (req, res) => {
                 res.redirect("https://pag.ae/7XMQ5LUHS");
             }).catch((erro => {
                 console.log(erro);
-            
+
             }))
 
 
@@ -160,132 +160,132 @@ router.post('/continuar_apadrinhando', authDoador, (req, res) => {
     })
 })
 
-    //rota formulário doação pessoalmente
-    router.get('/pessoalmente', (req, res) => {
-        res.render("admin/doacoes/formu_pessoalmente");
+//rota formulário doação pessoalmente
+router.get('/pessoalmente', (req, res) => {
+    res.render("admin/doacoes/formu_pessoalmente");
+});
+
+
+
+
+
+//rota requerimento doação pessoalmente
+
+router.post("/req_doacao", (req, res) => {
+    var nome = req.body.nome;
+    var cpf = req.body.cpf;
+    var email = req.body.email;
+    var numero = req.body.numero;
+    var cep = req.body.cep;
+    var numero_casa = req.body.numero_casa;
+    var mensagem = req.body.mensagem;
+
+
+    var conteudo = "Requerimento para doação pessoalmente " +
+        "\n----------------------------------" +
+        "\nDados do requerente" +
+        "\n----------------------------------" +
+        "\nNome:" + nome +
+        "\nCPF: " + cpf +
+        "\nEmail: " + email +
+        "\nNúmero: " + numero +
+        "\nCEP: " + cep +
+        "\nNúmero da Casa: " + numero_casa +
+        "\n\nDoação: " + mensagem;
+
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'testetestedasilva65a@gmail.com',
+            pass: 'testetesteteste'
+        }
     });
 
+    var mailOptions = {
+        from: 'testetestedasilva65a@gmail.com',
+        to: "paulobhj321@gmail.com",
+        subject: 'Requerimento de Adoção',
+        text: conteudo
+    };
 
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+            res.send("<script>alert('Requerimento Realizado');window.location = '/doe'</script>")
+        }
+    });
+})
 
-
-
-    //rota requerimento doação pessoalmente
-
-    router.post("/req_doacao", (req, res) => {
-        var nome = req.body.nome;
-        var cpf = req.body.cpf;
-        var email = req.body.email;
-        var numero = req.body.numero;
-        var cep = req.body.cep;
-        var numero_casa = req.body.numero_casa;
-        var mensagem = req.body.mensagem;
-
-
-        var conteudo = "Requerimento para doação pessoalmente " +
-            "\n----------------------------------" +
-            "\nDados do requerente" +
-            "\n----------------------------------" +
-            "\nNome:" + nome +
-            "\nCPF: " + cpf +
-            "\nEmail: " + email +
-            "\nNúmero: " + numero +
-            "\nCEP: " + cep +
-            "\nNúmero da Casa: " + numero_casa +
-            "\n\nDoação: " + mensagem;
-
-        var transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: 'testetestedasilva65a@gmail.com',
-                pass: 'testetesteteste'
-            }
-        });
-
-        var mailOptions = {
-            from: 'testetestedasilva65a@gmail.com',
-            to: "paulobhj321@gmail.com",
-            subject: 'Requerimento de Adoção',
-            text: conteudo
-        };
-
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                console.log(error);
-            } else {
-                console.log('Email sent: ' + info.response);
-                res.send("<script>alert('Requerimento Realizado');window.location = '/doe'</script>")
-            }
-        });
+router.get('/doe/:origem', (req, res) => {
+    var origem = req.params.origem;
+    if (origem === "racao") {
+        var descricao = "Kit Ração";
+        var valor = 30.00;
+        var link = "https://pag.ae/7XMSMVHHR";
+    }
+    else if (origem === "vacinacao") {
+        var descricao = "Kit Vacinação";
+        var valor = 60.00
+        var link = "https://pag.ae/7XMSNE-NJ";
+    }
+    else if (origem === "limpeza") {
+        var descricao = "Kit Limpeza"
+        var valor = 25.00
+        var link = "https://pag.ae/7XMSP6t1a";
+    }
+    else if (origem === "qualquer") {
+        var descricao = "Qualquer Quantia"
+        var valor = 0.00
+        var link = "https://pag.ae/7XJvDtPr3";
+    }
+    Doacao.create({
+        tb_tipodoacao_id: 4,
+        tb_doacao_descricao: descricao,
+        tb_doacao_nomedoador: "Anônimo",
+        tb_doacao_quantia: valor,
+        tb_doacao_estado: 'Encaminhar Confirmar'
+    }).then(() => {
+        res.redirect(link);
+    }).catch((erro) => {
+        res.send("algum erro " + erro)
     })
-
-    router.get('/doe/:origem', (req, res) => {
-        var origem = req.params.origem;
-        if (origem === "racao") {
-            var descricao = "Kit Ração";
-            var valor = 30.00;
-            var link = "https://pag.ae/7XMSMVHHR";
-        }
-        else if (origem === "vacinacao") {
-            var descricao = "Kit Vacinação";
-            var valor = 60.00
-            var link = "https://pag.ae/7XMSNE-NJ";
-        }
-        else if (origem === "limpeza") {
-            var descricao = "Kit Limpeza"
-            var valor = 25.00
-            var link = "https://pag.ae/7XMSP6t1a";
-        }
-        else if (origem === "qualquer") {
-            var descricao = "Qualquer Quantia"
-            var valor = 0.00
-            var link = "https://pag.ae/7XJvDtPr3";
-        }
-        Doacao.create({
-            tb_tipodoacao_id: 4,
-            tb_doacao_descricao: descricao,
-            tb_doacao_nomedoador: "Anônimo",
-            tb_doacao_quantia: valor,
-            tb_doacao_estado: 'Encaminhar Confirmar'
-        }).then(() => {
-            res.redirect(link);
-        }).catch((erro) => {
-            res.send("algum erro " + erro)
-        })
-    })
+})
 
 //ROTA PARA VALDIAR PAGAMENTO
-router.get('/validarpagamento/:id&:estado', auth, (req, res)=>{
+router.get('/validarpagamento/:id&:estado', auth, (req, res) => {
     Doacao.update({
         tb_doacao_estado: req.params.estado
-    },{
-        where: {tb_doacao_id: req.params.id}
-    }).then(()=>{
+    }, {
+        where: { tb_doacao_id: req.params.id }
+    }).then(() => {
         res.redirect("/doacoes");
-    }).catch((err)=>{
+    }).catch((err) => {
         res.render(err);
     })
 });
 
 //ROTA PARA INVALIDAR PAGAMENTO
-router.get('/invalidarpagamento/:id&:estado', auth, (req, res)=>{
+router.get('/invalidarpagamento/:id&:estado', auth, (req, res) => {
     Doacao.update({
         tb_doacao_estado: req.params.estado
-    },{
-        where: {tb_doacao_id: req.params.id}
-    }).then(()=>{
+    }, {
+        where: { tb_doacao_id: req.params.id }
+    }).then(() => {
         res.redirect("/doacoes");
-    }).catch((err)=>{
+    }).catch((err) => {
         res.render(err);
     })
 });
 
 //ROTA PARA EXCLUIR DOAÇÃO
-router.get('/excluirdoacao/:id', auth, (req, res)=>{
-    Doacao.destroy({where: {tb_doacao_id: req.params.id}}).then(()=>{
+router.get('/excluirdoacao/:id', auth, (req, res) => {
+    Doacao.destroy({ where: { tb_doacao_id: req.params.id } }).then(() => {
         res.redirect("/doacoes");
-    }).catch((err)=>{
+    }).catch((err) => {
         res.send(err)
     })
 });
 
-    module.exports = router;
+module.exports = router;
