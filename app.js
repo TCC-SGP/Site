@@ -61,6 +61,17 @@ const hbs = handlebars.create({
             else
                 aux = false;
             return aux;
+        },
+        continuar_doando: function(value){
+            if( value ===  3)
+            {
+                aux = true
+            }
+            else
+            {
+                aux = false
+            }
+            return aux;
         }
     }
 })

@@ -28,7 +28,7 @@
                 <th scope="col">Descrição</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Quantia</th>
-                <th></th>
+                <th scope="col">Continuar</th>
             </tr>
         </thead>
         <tbody>
@@ -40,6 +40,15 @@
                 <td>{{tb_doacao_descricao}}</td>
                 <td>{{tb_doacao_nomedoador}}</td>
                 <td>{{tb_doacao_quantia}}</td>
+                <td>{{#if (continuar_doando tb_tipodoacao_id)}}
+                        <form action="/continuar_apadrinhando" method="POST">
+                            <input type="hidden" name="doacao" value="{{tb_doacao_id}}">
+                            <button style="background-color:rgb(18, 73, 110); width: 200px; height: 70px" class="btn btn-success btn-block" type="submit">Continuar Apadrinhando</button>
+                        </form>
+                    {{else}}
+                        
+                    {{/if}}
+                </td>
             </tr>
 
             {{/each}}

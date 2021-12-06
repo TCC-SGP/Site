@@ -132,7 +132,7 @@ router.post('/sim', (req, res) => {
             tb_doacao_descricao: 'Apadrinhamento',
             tb_doacao_nomedoador: nome,
             tb_doacao_quantia: 50.00,
-            tb_doacao_estado: 'Confirmar pagamento'
+            tb_doacao_estado: 'ANALISE'
         }).then((doacao) => {
             var doacaozin = JSON.parse(JSON.stringify(doacao));
             Encaminhamento.create({
@@ -168,7 +168,7 @@ router.post('/nao', (req, res) => {
         tb_doacao_descricao: "Apadrinhamento",
         tb_doacao_nomedoador: nome,
         tb_doacao_quantia: 50.00,
-        tb_doacao_estado: 'Confirmar pagamento'
+        tb_doacao_estado: 'ANALISE'
     }).then((doacao) => {
         var doacaozin = JSON.parse(JSON.stringify(doacao));
         Encaminhamento.create({
@@ -224,7 +224,7 @@ router.post('/ja', (req, res) => {
                     tb_doacao_descricao: 'Apadrinhamento',
                     tb_doacao_nomedoador: nome,
                     tb_doacao_quantia: 50.00,
-                    tb_doacao_estado: 'confirmar pagamento'
+                    tb_doacao_estado: 'ANALISE'
                 }).then((doacao) => {
                     var doacaozin = JSON.parse(JSON.stringify(doacao));
                     Encaminhamento.create({
