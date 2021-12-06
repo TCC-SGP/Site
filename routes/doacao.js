@@ -167,8 +167,8 @@ router.post("/req_doacao", (req, res) => {
       
       var mailOptions = {
         from: 'testetestedasilva65a@gmail.com',
-        to: "paulobhj321@gmail.com",
-        subject: 'Requerimento de Adoção',
+        to: "cristiandemaria34@gmail.com",
+        subject: 'Requerimento de Doação Pessoalmente',
         text: conteudo
       };
       
