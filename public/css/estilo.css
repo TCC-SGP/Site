@@ -50,6 +50,13 @@ footer{
     height: 200px;
 }
 
+.logoLogin{
+    position: absolute;
+    margin-top: -40px;
+    width: 130px;
+    height: 130px;
+}
+
 .caixaLogo{
     position: relative;
     width: 150px;
