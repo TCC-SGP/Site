@@ -9,6 +9,12 @@ const Telefone = db.sequelize.define('TB_TELEFONE', {
         allowNull: false,
         primaryKey: true
     },
+    tb_protetor_id:{
+        type: db.Sequelize.INTEGER,
+        reference: {model: 'TB_PROTETOR', key: 'TB_PROTETOR_ID'},
+        allowNull: false,
+        onDelete: 'CASCADE'
+    },
     tb_telefone_numero:{
         type: db.Sequelize.TEXT,
         allowNull: false

@@ -8,12 +8,6 @@ const Protetor = db.sequelize.define('TB_PROTETOR', {
         allowNull: false,
         primaryKey: true
     },
-    tb_telefone_id: {
-        type: db.Sequelize.INTEGER,
-        references: { model: 'TB_TELEFONE', key: 'TB_TELEFONE_ID' },
-        allowNull: false,
-        onDelete: 'CASCADE'
-    },
     tb_cargo_id: {
         type: db.Sequelize.INTEGER,
         references: { model: 'TB_CARGO', key: 'TB_CARGO_ID'  },
