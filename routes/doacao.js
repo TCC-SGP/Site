@@ -4,9 +4,7 @@ const auth = require('../middleware/authAdmin')
 const authDoador = require('../middleware/authDoador')
 const jwt = require('jsonwebtoken')
 const config = process.env;
-const PagSeguro = require('pagseguro-api')
 const nodemailer = require('nodemailer');
-const pag = new PagSeguro(true);
 const Sequelize = require('sequelize');
 
 //CARREGANDO OS MODELS
@@ -23,6 +21,9 @@ router.get('/doe', (req, res) => {
 
 //ROTA DA PÁGINA DOAÇÕES
 router.get('/doacoes', auth, (req, res) => {
+    const token = req.cookies.token;
+    const decode = jwt.verify(token, config.TOKEN_KEY);
+
     Doacao.findAll().then((doacoes) => {
         Tipodoacao.findAll().then((tipodoacao) => {
             var ntitpodoacao = JSON.parse(JSON.stringify(tipodoacao));
@@ -31,7 +32,8 @@ router.get('/doacoes', auth, (req, res) => {
             res.render("admin/doacoes/doacoes", {
                 doacao: ndoacoes,
                 tipoDoacao: ntitpodoacao,
-                login: login
+                login: login,
+                id: decode.user_id
             });
         })
     });
