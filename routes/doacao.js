@@ -54,14 +54,32 @@ router.get('/doacoes', auth, (req, res) => {
 
 //ROTA DO BOTÃO PESQUISAR DOAÇÕES
 router.get('/doacoes/:id', auth, (req, res) => {
-    Doacao.findAll({ where: { 'tb_tipodoacao_id': req.params.id } }).then((doacoes) => {
+    const token = req.cookies.token;
+    const decode = jwt.verify(token, config.TOKEN_KEY);
+
+    Doacao.sequelize.query("SELECT\
+    D.TB_DOACAO_ID AS ID,\
+    DOA.TB_DOADOR_NOME AS NOME,\
+    TD.TB_TIPODOACAO_TIPO AS TIPO,\
+    TD.TB_TIPODOACAO_ID AS IDTIPO,\
+    D.TB_DOACAO_DESCRICAO AS DESCRICAO,\
+    D.TB_DOACAO_NOMEDOADOR AS NOMEDOADOR,\
+    D.TB_DOACAO_QUANTIA AS QUANTIA,\
+    D.TB_DOACAO_ESTADO AS ESTADO\
+    FROM TB_DOACAO AS D\
+    INNER JOIN TB_DOADOR AS DOA\
+    ON D.TB_DOADOR_ID = DOA.TB_DOADOR_ID\
+    INNER JOIN TB_TIPODOACAO AS TD\
+    ON D.TB_TIPODOACAO_ID = TD.TB_TIPODOACAO_ID\
+    WHERE D.TB_TIPODOACAO_ID = "+req.params.id, {model: Doacao}).then((doacoes) => {
         Tipodoacao.findAll().then((tipodoacao) => {
             var ntitpodoacao = JSON.parse(JSON.stringify(tipodoacao));
             var ndoacoes = JSON.parse(JSON.stringify(doacoes))
             res.render("admin/doacoes/doacoes", {
                 doacao: ndoacoes,
                 tipoDoacao: ntitpodoacao,
-                login: login
+                login: login,
+                id: decode.user_id
             });
         })
     })
