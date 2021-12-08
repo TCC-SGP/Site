@@ -47,15 +47,15 @@
         <tbody>
             {{#doacao }}
             <tr>
-                <th scope="row">{{tb_doacao_id}}</th>
-                <td>{{tb_doador_id}}</td>
-                <td>{{tb_tipodoacao_id}}</td>
-                <td>{{tb_doacao_descricao}}</td>
-                <td>{{tb_doacao_nomedoador}}</td>
-                <td>{{tb_doacao_quantia}}</td>
-                <td>{{tb_doacao_estado}}</td>
+                <th scope="row">{{ID}}</th>
+                <td>{{NOME}}</td>
+                <td>{{TIPO}}</td>
+                <td>{{DESCRICAO}}</td>
+                <td>{{NOMEDOADOR}}</td>
+                <td>{{QUANTIA}}</td>
+                <td>{{ESTADO}}</td>
                 <td>
-                    {{#if (encaminhamento tb_tipodoacao_id)}}
+                    {{#if (encaminhamento IDTIPO)}}
                     <center>
                         <a type="button" class="btn-primary btn" href="/adcencaminhamento/{{tb_doacao_id}}" id="btn_encaminhar" disabled="true">Encaminhar</a>
                     </center>
@@ -64,7 +64,7 @@
                     {{/if}}
                 </td>
                 <td>
-                    {{#if (estado tb_doacao_estado)}}
+                    {{#if (estado ESTADO)}}
                         <center>
                             <a class="btn-danger btn-block btn" href="/invalidarpagamento/{{tb_doacao_id}}&ANALISE" >Invalidar</a>
                         </center>

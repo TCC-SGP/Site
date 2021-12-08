@@ -23,10 +23,8 @@
         <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Doador</th>
                 <th scope="col">Tipo doação</th>
                 <th scope="col">Descrição</th>
-                <th scope="col">Nome</th>
                 <th scope="col">Quantia</th>
                 <th scope="col">Continuar</th>
             </tr>
@@ -34,17 +32,17 @@
         <tbody>
             {{#each doacoes}}
             <tr>
-                <th scope="row">{{tb_doacao_id}}</th>
-                <td>{{tb_doador_id}}</td>
-                <td>{{tb_tipodoacao_id}}</td>
-                <td>{{tb_doacao_descricao}}</td>
-                <td>{{tb_doacao_nomedoador}}</td>
-                <td>{{tb_doacao_quantia}}</td>
-                <td>{{#if (continuar_doando tb_tipodoacao_id)}}
-                        <form action="/continuar_apadrinhando" method="POST">
-                            <input type="hidden" name="doacao" value="{{tb_doacao_id}}">
-                            <button style="background-color:rgb(18, 73, 110); width: 200px; height: 70px" class="btn btn-success btn-block" type="submit">Continuar Apadrinhando</button>
-                        </form>
+                <th scope="row">{{ID}}</th>
+                <td>{{TIPO}}</td>
+                <td>{{DESCRICAO}}</td>
+                <td>{{QUANTIA}}</td>
+                <td>{{#if (continuar_doando TIPOID)}}
+                        <center>
+                            <form action="/continuar_apadrinhando" method="POST">
+                                <input type="hidden" name="doacao" value="{{ID}}">
+                                <button style="background-color:rgb(18, 73, 110); width: 200px; height: 70px" class="btn btn-success btn-block" type="submit">Continuar Apadrinhando</button>
+                            </form>
+                        </center>
                     {{else}}
                         
                     {{/if}}

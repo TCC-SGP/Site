@@ -24,7 +24,20 @@ router.get('/doacoes', auth, (req, res) => {
     const token = req.cookies.token;
     const decode = jwt.verify(token, config.TOKEN_KEY);
 
-    Doacao.findAll().then((doacoes) => {
+    Doacao.sequelize.query("SELECT\
+    D.TB_DOACAO_ID AS ID,\
+    DOA.TB_DOADOR_NOME AS NOME,\
+    TD.TB_TIPODOACAO_TIPO AS TIPO,\
+    TD.TB_TIPODOACAO_ID AS IDTIPO,\
+    D.TB_DOACAO_DESCRICAO AS DESCRICAO,\
+    D.TB_DOACAO_NOMEDOADOR AS NOMEDOADOR,\
+    D.TB_DOACAO_QUANTIA AS QUANTIA,\
+    D.TB_DOACAO_ESTADO AS ESTADO\
+    FROM TB_DOACAO AS D\
+    INNER JOIN TB_DOADOR AS DOA\
+    ON D.TB_DOADOR_ID = DOA.TB_DOADOR_ID\
+    INNER JOIN TB_TIPODOACAO AS TD\
+    ON D.TB_TIPODOACAO_ID = TD.TB_TIPODOACAO_ID", {model: Doacao}).then((doacoes) => {
         Tipodoacao.findAll().then((tipodoacao) => {
             var ntitpodoacao = JSON.parse(JSON.stringify(tipodoacao));
             var ndoacoes = JSON.parse(JSON.stringify(doacoes));
@@ -107,12 +120,22 @@ router.post('/addencaminhamento', (req, res) => {
 router.get('/doador', authDoador, (req, res) => {
     const token = req.cookies.token
     const decode = jwt.verify(token, config.TOKEN_KEY2);
-    Doacao.findAll({
-        where:
-        {
-            'tb_doador_id': decode.user_id,
-            'tb_doacao_estado': "PAGO"
-        }
+    Doacao.sequelize.query("SELECT\
+    D.TB_DOACAO_ID AS ID,\
+    DOA.TB_DOADOR_NOME AS NOME,\
+    TD.TB_TIPODOACAO_TIPO AS TIPO,\
+    TD.TB_TIPODOACAO_ID AS TIPOID,\
+    D.TB_DOACAO_DESCRICAO AS DESCRICAO,\
+    D.TB_DOACAO_NOMEDOADOR AS NOMEDOADOR,\
+    D.TB_DOACAO_QUANTIA AS QUANTIA,\
+    D.TB_DOACAO_ESTADO AS ESTADO\
+    FROM TB_DOACAO AS D\
+    INNER JOIN TB_DOADOR AS DOA\
+    ON D.TB_DOADOR_ID = DOA.TB_DOADOR_ID\
+    INNER JOIN TB_TIPODOACAO AS TD\
+    ON D.TB_TIPODOACAO_ID = TD.TB_TIPODOACAO_ID\
+    WHERE D.TB_DOACAO_ESTADO = 'PAGO'",{
+        model: Doacao
     }).then((doacoes) => {
         var ndoacao = JSON.parse(JSON.stringify(doacoes));
         res.render("admin/doacoes/doador", {
